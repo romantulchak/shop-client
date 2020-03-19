@@ -1,0 +1,61 @@
+
+<h1 *ngIf="orderNumber != null" style="background-color: brown;">{{orderNumber}}</h1>
+
+<h2>TOTAL PRICE: {{totalPrice}}</h2>
+<div *ngFor="let item of sa">
+    <h4>{{item.id}}</h4>
+    
+    <h1>
+        {{item.productName}}
+        
+    </h1>
+    <div *ngFor="let img of item.images">
+        <img style="width: 4em; height: 4em;" src="{{img.imagePath}}" alt="">
+    </div>
+    <h3>Price: {{item.price}}</h3>
+    <button (click)="minusAmount(item)">-</button>
+    <h3 >{{item.amount}}</h3>
+    <button (click)="plusAmount(item)">+</button>
+
+    <span [innerHTML]="item.description">
+    </span>
+    <button (click)="remove(item)">Remove</button>
+    
+</div>
+
+<button *ngIf="sa.length != 0" (click)="showForm()">Buy</button>
+<div *ngIf="showOrderForm">
+
+    <form (ngSubmit)="sendOrder()" method="POST">
+
+        <div>
+            <h2>First name</h2>
+            <input type="text" [(ngModel)]="order.costumerName" name="costumerName">
+        </div>
+        <div>
+            <h2>Last name</h2>
+            <input type="text" [(ngModel)]="order.costumerLastName" name="costumerLastName">
+        </div>
+        <div>
+            <h2>City</h2>
+            <input type="text" [(ngModel)]="order.costumerCity" name="costumerCity">
+        </div>
+        <div>
+            <h2>Address</h2>
+            <input type="text" [(ngModel)]="order.costumerAddress" name="costumerAddress">
+        </div>
+        <div>
+            <h2>Postal code</h2>
+            <input type="number" [(ngModel)]="order.customerPostalCode" name="costumerPostalCode">
+        </div>
+        <div>
+            <h2>Mobile Phone</h2>
+            <input type="tel" [(ngModel)]="order.customerMobilePhone" name="costumerMobilePhone">
+        </div>
+
+        <button type="submit">Buy</button>
+
+
+    </form>
+
+</div>

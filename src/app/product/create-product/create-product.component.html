@@ -1,0 +1,60 @@
+<h1>{{successMessage}}</h1>
+<form #myForm="ngForm" (ngSubmit)="createProduct()" method="POST" novalidate>
+
+    <div>
+        <h2>Product name</h2>
+        <input type="text" name="productName" [(ngModel)]="product.productName">
+    </div>
+    
+<editor
+[(ngModel)]="product.description"
+name="description"
+apiKey = "oafydqqtkaeecsa5sztqiauvrrawxqlyhrjhy0lx29dtr56r"
+[init]="{
+  height: 300,
+  menubar: false,
+  plugins: [
+    'advlist autolink lists link image charmap print preview anchor',
+    'searchreplace visualblocks code fullscreen',
+    'insertdatetime media table paste code help wordcount'
+  ],
+  toolbar:
+    'undo redo | formatselect | bold italic backcolor | \
+    alignleft aligncenter alignright alignjustify | \
+    bullist numlist outdent indent | removeformat | help'
+}"
+></editor>
+  
+
+<div>
+    <h2>Product price</h2>
+    <input type="text" name="productPrice" [(ngModel)]="product.productPrice">
+</div>
+
+<div>
+    <h2>Product price</h2>
+    <input type="file" multiple name="images" (change)="handleImages($event)" [(ngModel)]="product.image">
+</div>
+<div *ngIf="showButton;else message">
+<div>
+    <h2>Category</h2>
+    <select name="category"required [(ngModel)]="product.category.id">
+        <option *ngFor="let item of category" value="{{item.id}}" >{{item.categoryName}}</option>
+
+    </select>
+</div>
+
+
+    <button type="submit">Create</button>
+</div>
+<ng-template #message>
+
+    <h1>If you want to create a product, you must first create a category</h1>
+    <a routerLink="/createCategory">Create category</a>
+
+</ng-template>
+
+</form>
+
+
+

@@ -1,0 +1,8 @@
+<div>
+    <h1>User Name: {{userDetails.name}} | Last Name: {{userDetails.lastName}}</h1>
+    
+</div>
+<div *ngFor="let item of order">
+   <h2>{{item.product.productName}}</h2>
+   <h3>Amount: {{item.amount}}</h3>
+</div>

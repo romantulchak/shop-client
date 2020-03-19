@@ -1,0 +1,37 @@
+
+<div>
+       <h1>Have you bought any items already?</h1> 
+        <input type="text" [(ngModel)]="identificationNumberForSeach" style="width: 100%;">
+        <button (click)="search()">Search</button>
+</div>
+    
+
+
+<button (click)="filterByPrice()">Filter</button>
+
+<form (ngSubmit)="filterByCategory()">
+
+    <select name="category" [(ngModel)]="category.categoryName">
+        <option>Choose one pls</option>
+        <option *ngFor="let c of categories" value="{{c.categoryName}}" >{{c.categoryName}}</option>
+
+    </select>
+
+    <button type="submit">Filter</button>
+
+</form>
+
+<a routerLink="createProduct">Create</a>
+
+<div *ngFor="let product of products">
+    <h1> <a routerLink="/detailsProduct/{{product.id}}">{{product.productName}}</a></h1>
+    <h2>{{product.productPrice}}</h2>
+    <span [innerHTML]="product.description"></span>
+    <h1>{{product.category.categoryName}}</h1>
+    <div *ngFor="let item of product.image">
+        <img [src]="item.imagePath" alt="" style="width: 10em; height: 10em;">
+    </div>
+    <button (click)="deleteProduct(product.id)">Delete</button>
+    <button *ngIf="true;else message" (click)="addToCart(product)">Add to Cart</button>
+</div>
+<ng-template #message>lox</ng-template>

@@ -1,0 +1,41 @@
+
+<div *ngIf="categories?.length != 0;else f">
+    <div *ngFor="let category1 of categories">
+
+    
+        <h1>
+            {{category1.categoryName}}
+
+        </h1>
+        <ng-template [ngTemplateOutlet]="loadTemplate(category1)" 
+                        [ngTemplateOutletContext]="{ $implicit: category1}">
+            </ng-template>
+        <div>
+            <button (click)="delete(category1.id)">Delete</button>
+            <button (click)="edit(category1)">Edit</button>
+        </div>
+    </div>
+</div>
+<ng-template #f>
+    Categories not found
+</ng-template>
+
+<ng-template #editTemplate>
+    <form (ngSubmit)="updateCategory(editCategory)">
+        <div>
+            <input type="text" name="categoryName" [(ngModel)]="editCategory.categoryName">
+        </div>
+    
+        <button type="submit">Create</button>
+    </form>
+</ng-template>
+
+<form (ngSubmit)="createCategory()">
+
+    <div>
+        <input type="text" name="categoryName" [(ngModel)]="category.categoryName">
+    </div>
+
+    <button type="submit">Create</button>
+
+</form>
