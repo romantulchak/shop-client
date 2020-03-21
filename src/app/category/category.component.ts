@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Category } from '../model/category.model';
 import { CategoryService } from '../service/category.service';
 import { error } from 'protractor';
-
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
+import { NotificationService } from '../service/notification.service';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -10,6 +11,7 @@ import { error } from 'protractor';
 })
 export class CategoryComponent implements OnInit {
 
+  private durationInSeconds = 5;
   @ViewChild('editTemplate', {static:false}) editTemplate: TemplateRef<any>;
 
   editCategory: Category;
@@ -19,7 +21,7 @@ export class CategoryComponent implements OnInit {
     product: null
   };
   categories: Category[];
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
   
@@ -29,7 +31,7 @@ export class CategoryComponent implements OnInit {
     this.categoryService.createCategory(this.category).subscribe(
 
       res=>{
-        console.log(res);
+        this.notificationService.openSnackBar(res);
         this.getAllCategories();
       },
       error=>{console.log(error);}
@@ -46,7 +48,12 @@ export class CategoryComponent implements OnInit {
   }
   delete(id:number){
     this.categoryService.deleteCategory(id).subscribe(
-        res=>{console.log(res);},
+        res=>{
+
+          this.notificationService.openSnackBar(res);
+
+
+        },
         error=>{console.log(error);}
     );
   }
@@ -65,6 +72,10 @@ export class CategoryComponent implements OnInit {
   updateCategory(category: Category){
     this.categoryService.editCategory(category).subscribe(
       res=>{
+
+      
+
+        this.notificationService.openSnackBar(res);
         this.getAllCategories();
         console.log(res);
       },

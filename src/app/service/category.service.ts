@@ -24,7 +24,7 @@ export class CategoryService {
     return this.http.delete(this.DELETE_CATEGORY + id, {responseType:'text'});
   }
   editCategory(category: Category){
-    return this.http.put(this.EDIT_CATEGORY, category);
+    return this.http.put(this.EDIT_CATEGORY, category, {responseType: 'text'});
   }
 
 }

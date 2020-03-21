@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../model/product.model';
 import { BasketService } from '../service/basket.service';
 import { ProductService } from '../service/product.service';
-import { OrderService } from '../service/order.service';
+import { Product } from '../model/product.model';
 import { Order } from '../model/order.model';
-
+import {OrderService} from '../service/order.service';
 @Component({
-  selector: 'app-basket',
-  templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.css']
+  selector: 'app-basket-dialog',
+  templateUrl: './basket-dialog.component.html',
+  styleUrls: ['./basket-dialog.component.css']
 })
-export class BasketComponent implements OnInit {
+export class BasketDialogComponent implements OnInit {
 
+  public loading = true;
   public products: Product[] = [];
   public productsFromDb: Product[] = [];
   public sa: any[] = [];
@@ -37,8 +37,13 @@ export class BasketComponent implements OnInit {
   constructor(private basketService: BasketService, private productService: ProductService, private orderService: OrderService) {}
 
   ngOnInit(): void {
+
+  
       setTimeout(() => {
         this.sa = this.basketService.sa;
+        if(this.sa != null){
+          this.loading = false;
+        }
         this.price();
       }, 500);
    
@@ -197,4 +202,5 @@ export class BasketComponent implements OnInit {
       }
     }
   }
+
 }

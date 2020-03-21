@@ -1,8 +1,13 @@
-<div>
-    <h1>User Name: {{userDetails.name}} | Last Name: {{userDetails.lastName}}</h1>
-    
-</div>
-<div *ngFor="let item of order">
-   <h2>{{item.product.productName}}</h2>
-   <h3>Amount: {{item.amount}}</h3>
-</div>
+<section *ngIf="data.data.length != 0; else message">    
+    <div>
+        <h1>User Name: {{userDetails.name}} | Last Name: {{userDetails.lastName}}</h1>
+        <h3>Total Price: {{userDetails.totalPrice}}</h3>
+    </div>
+    <div *ngFor="let item of order">
+    <h2>{{item.product.productName}}</h2>
+    <h3>Amount: {{item.amount}}</h3>
+    </div>
+</section>
+<ng-template #message>
+    Not found
+</ng-template>

@@ -3,6 +3,7 @@ import { Product } from 'src/app/model/product.model';
 import { Category } from 'src/app/model/category.model';
 import { CategoryService } from 'src/app/service/category.service';
 import { ProductService } from 'src/app/service/product.service';
+import { NotificationService } from 'src/app/service/notification.service';
 
 @Component({
   selector: 'app-create-product',
@@ -12,7 +13,6 @@ import { ProductService } from 'src/app/service/product.service';
 export class CreateProductComponent implements OnInit {
 
 
-  public successMessage: string;
   public showButton = true;
 
   public selectedFiles: File[];
@@ -32,7 +32,7 @@ export class CreateProductComponent implements OnInit {
   };
 
   public category: Category[];
-  constructor(private categoryService: CategoryService, private productService: ProductService) { }
+  constructor(private notificationService: NotificationService, private categoryService: CategoryService, private productService: ProductService) { }
 
   ngOnInit(): void {
     this.getCategories();
@@ -59,7 +59,11 @@ export class CreateProductComponent implements OnInit {
   public createProduct(){
     this.productService.pushImage(this.selectedFiles).subscribe(
 
-      res=>{console.log(res);},
+      res=>{
+        
+        console.log(res);
+        
+      },
       error=>{console.log(error);}
 
     );
@@ -67,7 +71,7 @@ export class CreateProductComponent implements OnInit {
       this.productService.createProduct(this.product).subscribe(
           
           res=>{
-            this.successMessage = res;
+            this.notificationService.openSnackBar(res);
             console.log(res);
           },
           error=>{

@@ -6,10 +6,12 @@ export class Order{
    // productsId: number[];
    // amounts: number[];
     costumerName: string;
+    email: string;
     costumerLastName: string;
     costumerAddress: string;
     costumerCity: string;
     customerMobilePhone: string;
     customerPostalCode: string;
+    totalPrice?: number;
     
 }

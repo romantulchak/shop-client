@@ -2,3 +2,12 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.success{
+    background-color: green;
+    color: white;
+    font-weight: 900;
+}
+.dialog__basket >  mat-dialog-container {
+    height: 35em;
+    width: 55em;
+}

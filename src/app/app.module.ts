@@ -15,9 +15,11 @@ import { CategoryComponent } from './category/category.component';
 import { DetailsComponent } from './product/details/details.component';
 import { BasketComponent } from './basket/basket.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { DialogSearchComponent } from './dialog-search/dialog-search.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BasketDialogComponent } from './basket-dialog/basket-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +31,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     DetailsComponent,
     BasketComponent,
     DialogSearchComponent,
+    BasketDialogComponent,
 
   ],
   imports: [
@@ -38,7 +41,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     EditorModule,
     AppRoutingModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
 
   ],
   providers: [ProductService],

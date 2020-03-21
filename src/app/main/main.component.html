@@ -12,7 +12,7 @@
 <form (ngSubmit)="filterByCategory()">
 
     <select name="category" [(ngModel)]="category.categoryName">
-        <option>Choose one pls</option>
+        <option value="">Choose one pls</option>
         <option *ngFor="let c of categories" value="{{c.categoryName}}" >{{c.categoryName}}</option>
 
     </select>
@@ -22,16 +22,18 @@
 </form>
 
 <a routerLink="createProduct">Create</a>
-
-<div *ngFor="let product of products">
-    <h1> <a routerLink="/detailsProduct/{{product.id}}">{{product.productName}}</a></h1>
-    <h2>{{product.productPrice}}</h2>
-    <span [innerHTML]="product.description"></span>
-    <h1>{{product.category.categoryName}}</h1>
-    <div *ngFor="let item of product.image">
-        <img [src]="item.imagePath" alt="" style="width: 10em; height: 10em;">
+ 
+<section *ngIf="products.length != 0;else message">
+    <div  *ngFor="let product of products">
+        <h1> <a routerLink="/detailsProduct/{{product.id}}">{{product.productName}}</a></h1>
+        <h2>{{product.productPrice}}</h2>
+        <span [innerHTML]="product.description"></span>
+        <h1>{{product.category.categoryName}}</h1>
+        <div *ngFor="let item of product.image">
+            <img [src]="item.imagePath" alt="" style="width: 10em; height: 10em;">
+        </div>
+        <button (click)="deleteProduct(product.id)">Delete</button>
+        <button *ngIf="true;else message" (click)="addToCart(product)">Add to Cart</button>
     </div>
-    <button (click)="deleteProduct(product.id)">Delete</button>
-    <button *ngIf="true;else message" (click)="addToCart(product)">Add to Cart</button>
-</div>
+</section>
 <ng-template #message>lox</ng-template>

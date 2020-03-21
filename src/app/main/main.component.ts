@@ -119,7 +119,7 @@ export class MainComponent implements OnInit {
      },
      error => {
        console.log(error);
-     }
+     }  
 
     );
   }
@@ -132,6 +132,7 @@ export class MainComponent implements OnInit {
       res=>{
         console.log(res);
         this.getProducts();
+        this.basketService.getProductsFromDb();
       },
       error=>{console.log(error);}
 

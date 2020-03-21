@@ -13,6 +13,7 @@ export class DialogSearchComponent implements OnInit {
   public userDetails: any = {
     name: null,
     lastName: null,
+    totalPrice: null,
   }
   public items: Product[];
   public order: any[];
@@ -23,8 +24,10 @@ export class DialogSearchComponent implements OnInit {
     let userData = this.data.data[0];
     this.userDetails = {
       name: userData.costumerName,
-      lastName: userData.costumerLastName
+      lastName: userData.costumerLastName,
+      totalPrice: userData.totalPrice,
     }
+    console.log(userData);
     //TOOD: зробити через JsonView() на сервері і перебирати через цикл тут.
 
     this.order = this.data.data;

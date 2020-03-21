@@ -52,12 +52,8 @@ export class ProductService{
         paramsToSend = paramsToSend.append('categoryName', category.categoryName);
         return this.http.get<Product[]>(this.FILTER_BY_CATEGORY, {params: paramsToSend})
     }
-    getProductsById(ids: number[]){
 
-        let paramsToSend = new HttpParams();
-        for(let i = 0; i < ids.length; i++){
-            paramsToSend = paramsToSend.append('id', ids[i].toString())
-        }
-        return this.http.get(this.GET_BY_ID, {params: paramsToSend});
-    }
+
+
+
 }
