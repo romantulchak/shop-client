@@ -3,8 +3,6 @@ import {Product} from '../model/product.model';
 export class Order{
     id: number;
     items: any[];
-   // productsId: number[];
-   // amounts: number[];
     costumerName: string;
     email: string;
     costumerLastName: string;
@@ -13,5 +11,11 @@ export class Order{
     customerMobilePhone: string;
     customerPostalCode: string;
     totalPrice?: number;
+    isBeingProcessed?: boolean;
+    isCompleted?: boolean;
+    inTransit?: boolean;
+    atTheDestination?: boolean;
+    received?: boolean;
+    identificationNumber?: string;
     
 }

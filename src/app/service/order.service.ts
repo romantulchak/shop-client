@@ -10,6 +10,9 @@ import { identifierModuleUrl } from '@angular/compiler';
 export class OrderService{
     private CREATE_ORDER = 'http://localhost:8080/api/order/createOrder';
     private SEARCH_BY_IDENTIFICATION_NUMBER = 'http://localhost:8080/api/order/findByIdentificationNumber/';
+    private GET_ALL_ORDERS = 'http://localhost:8080/api/order/getAll/';
+    private SET_IS_BEING_PROCESSED = 'http://localhost:8080/api/order/setIsBeingProcessed/';
+    private SET_COMPLETED = 'http://localhost:8080/api/order/setCompleted/';
     constructor(private http: HttpClient){
 
     }
@@ -18,8 +21,18 @@ export class OrderService{
     createOrder(order: Order){
         return this.http.post(this.CREATE_ORDER, order, {responseType:'text'});
     }
+    getAllOrders(): Observable<Order[]>{
+        return this.http.get<Order[]>(this.GET_ALL_ORDERS);
+    }
     findByIdentificationNumber(identificationNumber: string): Observable<Order[]>{
         return this.http.get<Order[]>(this.SEARCH_BY_IDENTIFICATION_NUMBER + identificationNumber);
+    }
+    setIsBeingProcessed(order: Order): Observable<Order[]>{
+
+        return this.http.put<Order[]>(this.SET_IS_BEING_PROCESSED, order);
+    }
+    setCompleted(order): Observable<Order[]>{
+        return this.http.put<Order[]>(this.SET_COMPLETED, order);
     }
     
 }

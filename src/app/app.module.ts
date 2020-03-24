@@ -20,6 +20,13 @@ import { DialogSearchComponent } from './dialog-search/dialog-search.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BasketDialogComponent } from './basket-dialog/basket-dialog.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { OrderComponent } from './order/order.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +39,7 @@ import { BasketDialogComponent } from './basket-dialog/basket-dialog.component';
     BasketComponent,
     DialogSearchComponent,
     BasketDialogComponent,
+    OrderComponent,
 
   ],
   imports: [
@@ -43,7 +51,13 @@ import { BasketDialogComponent } from './basket-dialog/basket-dialog.component';
     AppRoutingModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule
 
   ],
   providers: [ProductService],

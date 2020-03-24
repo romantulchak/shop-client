@@ -17,7 +17,8 @@ export class BasketService {
     productName: null,
     price: null,
     images: null,
-    amount: 1
+    amount: 1,
+    showButton: false,
   };
   public productsFromDb: Product[];
 
@@ -95,6 +96,7 @@ export class BasketService {
   
 
 
+
   updateCart(){
     if(localStorage.getItem('product') != null){
       this.products = this.sa;
@@ -112,6 +114,8 @@ export class BasketService {
       price: product.productPrice,
       images: product.image,
       amount: 1,
+      showButton: true
+      
     }
     if(localStorage.getItem('product') != null){
       this.sa = JSON.parse(localStorage.getItem('product'));

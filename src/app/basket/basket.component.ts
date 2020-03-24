@@ -4,6 +4,7 @@ import { BasketService } from '../service/basket.service';
 import { ProductService } from '../service/product.service';
 import { OrderService } from '../service/order.service';
 import { Order } from '../model/order.model';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-basket',
@@ -19,6 +20,13 @@ export class BasketComponent implements OnInit {
   public showOrderForm = false;
   public orderNumber: string;
 
+
+  //TEST form
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+
+  
+
   public order: Order = {
     id: null,
     items: [],
@@ -31,7 +39,12 @@ export class BasketComponent implements OnInit {
     costumerName: null,
     customerMobilePhone: null,
     customerPostalCode: null,
-    totalPrice: null
+    totalPrice: null,
+    isBeingProcessed: true,
+    atTheDestination: false,
+    inTransit: false,
+    isCompleted: false,
+    received: false
   }
 
   constructor(private basketService: BasketService, private productService: ProductService, private orderService: OrderService) {}

@@ -23,7 +23,7 @@
 
 <a routerLink="createProduct">Create</a>
  
-<section *ngIf="products.length != 0;else message">
+<section *ngIf="products?.length != 0;else message">
     <div  *ngFor="let product of products">
         <h1> <a routerLink="/detailsProduct/{{product.id}}">{{product.productName}}</a></h1>
         <h2>{{product.productPrice}}</h2>
@@ -33,7 +33,7 @@
             <img [src]="item.imagePath" alt="" style="width: 10em; height: 10em;">
         </div>
         <button (click)="deleteProduct(product.id)">Delete</button>
-        <button *ngIf="true;else message" (click)="addToCart(product)">Add to Cart</button>
+        <button *ngIf="!product.showButton" (click)="addToCart(product)">Add to Cart</button>
     </div>
 </section>
 <ng-template #message>lox</ng-template>

@@ -13,15 +13,14 @@
         <img style="width: 4em; height: 4em;" src="{{img.imagePath}}" alt="">
     </div>
     <h3>Price: {{item.price}}</h3>
-    <button (click)="minusAmount(item)">-</button>
-    <h3 >{{item.amount}}</h3>
-    <button (click)="plusAmount(item)">+</button>
 
-    <span [innerHTML]="item.description">
-    </span>
-    <button (click)="remove(item)">Remove</button>
+    <h3 >{{item.amount}}</h3>
+
+
+   
     
 </div>
+
 
 <button *ngIf="sa.length != 0" (click)="showForm()">Buy</button>
 <div *ngIf="showOrderForm">

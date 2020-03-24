@@ -16,7 +16,7 @@ import {DialogSearchComponent} from '../dialog-search/dialog-search.component';
 })
 export class MainComponent implements OnInit {
 
-
+  public productToCompare: Product;
   public products: Product[];
   public identificationNumberForSeach: string;
 
@@ -26,17 +26,38 @@ export class MainComponent implements OnInit {
     product: null
   };
   public categories: Category[];
-  constructor(private productService: ProductService,private orderService: OrderService, private basketService: BasketService, private categoryService: CategoryService, public dialog: MatDialog) { }
+  constructor(private productService: ProductService,private orderService: OrderService, private basketService: BasketService, private categoryService: CategoryService, public dialog?: MatDialog) { }
 
-  showButtonBuy = true;
+  showButtonBuy = false;
 
  
   productCheck: any[] = [];
   ngOnInit(): void {
-    this.getProducts();
-    this.getCategories();
-    this.productCheck =  JSON.parse(localStorage.getItem('product'));
+
+    
+    setTimeout(() => {
+      this.getProducts();
+      this.getCategories();
+      this.productCheck =  this.basketService.sa;
+      console.log("this.productCheck");
+      console.log(this.productCheck);
+
+   }, 500);
+
+    setTimeout(() => {
+      this.products.forEach(e=>{
+        this.productCheck.forEach(el=>{
+            if(e.id === el.id){
+              e.showButton = el.showButton;
+            }
+        });
+      });
+    }, 1000);
+
   }
+
+
+  //TODO: дублювання в OrderComponent
   search(){
    
     this.orderService.findByIdentificationNumber(this.identificationNumberForSeach).subscribe(
@@ -63,32 +84,21 @@ export class MainComponent implements OnInit {
     );
   }
 
-  check(product: Product){
-    if(this.productCheck != null){
-          this.productCheck.forEach(e =>{
-             if(product.id === e.id){
-               return false;
-             }else{
-               console.log('TRUE');
-               return true;
-             }
-          });
-    }
-  }
 
   getProducts(){
-     this.productService.getProducts().subscribe(
+    this.productService.getProducts().subscribe(
         res=>{
            this.products = res;
+
            console.log(res);
-           //if(res != null){
-            //this.checkProduct();
-           //}
         },
         error => {
           console.log(error);
         }
      );
+
+
+
   }
 
 
@@ -139,7 +149,10 @@ export class MainComponent implements OnInit {
     );
   }
 
+
   addToCart(product: Product){
+    this.productToCompare = product;
+    this.showButtonBuy = true;
     this.basketService.addToBasket(product);
     
     /* this.sa.id = product.id;

@@ -1,32 +1,38 @@
 <div class="spinner" *ngIf="loading">
     <mat-spinner ></mat-spinner>
 </div>
-<h1 *ngIf="orderNumber != null" style="background-color: brown;">{{orderNumber}}</h1>
+
 
 <div *ngIf="!loading">
-
-
 <h2>TOTAL PRICE: {{totalPrice}}</h2>
 <div class="basket__grid">
-    <div *ngFor="let item of sa">
-        <h1>{{item.productName}}</h1>
-        <div *ngFor="let img of item.images">
-            <img style="width: 4em; height: 4em;" src="{{img.imagePath}}" alt="">
+    <div class="basket__item" *ngFor="let item of sa">
+        <img style="width: 4em; height: 4em;" src="{{item.images[0].imagePath}}" alt="">
+
+        <h1><a (click)="closeDialog()" routerLink="/detailsProduct/{{item.id}}">{{item.productName}}</a></h1>
+        <div class="basket__title_remove">
+
+            <h5>Code: {{item.id}}</h5>
+            <h3>Price: {{item.price}}</h3>
         </div>
-        <h3>Price: {{item.price}}</h3>
-        <button (click)="minusAmount(item)">-</button>
-        <h3 >{{item.amount}}</h3>
-        <button (click)="plusAmount(item)">+</button>
-        <span [innerHTML]="item.description">
-        </span>
+
+        <div class="basket__amount">
+            <button (click)="minusAmount(item)">-</button>
+            <h3 >{{item.amount}}</h3>
+            <button (click)="plusAmount(item)">+</button>
+        </div>
         <button (click)="remove(item)">Remove</button>
+
     </div>
 </div>
+
+<a (click)="closeDialog()" routerLink="/basket">buy</a>
 
 <button *ngIf="sa.length != 0" (click)="showForm()">Buy</button>
 <div *ngIf="showOrderForm">
 
-    <form (ngSubmit)="sendOrder()" method="POST">
+    
+          <form (ngSubmit)="sendOrder()" method="POST">
 
         <div>
             <h2>First name</h2>

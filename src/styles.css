@@ -10,4 +10,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .dialog__basket >  mat-dialog-container {
     height: 35em;
     width: 55em;
+
+    justify-content: center;
+    display: flex;
 }

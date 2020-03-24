@@ -4,6 +4,10 @@ import { ProductService } from '../service/product.service';
 import { Product } from '../model/product.model';
 import { Order } from '../model/order.model';
 import {OrderService} from '../service/order.service';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MainComponent } from '../main/main.component';
+import { CategoryService } from '../service/category.service';
+import { asapScheduler } from 'rxjs';
 @Component({
   selector: 'app-basket-dialog',
   templateUrl: './basket-dialog.component.html',
@@ -34,7 +38,7 @@ export class BasketDialogComponent implements OnInit {
     totalPrice: null
   }
 
-  constructor(private basketService: BasketService, private productService: ProductService, private orderService: OrderService) {}
+  constructor(public dialog: MatDialogRef<BasketDialogComponent>, private basketService: BasketService, private productService: ProductService, private orderService: OrderService, private categoryService: CategoryService) {}
 
   ngOnInit(): void {
 
@@ -49,6 +53,9 @@ export class BasketDialogComponent implements OnInit {
    
     
     
+  }
+  closeDialog(){
+    this.dialog.close();
   }
 /*
   getProductsFromDb(){

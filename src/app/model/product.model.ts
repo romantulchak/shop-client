@@ -9,5 +9,5 @@ export class Product{
     description: string;
     image: Image[]; 
     category: Category;
-
+    showButton?: boolean;
 }

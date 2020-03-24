@@ -1,0 +1,16 @@
+.order__section{
+    display: flex;
+    justify-content: center;
+}
+.order__table{
+    width: 90%;
+}
+.order__table > table{
+    width: 100%;
+}
+.mat-header-cell{
+    text-align: center;
+}
+.mat-elevation-z8{
+    text-align: center;
+}
