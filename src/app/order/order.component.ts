@@ -5,7 +5,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import {DialogSearchComponent} from '../dialog-search/dialog-search.component';
-import { error } from 'protractor';
+
+import {NotificationService} from '../service/notification.service';
+import { from } from 'rxjs';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -18,7 +20,7 @@ export class OrderComponent implements OnInit {
   public orders: MatTableDataSource<Order>
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   displayedColumns: string[] = ['id', 'customerName', 'customerLastName', 'identificationNumber', 'isBeingProcessed', 'isCompleted', 'inTransit', 'atTheDestination', 'received'];
-  constructor(private orderService: OrderService, private dialog: MatDialog) { }
+  constructor(private orderService: OrderService, private dialog: MatDialog, private notificationSerivce: NotificationService) { }
 
   ngOnInit(): void {
     this.getAllOrders();
@@ -41,10 +43,11 @@ export class OrderComponent implements OnInit {
     );
   }
   setIsBeingProcessed(order: Order){
-    order.isBeingProcessed = !order.isBeingProcessed;
     this.orderService.setIsBeingProcessed(order).subscribe(
         res=>{
-          this.orders = new MatTableDataSource(res);
+
+          this.notificationSerivce.openSnackBar(res + ' ' + 'Is Being Processed');
+          this.getAllOrders();
         },
         error=>{
           console.log(error);
@@ -57,7 +60,8 @@ export class OrderComponent implements OnInit {
     order.isCompleted = !order.isCompleted;
     this.orderService.setCompleted(order).subscribe(
       res=>{
-        this.orders = new MatTableDataSource(res);
+        this.notificationSerivce.openSnackBar(res + ' ' + 'Completed');
+        this.getAllOrders();
       },
       error=>{
         console.log(error);

@@ -27,12 +27,12 @@ export class OrderService{
     findByIdentificationNumber(identificationNumber: string): Observable<Order[]>{
         return this.http.get<Order[]>(this.SEARCH_BY_IDENTIFICATION_NUMBER + identificationNumber);
     }
-    setIsBeingProcessed(order: Order): Observable<Order[]>{
+    setIsBeingProcessed(order: Order){
 
-        return this.http.put<Order[]>(this.SET_IS_BEING_PROCESSED, order);
+        return this.http.put(this.SET_IS_BEING_PROCESSED, order, {responseType: 'text'});
     }
-    setCompleted(order): Observable<Order[]>{
-        return this.http.put<Order[]>(this.SET_COMPLETED, order);
+    setCompleted(order){
+        return this.http.put(this.SET_COMPLETED, order, {responseType:'text'});
     }
     
 }
