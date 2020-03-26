@@ -9,11 +9,23 @@
     </div>
     <div class="status">
         <h1>Status:</h1>
-       <h2 *ngIf="userDetails.isBeingProcessed">Is Being Processed</h2>
+       <!--
+        <h2 *ngIf="userDetails.isBeingProcessed">Is Being Processed</h2>
        <h2 *ngIf="userDetails.isCompleted">Is Completed</h2>
        <h2 *ngIf="userDetails.inTransit">In Transit</h2>
        <h2 *ngIf="userDetails.atTheDestination">At The Destination</h2>
        <h2 *ngIf="userDetails.received">Received</h2>
+       -->
+       <h2 *ngIf="userDetails.statuses[0].statusCode === 0;">Is Being Processed</h2>
+       <h6 >{{userDetails.statuses[0].statusDateTime | date}}</h6>
+       <h2 [style.color]="userDetails.statuses[1].statusCode === 1 ? 'green' : 'red' ">Is Completed</h2>
+       <h6 >{{userDetails.statuses[1].statusDateTime | date}}</h6>
+       <h2 [style.color]="userDetails.statuses[2].statusCode === 2 ? 'green' : 'red' ">In Transit</h2>
+       <h6 >{{userDetails.statuses[2].statusDateTime | date}}</h6>
+       <h2 [style.color]="userDetails.statuses[3].statusCode === 3 ? 'green' : 'red' ">At The Destination</h2>
+       <h6 >{{userDetails.statuses[3].statusDateTime | date}}</h6>
+       <h2 [style.color]="userDetails.statuses[4].statusCode === 4 ? 'green' : 'red' ">Received</h2>
+       <h6 >{{userDetails.statuses[4].statusDateTime | date}}</h6>
     </div>
 </section>
 <ng-template #message>

@@ -29,6 +29,7 @@ export class BasketDialogComponent implements OnInit {
     //productsId: [],
     //amounts: [],
     email: null,
+    statuses: null,
     costumerAddress: null,
     costumerCity: null,
     costumerLastName: null,

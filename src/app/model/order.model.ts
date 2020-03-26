@@ -1,4 +1,5 @@
 import {Product} from '../model/product.model';
+import { Status } from './status.model';
 
 export class Order{
     id: number;
@@ -10,12 +11,13 @@ export class Order{
     costumerCity: string;
     customerMobilePhone: string;
     customerPostalCode: string;
+    statuses: Status[];
     totalPrice?: number;
-    isBeingProcessed?: boolean;
-    isCompleted?: boolean;
-    inTransit?: boolean;
-    atTheDestination?: boolean;
-    received?: boolean;
+    //isBeingProcessed?: boolean;
+    //isCompleted?: boolean;
+    //inTransit?: boolean;
+    //atTheDestination?: boolean;
+    //received?: boolean;
     identificationNumber?: string;
     
 }

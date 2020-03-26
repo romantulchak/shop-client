@@ -14,11 +14,12 @@ export class DialogSearchComponent implements OnInit {
     name: null,
     lastName: null,
     totalPrice: null,
-    isBeingProcessed: true,
-    isCompleted: false,
-    inTransit: false,
-    atTheDestination: false,
-    received: false
+    statuses: null,
+    //isBeingProcessed: true,
+    //isCompleted: false,
+    //inTransit: false,
+    //atTheDestination: false,
+    //received: false
   }
   public items: Product[];
   public order: any[];
@@ -31,11 +32,12 @@ export class DialogSearchComponent implements OnInit {
       name: userData.costumerName,
       lastName: userData.costumerLastName,
       totalPrice: userData.totalPrice,
-      isBeingProcessed: userData.isBeingProcessed,
-      isCompleted: userData.isCompleted,
-      inTransit: userData.inTransit,
-      atTheDestination: userData.atTheDestination,
-      received: userData.received
+      statuses: userData.statuses
+      //isBeingProcessed: userData.isBeingProcessed,
+      //isCompleted: userData.isCompleted,
+      //inTransit: userData.inTransit,
+      //atTheDestination: userData.atTheDestination,
+      //received: userData.received
     }
     console.log(userData);
     //TOOD: зробити через JsonView() на сервері і перебирати через цикл тут.

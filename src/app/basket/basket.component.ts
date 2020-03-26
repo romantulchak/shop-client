@@ -33,6 +33,7 @@ export class BasketComponent implements OnInit {
     //productsId: [],
     //amounts: [],
     email: null,
+    statuses: null,
     costumerAddress: null,
     costumerCity: null,
     costumerLastName: null,
@@ -40,11 +41,12 @@ export class BasketComponent implements OnInit {
     customerMobilePhone: null,
     customerPostalCode: null,
     totalPrice: null,
-    isBeingProcessed: true,
-    atTheDestination: false,
-    inTransit: false,
-    isCompleted: false,
-    received: false
+    
+    //isBeingProcessed: true,
+    //atTheDestination: false,
+    //inTransit: false,
+    //isCompleted: false,
+    //received: false
   }
 
   constructor(private basketService: BasketService, private productService: ProductService, private orderService: OrderService) {}

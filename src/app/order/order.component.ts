@@ -7,7 +7,9 @@ import { MatDialog } from '@angular/material/dialog';
 import {DialogSearchComponent} from '../dialog-search/dialog-search.component';
 
 import {NotificationService} from '../service/notification.service';
+import {Status} from '../model/status.model';
 import { from } from 'rxjs';
+import { error } from 'protractor';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -15,16 +17,18 @@ import { from } from 'rxjs';
 })
 export class OrderComponent implements OnInit {
 
+  public isBeing;
 
   //public orders: Order[];
+
   public orders: MatTableDataSource<Order>
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  displayedColumns: string[] = ['id', 'customerName', 'customerLastName', 'identificationNumber', 'isBeingProcessed', 'isCompleted', 'inTransit', 'atTheDestination', 'received'];
+  displayedColumns: string[] = ['id', 'customerName', 'customerLastName', 'identificationNumber', 'isBeingProcessed', 'isCompleted', 'inTransit', 'atTheDestination', 'received', 'delete'];
   constructor(private orderService: OrderService, private dialog: MatDialog, private notificationSerivce: NotificationService) { }
 
   ngOnInit(): void {
     this.getAllOrders();
-  
+
   }
   getAllOrders(){
     this.orderService.getAllOrders().subscribe(
@@ -34,6 +38,8 @@ export class OrderComponent implements OnInit {
           this.orders = new MatTableDataSource(res);
           this.orders.paginator = this.paginator;
           console.log(res);
+
+
         }
       },
       error =>{
@@ -41,26 +47,30 @@ export class OrderComponent implements OnInit {
       }
 
     );
-  }
-  setIsBeingProcessed(order: Order){
-    this.orderService.setIsBeingProcessed(order).subscribe(
-        res=>{
 
-          this.notificationSerivce.openSnackBar(res + ' ' + 'Is Being Processed');
-          this.getAllOrders();
-        },
-        error=>{
-          console.log(error);
-        }
+
+
+
+
+  }
+  deleteCustom(id: number){
+    this.orderService.deleteCustom(id).subscribe(
+
+      res=>{
+        this.notificationSerivce.openSnackBar(res);
+        this.getAllOrders(); 
+      },
+      error=>{
+        console.log(error);
+      }
 
     );
-    console.log(order);
   }
-  setCompleted(order: Order){
-    order.isCompleted = !order.isCompleted;
-    this.orderService.setCompleted(order).subscribe(
+  setStatus(order: Order, code: string){
+    console.log(order);
+    this.orderService.setStatus(order, code).subscribe(
       res=>{
-        this.notificationSerivce.openSnackBar(res + ' ' + 'Completed');
+        this.notificationSerivce.openSnackBar(res);
         this.getAllOrders();
       },
       error=>{
@@ -69,11 +79,16 @@ export class OrderComponent implements OnInit {
 
     );
   }
+
+
+
+
+
   openDialog(identificationNumberForSeach: string){
-    
+
     this.orderService.findByIdentificationNumber(identificationNumberForSeach).subscribe(
       res=>{
-       
+
 
         if(res != null){
           this.dialog.open(DialogSearchComponent,{
@@ -82,11 +97,11 @@ export class OrderComponent implements OnInit {
             }
           });
         }
-      
+
         console.log('FROM MAIN');
         console.log(res);
-        
-     
+
+
       },
       error=>{
         console.log(error);
