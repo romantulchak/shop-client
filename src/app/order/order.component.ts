@@ -23,7 +23,7 @@ export class OrderComponent implements OnInit {
 
   public orders: MatTableDataSource<Order>
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  displayedColumns: string[] = ['id', 'customerName', 'customerLastName', 'identificationNumber', 'isBeingProcessed', 'isCompleted', 'inTransit', 'atTheDestination', 'received', 'delete'];
+  displayedColumns: string[] = ['id', 'customerName', 'customerLastName', 'identificationNumber', 'isBeingProcessed', 'isCompleted', 'inTransit', 'atTheDestination', 'received', 'delete', 'cancel'];
   constructor(private orderService: OrderService, private dialog: MatDialog, private notificationSerivce: NotificationService) { }
 
   ngOnInit(): void {
@@ -47,12 +47,25 @@ export class OrderComponent implements OnInit {
       }
 
     );
-
-
-
-
-
   }
+
+  cancel(order: Order){
+    order.cancel = !order.cancel;
+      this.orderService.orderCancel(order).subscribe(
+
+        res=>{
+      
+          this.notificationSerivce.openSnackBar(res);
+          this.getAllOrders();
+        },
+        error=>{
+          console.log(error)
+        }
+
+
+      );
+  }
+
   deleteCustom(id: number){
     this.orderService.deleteCustom(id).subscribe(
 

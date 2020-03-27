@@ -1,9 +1,15 @@
-<nav>
-    <ul>
+<header>
+
+<div class="search__panel">
+    <input placeholder="Have you bought any items already?" type="text" [(ngModel)]="identificationNumberForSeach" >
+    <button (click)="search()">Search</button>
+</div>
+
+<nav id="navbar_sticky" class="navbar animated fadeInDown">
+    <ul class="navbar__nav">
         <li><a routerLink="/">Home</a></li>
-        <li><a routerLink="/basket">Basket: {{basketLength}}</a></li>
         <li><a routerLink="/orders">Orders</a></li>
-        
-        <button (click)="openBasket()">Basket {{basketLength}}</button>
     </ul>
+    <button (click)="openBasket()">Basket {{basketLength}}</button>
 </nav>
+</header>

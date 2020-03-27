@@ -9,16 +9,41 @@ import { identifierModuleUrl } from '@angular/compiler';
 import { MatDialog} from '@angular/material/dialog';
 import { OrderService } from '../service/order.service';
 import {DialogSearchComponent} from '../dialog-search/dialog-search.component';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  styleUrls: ['./main.component.css'],
+  animations: [
+    trigger('fullWidth',[
+      state('max', style({
+        width:'7em',
+        color: '#fff',
+        background: 'orange'
+        
+      })),
+      state('min', style({
+        width: '2em'
+      })),
+      transition('max => min', [
+        animate('0.5s')
+      ]),
+      transition('min => max', [
+        animate('0.3s')
+      ]),
+    ]),
+  ],
 })
 export class MainComponent implements OnInit {
 
+  public styleOn = false;
+  public currentProduct: Product;
+
+
+  public loading = true;
   public productToCompare: Product;
   public products: Product[];
-  public identificationNumberForSeach: string;
+
 
   public category: Category = {
     id: null,
@@ -56,33 +81,17 @@ export class MainComponent implements OnInit {
 
   }
 
+  mouseEnter(onStyle: boolean, product: Product){
+    this.currentProduct = product;
+    this.styleOn = onStyle;
 
-  //TODO: дублювання в OrderComponent
-  search(){
-   
-    this.orderService.findByIdentificationNumber(this.identificationNumberForSeach).subscribe(
-      res=>{
-       
-
-        if(res != null){
-          this.dialog.open(DialogSearchComponent,{
-            data: {
-              data: res
-            }
-          });
-        }
-      
-        console.log('FROM MAIN');
-        console.log(res);
-        
-     
-      },
-      error=>{
-        console.log(error);
-      }
-
-    );
   }
+  mouseLeave(onStyle: boolean, product: Product){
+    this.styleOn = onStyle;
+
+  }
+
+ 
 
 
   getProducts(){
@@ -90,7 +99,11 @@ export class MainComponent implements OnInit {
         res=>{
            this.products = res;
 
-           console.log(res);
+           if(res != null){
+             setTimeout(() => {
+              this.loading = false;
+             }, 500);
+           }
         },
         error => {
           console.log(error);

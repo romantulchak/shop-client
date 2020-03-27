@@ -27,6 +27,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { OrderComponent } from './order/order.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +60,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatInputModule,
     ReactiveFormsModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatIconModule
 
   ],
   providers: [ProductService],

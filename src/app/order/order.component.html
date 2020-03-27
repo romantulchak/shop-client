@@ -20,46 +20,49 @@
         <!-- Name Column -->
         <ng-container matColumnDef="customerName">
           <th mat-header-cell *matHeaderCellDef> First Name </th>
-          <td mat-cell *matCellDef="let element"> {{element.costumerName}} </td>
+          <td mat-cell *matCellDef="let element" class="order__info"> {{element.costumerName}} </td>
         </ng-container>
         <ng-container matColumnDef="customerLastName">
             <th mat-header-cell *matHeaderCellDef> Last Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.costumerLastName}} </td>
+            <td mat-cell *matCellDef="let element" class="order__info"> {{element.costumerLastName}} </td>
           </ng-container>
 
         <ng-container matColumnDef="identificationNumber">
           <th mat-header-cell *matHeaderCellDef> Identification Number </th>
-          <td mat-cell *matCellDef="let element" style="color: green; cursor: pointer; font-weight: 900;" (click)="openDialog(element.identificationNumber)"> {{element.identificationNumber}} </td>
+          <td mat-cell *matCellDef="let element" class="order__info identificationNumber" (click)="openDialog(element.identificationNumber)"> {{element.identificationNumber}} </td>
         </ng-container>
 
         <ng-container matColumnDef="isBeingProcessed">
             <th mat-header-cell *matHeaderCellDef> Is Being Processed </th>
-            <td mat-cell *matCellDef="let element"> <input type="checkbox" (change)="setStatus(element, '100')" [checked]="element.statuses[0].statusCode === 0" ></td>
+            <td mat-cell *matCellDef="let element"> <input type="checkbox" [disabled]="element.cancel" (change)="setStatus(element, '100')" [checked]="element.statuses[0].statusCode === 0" ></td>
           </ng-container>
           <ng-container matColumnDef="isCompleted">
             <th mat-header-cell *matHeaderCellDef> Is Completed </th>
-            <td mat-cell *matCellDef="let element"> <input type="checkbox" [disabled]="element.statuses[0].statusCode != 0" (change)="setStatus(element, element.statuses[1].statusCode)"  [checked]="element.statuses[1].statusCode === 1"></td>
+            <td mat-cell *matCellDef="let element"> <input type="checkbox" [disabled]="element.statuses[0].statusCode != 0 || element.cancel" (change)="setStatus(element, element.statuses[1].statusCode)"  [checked]="element.statuses[1].statusCode === 1"></td>
           </ng-container>
           <ng-container matColumnDef="inTransit">
             <th mat-header-cell *matHeaderCellDef> In Transit </th>
-            <td mat-cell *matCellDef="let element"> <input type="checkbox" [disabled]="element.statuses[1].statusCode != 1" (change)="setStatus(element, element.statuses[2].statusCode)" [checked]="element.statuses[2].statusCode === 2"></td>
+            <td mat-cell *matCellDef="let element"> <input type="checkbox" [disabled]="element.statuses[1].statusCode != 1 || element.cancel" (change)="setStatus(element, element.statuses[2].statusCode)" [checked]="element.statuses[2].statusCode === 2"></td>
           </ng-container>
           <ng-container matColumnDef="atTheDestination">
             <th mat-header-cell *matHeaderCellDef> At The Destination </th>
-            <td mat-cell *matCellDef="let element"> <input type="checkbox" [disabled]="element.statuses[2].statusCode != 2" (change)="setStatus(element, element.statuses[3].statusCode)" [checked]="element.statuses[3].statusCode === 3"></td>
+            <td mat-cell *matCellDef="let element"> <input type="checkbox" [disabled]="element.statuses[2].statusCode != 2 || element.cancel" (change)="setStatus(element, element.statuses[3].statusCode)" [checked]="element.statuses[3].statusCode === 3"></td>
           </ng-container>
           <ng-container matColumnDef="received">
             <th mat-header-cell *matHeaderCellDef> Received </th>
-            <td mat-cell *matCellDef="let element"> <input type="checkbox" [disabled]="element.statuses[3].statusCode != 3" (change)="setStatus(element, element.statuses[4].statusCode)" [checked]="element.statuses[4].statusCode === 4"></td>
+            <td mat-cell *matCellDef="let element"> <input type="checkbox" [disabled]="element.statuses[3].statusCode != 3 || element.cancel" (change)="setStatus(element, element.statuses[4].statusCode)" [checked]="element.statuses[4].statusCode === 4"></td>
           </ng-container>
           <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef> Delete </th>
             <td mat-cell *matCellDef="let element">  <button (click)="deleteCustom(element.id)">Delete</button></td>
           </ng-container>
 
-
+          <ng-container matColumnDef="cancel">
+            <th mat-header-cell *matHeaderCellDef> Cancel </th>
+            <td mat-cell *matCellDef="let element"><mat-checkbox [checked]="element.cancel" (change)="cancel(element)"></mat-checkbox></td>
+          </ng-container>
         <tr mat-header-row class="table__header" *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr  mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'success': row.statuses[4].statusCode === 4 && !row.cancel, 'error': row.cancel, 'neutral': row.statuses[4].statusCode != 4 && !row.cancel }" ></tr>
       </table>
       <mat-paginator [pageSizeOptions]="[15, 30, 50, 100]"></mat-paginator>
   </div>

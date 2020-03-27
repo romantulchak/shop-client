@@ -15,6 +15,7 @@ export class DialogSearchComponent implements OnInit {
     lastName: null,
     totalPrice: null,
     statuses: null,
+    identificationNumber: null,
     //isBeingProcessed: true,
     //isCompleted: false,
     //inTransit: false,
@@ -25,6 +26,10 @@ export class DialogSearchComponent implements OnInit {
   public order: any[];
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
+  cancelOrder(identificationNumber: string){
+    console.log(identificationNumber);
+  }
+
   ngOnInit(): void {
 
     let userData = this.data.data[0];
@@ -32,7 +37,8 @@ export class DialogSearchComponent implements OnInit {
       name: userData.costumerName,
       lastName: userData.costumerLastName,
       totalPrice: userData.totalPrice,
-      statuses: userData.statuses
+      statuses: userData.statuses,
+      identificationNumber: userData.identificationNumber
       //isBeingProcessed: userData.isBeingProcessed,
       //isCompleted: userData.isCompleted,
       //inTransit: userData.inTransit,

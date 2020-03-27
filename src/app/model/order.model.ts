@@ -12,6 +12,7 @@ export class Order{
     customerMobilePhone: string;
     customerPostalCode: string;
     statuses: Status[];
+    cancel?: boolean;
     totalPrice?: number;
     //isBeingProcessed?: boolean;
     //isCompleted?: boolean;
