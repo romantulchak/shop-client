@@ -41,3 +41,7 @@
     border-right: none;
 }
 
+.navbar__auth{
+    display: flex;
+    align-items: center;
+}

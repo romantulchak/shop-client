@@ -8,8 +8,17 @@
 <nav id="navbar_sticky" class="navbar animated fadeInDown">
     <ul class="navbar__nav">
         <li><a routerLink="/">Home</a></li>
-        <li><a routerLink="/orders">Orders</a></li>
+        <li><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/orders">Orders</a></li>
+        <button *ngIf="tokenStorageService.isLoggedIn" class="nav-link" (click)="logout()">LogOut</button>
     </ul>
-    <button (click)="openBasket()">Basket {{basketLength}}</button>
+    <div class="navbar__auth"> 
+        <button (click)="openBasket()">Basket {{basketLength}}</button>
+        <button *ngIf="!tokenStorageService.isLoggedIn" (click)="loginDialog()">
+            <span class="material-icons">
+                supervisor_account
+                </span>
+        </button>
+        <div><a *ngIf="tokenStorageService.isLoggedIn" routerLink="/profile">Hi, {{tokenStorageService.currentUserName}}</a></div>
+    </div>
 </nav>
 </header>

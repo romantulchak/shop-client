@@ -45,7 +45,19 @@ export class BasketDialogComponent implements OnInit {
 
   
       setTimeout(() => {
-        this.sa = this.basketService.sa;
+
+        //TODO: якщо не працює корзина
+       // this.sa = this.basketService.sa;
+       this.basketService.productsAfterRemove.subscribe(
+
+
+        res=>{
+          if(res != null){
+            this.sa = res;
+          }
+        }
+
+       );
         if(this.sa != null){
           this.loading = false;
         }
@@ -184,14 +196,17 @@ export class BasketDialogComponent implements OnInit {
         console.log('sadasdasdsad');
         
         
-       
+       /*
         for(let el of this.sa){
           console.log(el.id);
           if(product.id === el.id){
             this.sa.splice(this.sa.indexOf(product.id), 1);
             break;
           }
-        }
+        }*/
+
+        this.sa = this.sa.filter(x=> x != product);
+
         if(product.amount > 1){
           for(let i = 0; i < product.amount; i++){
             this.totalPrice -= product.price;
@@ -201,12 +216,19 @@ export class BasketDialogComponent implements OnInit {
         }
         
         localStorage.setItem('product', JSON.stringify(this.sa));
-        //
-        this.products =  this.basketService.products;
-        //
-
+        
         this.basketService.count.next(this.sa.length);
-        //this.basketService.updateCart();
+        
+        this.basketService.productsAfterRemove.next(this.sa);
+        
+        this.basketService.remove();
+        
+        
+
+        //TODO: FIX IT
+        //this.products =  this.basketService.products;
+     
+     
       }
     }
   }

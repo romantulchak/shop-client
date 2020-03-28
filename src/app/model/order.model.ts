@@ -1,6 +1,6 @@
 import {Product} from '../model/product.model';
 import { Status } from './status.model';
-
+import {User} from './user.model';
 export class Order{
     id: number;
     items: any[];
@@ -14,11 +14,6 @@ export class Order{
     statuses: Status[];
     cancel?: boolean;
     totalPrice?: number;
-    //isBeingProcessed?: boolean;
-    //isCompleted?: boolean;
-    //inTransit?: boolean;
-    //atTheDestination?: boolean;
-    //received?: boolean;
     identificationNumber?: string;
-    
+    user?: User;
 }

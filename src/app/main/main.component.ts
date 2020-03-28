@@ -10,6 +10,7 @@ import { MatDialog} from '@angular/material/dialog';
 import { OrderService } from '../service/order.service';
 import {DialogSearchComponent} from '../dialog-search/dialog-search.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { TokenStorageService } from '../service/token-storage.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -51,33 +52,50 @@ export class MainComponent implements OnInit {
     product: null
   };
   public categories: Category[];
-  constructor(private productService: ProductService,private orderService: OrderService, private basketService: BasketService, private categoryService: CategoryService, public dialog?: MatDialog) { }
+  constructor(private toketnSerivce: TokenStorageService, private productService: ProductService,private orderService: OrderService, private basketService: BasketService, private categoryService: CategoryService, public dialog?: MatDialog) { }
 
-  showButtonBuy = false;
-
+  public isAdmin = false;
  
   productCheck: any[] = [];
   ngOnInit(): void {
+    this.isAdmin = this.toketnSerivce.showAdminBoard;
 
-    
     setTimeout(() => {
+      this.productCheck =  this.basketService.sa;
       this.getProducts();
       this.getCategories();
-      this.productCheck =  this.basketService.sa;
-      console.log("this.productCheck");
-      console.log(this.productCheck);
+
 
    }, 500);
 
-    setTimeout(() => {
-      this.products.forEach(e=>{
-        this.productCheck.forEach(el=>{
-            if(e.id === el.id){
-              e.showButton = el.showButton;
+    
+
+
+
+    this.basketService.updateProducts.subscribe(
+      res=>{
+        if(res === true){
+          
+          this.basketService.productsAfterRemove.subscribe(
+
+            res=>{
+              if(res != null)
+                this.productCheck = res;
             }
-        });
-      });
-    }, 1000);
+
+          );
+
+
+          this.getProducts();
+          
+        }
+      }
+  
+    );
+
+  
+
+
 
   }
 
@@ -95,11 +113,30 @@ export class MainComponent implements OnInit {
 
 
   getProducts(){
+
+
+
+
     this.productService.getProducts().subscribe(
         res=>{
-           this.products = res;
-
            if(res != null){
+            this.products = res;
+            res.forEach(e=>{
+             
+              setTimeout(() => {
+                this.productCheck.forEach(el=>{
+                  if(e.id === el.id){
+                    e.showButton = el.showButton;
+                  }
+               });
+              });
+              }, 1000);
+
+
+
+
+
+
              setTimeout(() => {
               this.loading = false;
              }, 500);
@@ -165,7 +202,7 @@ export class MainComponent implements OnInit {
 
   addToCart(product: Product){
     this.productToCompare = product;
-    this.showButtonBuy = true;
+    product.showButton = true;
     this.basketService.addToBasket(product);
     
     /* this.sa.id = product.id;

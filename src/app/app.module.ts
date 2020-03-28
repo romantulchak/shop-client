@@ -30,6 +30,15 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { ProfileComponent } from './profile/profile.component';
+import { BoardAdminComponent } from './board-admin/board-admin.component';
+
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { AuthGuard } from './guards/auth-guard.service';
+import { NotFoundComponent } from './not-found/not-found.component';
+import {MatSelectModule} from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +52,11 @@ import {MatIconModule} from '@angular/material/icon';
     DialogSearchComponent,
     BasketDialogComponent,
     OrderComponent,
+    LoginDialogComponent,
+    RegistrationComponent,
+    ProfileComponent,
+    BoardAdminComponent,
+    NotFoundComponent,
 
   ],
   imports: [
@@ -63,10 +77,11 @@ import {MatIconModule} from '@angular/material/icon';
     MatPaginatorModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
 
   ],
-  providers: [ProductService],
+  providers: [ProductService,authInterceptorProviders, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

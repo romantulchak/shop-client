@@ -7,18 +7,14 @@ import { BasketDialogComponent } from '../basket-dialog/basket-dialog.component'
 import { OrderService } from '../service/order.service';
 import { DialogSearchComponent } from '../dialog-search/dialog-search.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
+import { TokenStorageService } from '../service/token-storage.service';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  animations: [
-    trigger('fade',[
-      state('void', style({opacity:0})),
-      transition(':enter',[ animate(300)]),
-      transition(':leave',[ animate(500)]),
-    ])
-  ],
-   
+  
 
 })
 export class NavbarComponent implements OnInit {
@@ -30,28 +26,34 @@ export class NavbarComponent implements OnInit {
  
 
 
-  constructor(private basketService: BasketService, private dialog: MatDialog, private orderService: OrderService) { }
+  constructor(public tokenStorageService: TokenStorageService ,private basketService: BasketService, private dialog: MatDialog, private orderService: OrderService) { }
 
   ngOnInit(): void {
+    this.tokenStorageService.logged();
+  
+    setTimeout(() => { 
+      this.basketService.count.subscribe(
 
-    if(localStorage.getItem('product') != null){
-      let d = JSON.parse(localStorage.getItem('product'));
-      this.basketLength = d.length;
-      
-    }
+        res=>{
+          if(res !=null){
+            this.basketLength = res;
+          }
+        }
+
+    );
+    
+    }, 500);
 
   
   }
 
-  
+
   
      //TODO: дублювання в OrderComponent
   search(){
    
     this.orderService.findByIdentificationNumber(this.identificationNumberForSeach).subscribe(
       res=>{
-       
-
         if(res != null){
           this.dialog.open(DialogSearchComponent,{
             data: {
@@ -59,26 +61,18 @@ export class NavbarComponent implements OnInit {
             }
           });
         }
-      
         console.log('FROM MAIN');
         console.log(res);
-        
-     
       },
       error=>{
         console.log(error);
       }
-
     );
-
       setTimeout(() => {
         this.basketService.count.subscribe(
           res=>{
-            
-         
               if(res != null){
                 this.basketLength = res;
-             
               }
          
             console.log('RES');
@@ -99,5 +93,16 @@ export class NavbarComponent implements OnInit {
       this.dialog.open(BasketDialogComponent, {
         panelClass: 'dialog__basket'
       });
+  }
+
+
+  public loginDialog(){
+    this.dialog.open(LoginDialogComponent, {
+        panelClass: 'dialog__login'
+    })
+  }
+  logout() {
+    this.tokenStorageService.signOut();
+    window.location.reload();
   }
 }

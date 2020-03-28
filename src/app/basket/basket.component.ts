@@ -5,6 +5,8 @@ import { ProductService } from '../service/product.service';
 import { OrderService } from '../service/order.service';
 import { Order } from '../model/order.model';
 import { FormGroup } from '@angular/forms';
+import { TokenStorageService } from '../service/token-storage.service';
+import { User } from '../model/user.model';
 
 @Component({
   selector: 'app-basket',
@@ -19,7 +21,7 @@ export class BasketComponent implements OnInit {
   public totalPrice: number = 0;
   public showOrderForm = false;
   public orderNumber: string;
-
+  public user: User;
 
   //TEST form
   firstFormGroup: FormGroup;
@@ -41,7 +43,7 @@ export class BasketComponent implements OnInit {
     customerMobilePhone: null,
     customerPostalCode: null,
     totalPrice: null,
-    
+    user: new User()
     //isBeingProcessed: true,
     //atTheDestination: false,
     //inTransit: false,
@@ -49,7 +51,7 @@ export class BasketComponent implements OnInit {
     //received: false
   }
 
-  constructor(private basketService: BasketService, private productService: ProductService, private orderService: OrderService) {}
+  constructor(private basketService: BasketService, private productService: ProductService, private orderService: OrderService, private tokenStorage: TokenStorageService) {}
 
   ngOnInit(): void {
       setTimeout(() => {
@@ -137,13 +139,30 @@ export class BasketComponent implements OnInit {
   }
 
   sendOrder(){
+
+    let isLoggedIn = !! this.tokenStorage.getToken();
+
+
+
+
     this.sa.forEach(el=>{
+      
       this.order.items.push(el);
+        
     });
 
+    
+    if(isLoggedIn){
+      this.user = this.tokenStorage.getUser();
+      this.order.user.id = this.user.id;
+      this.order.user.username = this.user.username;
+      this.order.user.email = this.user.email;
+      
+    }
     this.order.totalPrice = this.totalPrice;
   
     console.log(this.order);
+    
     this.orderService.createOrder(this.order).subscribe(
 
 

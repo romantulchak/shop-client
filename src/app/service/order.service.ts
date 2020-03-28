@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {Order} from '../model/order.model';
 import { identifierModuleUrl } from '@angular/compiler';
+import { User } from '../model/user.model';
 
 @Injectable({
     providedIn:'root'
@@ -18,6 +19,8 @@ export class OrderService{
     private SET_STATUS = 'http://localhost:8080/api/order/setStatus';
     private SET_CANCEL = 'http://localhost:8080/api/order/cancel';
     private DELETE_CUSTOM = 'http://localhost:8080/api/order/deleteCustom/';
+    
+    private GET_ALL_FOR_USER = 'http://localhost:8080/api/order/getAllForUser/';
     constructor(private http: HttpClient){
 
     }
@@ -46,7 +49,9 @@ export class OrderService{
     orderCancel(order: Order){
         return this.http.put(this.SET_CANCEL, order, {responseType: 'text'});
     }
-
+    getAllOrdersForUser(user: User): Observable<Order[]>{
+        return this.http.get<Order[]>(this.GET_ALL_FOR_USER + user.id);
+    }
    /*
     setIsBeingProcessed(order: Order){
 

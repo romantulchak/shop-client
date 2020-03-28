@@ -1,0 +1,14 @@
+
+<h1 style="padding: 1em; text-align: center; background: palegreen;">Hi, {{currentUser.username}}</h1>
+
+
+
+<div class="profile__orders" *ngIf="orders?.length > 0;else message">
+    <h1>Your orders:</h1>
+    <div class="order__card" *ngFor="let order of orders; let i = index">
+        <h1>{{order.costumerName}} {{order.costumerLastName}}</h1>
+        <h2>{{i}}){{ order.identificationNumber}}</h2>
+    </div>
+</div>
+
+<ng-template #message>You have not any orders</ng-template>

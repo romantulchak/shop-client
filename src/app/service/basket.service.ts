@@ -11,6 +11,8 @@ export class BasketService {
 
 
   public count: BehaviorSubject<number>;
+  public updateProducts: BehaviorSubject<boolean>; 
+  public productsAfterRemove: BehaviorSubject<any>;
   public products: Product[] = [];
   public prodToSave={
     id: null,
@@ -26,6 +28,7 @@ export class BasketService {
 
 
   constructor(private productService: ProductService){
+    this.updateProducts = new BehaviorSubject(false);
     if(localStorage.getItem('product') != null){
       //this.products = JSON.parse(localStorage.getItem('product'));
     
@@ -34,11 +37,13 @@ export class BasketService {
       setTimeout(() => {
         
       this.count = new BehaviorSubject(this.sa.length);
+    
+      this.productsAfterRemove = new BehaviorSubject(this.sa);
       }, 500);
       
     }else{
       this.count = new BehaviorSubject<number>(0);
-      
+      this.productsAfterRemove = new BehaviorSubject(this.sa);
     }
    
   
@@ -121,13 +126,16 @@ export class BasketService {
       this.sa = JSON.parse(localStorage.getItem('product'));
     }
     this.sa.push(this.prodToSave);
+    this.productsAfterRemove.next(this.sa);
     console.log(this.sa);
     
     localStorage.setItem('product', JSON.stringify(this.sa));
     this.count.next(this.sa.length); 
   }
 
-  
+  remove(){
+    this.updateProducts.next(true);
+  }
 
 
 

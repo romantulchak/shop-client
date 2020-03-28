@@ -3,13 +3,21 @@
 
 <button (click)="filterByPrice()">Filter</button>
 
-<form (ngSubmit)="filterByCategory()">
+<form style="padding: 0.8em;" (ngSubmit)="filterByCategory()">
 
-    <select name="category" [(ngModel)]="category.categoryName">
-        <option value="">Choose one pls</option>
-        <option *ngFor="let c of categories" value="{{c.categoryName}}" >{{c.categoryName}}</option>
 
-    </select>
+    <mat-form-field>
+        <mat-label>Choose category</mat-label>
+        <mat-select name="category" [(ngModel)]="category.categoryName">
+            <mat-option [value]="">All</mat-option>
+          <mat-option *ngFor="let category of categories" [value]="category.categoryName">
+            {{category.categoryName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+
 
     <button type="submit">Filter</button>
 
@@ -27,7 +35,7 @@
     
     <div class="grid__products" *ngIf="!loading">
         <div (mouseleave)="mouseLeave(false, product)" (mouseenter)="mouseEnter(true, product)" class="product__card" *ngFor="let product of products">
-            <button class="card__delete" (click)="deleteProduct(product.id)">X</button>
+            <button *ngIf="isAdmin" class="card__delete" (click)="deleteProduct(product.id)">X</button>
             <div class="product__info">
                 <img [src]="product.image[0].imagePath" alt="">
                 <h1> 
