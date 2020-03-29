@@ -4,6 +4,7 @@ import { User } from '../model/user.model';
 import { OrderService } from '../service/order.service';
 import { Order } from '../model/order.model';
 import { NotificationService } from '../service/notification.service';
+import { ProfileService } from '../service/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,40 +13,40 @@ import { NotificationService } from '../service/notification.service';
 })
 export class ProfileComponent implements OnInit {
 
+  public loading = true;
 
+  public orders: any[];
 
-  public orders: Order[];
-  public userDetails = {
-    name: null,
-    lastName: null,
-  }
   public currentUser: User;
-  constructor(private token: TokenStorageService, private orderService: OrderService, private notificationService: NotificationService) { }
+  constructor(private token: TokenStorageService, private orderService: OrderService, private profileService: ProfileService,  private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
-    this.getOrdersForUser();
+    
+    this.getUserDetails();
+    
+    
   }
 
-  getOrdersForUser(){
-    if(this.currentUser != null){
-      this.orderService.getAllOrdersForUser(this.currentUser).subscribe(
-        res=>{
-          if(res !=null){
-            this.orders = res;
-            console.log(res);
-  
+  getUserDetails(){
+    this.profileService.userDetails(this.currentUser.id).subscribe(
+      res=>{
+        if(res != null){
+          this.currentUser = res;
+          this.orders = res.custom;
 
-          }
-        },
-        error=>{
-          console.log(error);
+          setTimeout(() => {
+            this.loading = false;
+          }, 300);
+
+          console.log(res);
         }
+      }
 
-      );
-    }else{
-      this.notificationService.openSnackBar("Error");
-    }
+    );
   }
+
+
+  
 
 }

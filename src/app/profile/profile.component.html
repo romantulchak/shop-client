@@ -1,14 +1,42 @@
 
-<h1 style="padding: 1em; text-align: center; background: palegreen;">Hi, {{currentUser.username}}</h1>
+<h1 style="padding: 1em; text-align: center; background: palegreen;">Hi, {{currentUser.firstName | titlecase}} {{currentUser.lastName | titlecase}} </h1>
 
+<div>
+<mat-tab-group class="profile__tabs" animationDuration="0ms">
+    <mat-tab label="Profile">
+        <div *ngIf="!loading; else spiner">
+            <h2>Username: {{currentUser.username}}</h2>
+            <h3>City: {{currentUser.city}} Address: {{currentUser.address}}</h3>
+        </div>
+    </mat-tab>
+    <mat-tab label="Orders">
+        <h1>Your orders:</h1>
+        <div class="profile__orders" *ngIf="orders?.length > 0;else message">
+            <div class="order__card" *ngFor="let order of orders; let i = index">
+                <div class="order_statuses">
+                
+                        <h5 [ngStyle]="{'color': order.statuses[0].statusCode === 0 ? 'green': 'red'}">{{order.statuses[0].customStatus |renamer}}</h5>
 
+                        <h5 [ngStyle]="{'color': order.statuses[1].statusCode === 1 ? 'green': 'red'}">{{order.statuses[1].customStatus |renamer}}</h5>
+                        <h5 [ngStyle]="{'color': order.statuses[2].statusCode === 2 ? 'green': 'red'}">{{order.statuses[2].customStatus |renamer}}</h5>
+                        <h5 [ngStyle]="{'color': order.statuses[3].statusCode === 3 ? 'green': 'red'}">{{order.statuses[3].customStatus |renamer}}</h5>
+                        <h5 [ngStyle]="{'color': order.statuses[4].statusCode === 4 ? 'green': 'red'}">{{order.statuses[4].customStatus |renamer}}</h5>
+                    
+                </div>
+                <h3>{{order.product.productName}}</h3>
+                <h4>Amount: {{order.amount}}</h4>
+                <img src="{{order.product.image[0].imagePath}}" width="100em" height="100em" alt="">
+                <h3 style="color: green;">{{order.identificationNumber}}</h3>
+            </div>
+        </div>
+    </mat-tab>
+  </mat-tab-group>
 
-<div class="profile__orders" *ngIf="orders?.length > 0;else message">
-    <h1>Your orders:</h1>
-    <div class="order__card" *ngFor="let order of orders; let i = index">
-        <h1>{{order.costumerName}} {{order.costumerLastName}}</h1>
-        <h2>{{i}}){{ order.identificationNumber}}</h2>
-    </div>
 </div>
 
+<ng-template #spiner>
+
+    <mat-spinner></mat-spinner>
+
+</ng-template>
 <ng-template #message>You have not any orders</ng-template>

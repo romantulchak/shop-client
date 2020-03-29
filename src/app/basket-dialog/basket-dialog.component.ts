@@ -23,6 +23,7 @@ export class BasketDialogComponent implements OnInit {
   public showOrderForm = false;
   public orderNumber: string;
 
+
   public order: Order = {
     id: null,
     items: [],
@@ -54,6 +55,8 @@ export class BasketDialogComponent implements OnInit {
         res=>{
           if(res != null){
             this.sa = res;
+
+      console.log(res);
           }
         }
 
@@ -64,7 +67,6 @@ export class BasketDialogComponent implements OnInit {
         this.price();
       }, 500);
    
-    
     
   }
   closeDialog(){
@@ -120,6 +122,7 @@ export class BasketDialogComponent implements OnInit {
   minusAmount(product: any){
     if(!(product.amount <= 1)){
       product.amount -= 1;
+      product.totalProducPrice -= product.price;
       this.totalPrice -= product.price;
       this.updateItem(product);
     }else{
@@ -129,6 +132,7 @@ export class BasketDialogComponent implements OnInit {
   plusAmount(product: any){
     if(!(product.amount >= 10)){
       product.amount += 1;
+      product.totalProducPrice += product.price;
       this.totalPrice += product.price;
       this.updateItem(product);
     }else{

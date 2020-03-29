@@ -70,6 +70,134 @@
             </div>
           </div>
         </div>
+
+
+
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="firstName"
+            [(ngModel)]="form.firstName"
+            required
+            minlength="6"
+            #firstName="ngModel"
+          />
+          <div class="alert-danger" *ngIf="f.submitted && firstName.invalid">
+            <div *ngIf="firstName.errors.required">First Name is required</div>
+            <div *ngIf="firstName.errors.minlength">
+              First Name must be at least 6 characters
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="lastName"
+            [(ngModel)]="form.lastName"
+            required
+            minlength="6"
+            #lastName="ngModel"
+          />
+          <div class="alert-danger" *ngIf="f.submitted && lastName.invalid">
+            <div *ngIf="lastName.errors.required">Last Name is required</div>
+            <div *ngIf="lastName.errors.minlength">
+              Last Name must be at least 6 characters
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+          <label for="city">City</label>
+          <input
+            type="text"
+            class="form-control"
+            name="city"
+            [(ngModel)]="form.city"
+            required
+            minlength="3"
+            #city="ngModel"
+          />
+          <div class="alert-danger" *ngIf="f.submitted && city.invalid">
+            <div *ngIf="city.errors.required">City is required</div>
+            <div *ngIf="city.errors.minlength">
+              City must be at least 6 characters
+            </div>
+          </div>
+        </div>
+
+
+
+        
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input
+            type="text"
+            class="form-control"
+            name="address"
+            [(ngModel)]="form.address"
+            required
+            minlength="3"
+            #address="ngModel"
+          />
+          <div class="alert-danger" *ngIf="f.submitted && address.invalid">
+            <div *ngIf="address.errors.required">Address is required</div>
+            <div *ngIf="address.errors.minlength">
+              Address must be at least 6 characters
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="postalCode">Postal Code</label>
+          <input
+            type="text"
+            class="form-control"
+            name="postalCode"
+            [(ngModel)]="form.postalCode"
+            required
+            minlength="3"
+            #postalCode="ngModel"
+          />
+          <div class="alert-danger" *ngIf="f.submitted && postalCode.invalid">
+            <div *ngIf="postalCode.errors.required">Postal Code is required</div>
+            <div *ngIf="postalCode.errors.minlength">
+              Postal Code must be at least 6 characters
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="mobilePhone">Mobile Phone</label>
+          <input
+            type="text"
+            class="form-control"
+            name="mobilePhone"
+            [(ngModel)]="form.mobilePhone"
+            required
+            minlength="3"
+            #mobilePhone="ngModel"
+          />
+          <div class="alert-danger" *ngIf="f.submitted && mobilePhone.invalid">
+            <div *ngIf="mobilePhone.errors.required">Mobile Phone is required</div>
+            <div *ngIf="mobilePhone.errors.minlength">
+              Mobile Phone must be at least 6 characters
+            </div>
+          </div>
+        </div>
+
+
         <div class="form-group">
           <button class="btn btn-primary btn-block">Sign Up</button>
         </div>

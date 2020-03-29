@@ -1,0 +1,20 @@
+.profile__tabs{
+    padding: 2em;
+}
+.profile__orders{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.order_statuses{
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    margin-bottom: 1em;
+}
+.order__card{
+    border-radius: 4px;
+    text-align: center;
+    border: 2px dashed rgba(255, 0, 0, 0.6313725490196078);
+    padding: 1em;
+    margin-right: 1em;
+}

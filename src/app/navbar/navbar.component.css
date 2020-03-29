@@ -45,3 +45,15 @@
     display: flex;
     align-items: center;
 }
+.basket__button{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    border: none;
+    padding: 0.3em 0.5em 0.3em 0.5em;
+    background: rgba(36, 19, 255, 0.63);
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    margin-right: 1em;
+}

@@ -90,6 +90,7 @@ export class BasketComponent implements OnInit {
   }
 
 */
+
   price(){
       if(this.sa.length != 0 && this.sa != null){
         this.sa.forEach(el=>{
@@ -138,6 +139,7 @@ export class BasketComponent implements OnInit {
     this.showOrderForm = !this.showOrderForm;
   }
 
+  //TODO: ПІСЛЯ ПОКУПКИ ВИДАЛЯТИ ВСІ ПРЕДМЕТИ З КОРЗИНИ
   sendOrder(){
 
     let isLoggedIn = !! this.tokenStorage.getToken();

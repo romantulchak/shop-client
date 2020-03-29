@@ -32,6 +32,7 @@ export class TokenStorageService {
   }
   signOut() {
     window.sessionStorage.clear();
+    this.isLoggedIn = false;
   }
 
   public saveToken(token: string) {

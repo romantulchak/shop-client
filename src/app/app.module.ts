@@ -39,6 +39,10 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { AuthGuard } from './guards/auth-guard.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import {MatSelectModule} from '@angular/material/select';
+import { RegistrationGuard } from './guards/registration-guard.service';
+import {MatBadgeModule} from '@angular/material/badge';
+import { MatTabsModule } from '@angular/material/tabs';
+import { RenamerPipe } from './pipes/renamer.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +61,7 @@ import {MatSelectModule} from '@angular/material/select';
     ProfileComponent,
     BoardAdminComponent,
     NotFoundComponent,
+    RenamerPipe
 
   ],
   imports: [
@@ -78,10 +83,12 @@ import {MatSelectModule} from '@angular/material/select';
     MatCheckboxModule,
     MatButtonModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatBadgeModule,
+    MatTabsModule
 
   ],
-  providers: [ProductService,authInterceptorProviders, AuthGuard],
+  providers: [ProductService,authInterceptorProviders, AuthGuard, RegistrationGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

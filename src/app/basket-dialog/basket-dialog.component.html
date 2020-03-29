@@ -14,6 +14,7 @@
 
             <h5>Code: {{item.id}}</h5>
             <h3>Price: {{item.price}}</h3>
+            <h4>Total price: {{item.totalProducPrice}}</h4>
         </div>
 
         <div class="basket__amount">
@@ -27,45 +28,10 @@
 </div>
 
 <a (click)="closeDialog()" routerLink="/basket">buy</a>
-
-<button *ngIf="sa.length != 0" (click)="showForm()">Buy</button>
-<div *ngIf="showOrderForm">
-
-    
-          <form (ngSubmit)="sendOrder()" method="POST">
-
-        <div>
-            <h2>First name</h2>
-            <input type="text" [(ngModel)]="order.costumerName" name="costumerName">
-        </div>
-        <div>
-            <h2>Last name</h2>
-            <input type="text" [(ngModel)]="order.costumerLastName" name="costumerLastName">
-        </div>
-        <div>
-            <h2>City</h2>
-            <input type="text" [(ngModel)]="order.costumerCity" name="costumerCity">
-        </div>
-        <div>
-            <h2>Address</h2>
-            <input type="text" [(ngModel)]="order.costumerAddress" name="costumerAddress">
-        </div>
-        <div>
-            <h2>Postal code</h2>
-            <input type="number" [(ngModel)]="order.customerPostalCode" name="costumerPostalCode">
-        </div>
-        <div>
-            <h2>Mobile Phone</h2>
-            <input type="tel" [(ngModel)]="order.customerMobilePhone" name="costumerMobilePhone">
-        </div>
-        <div>
-            <h2>Email</h2>
-            <input type="email" [(ngModel)]="order.email" name="email">
-        </div>
-        <button type="submit">Buy</button>
-
-
-    </form>
-
 </div>
-</div>
+
+<ng-template #empty>
+
+    <h1>You basket is empty</h1>
+
+</ng-template>

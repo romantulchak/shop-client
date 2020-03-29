@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../service/auth.service';
 import {TokenStorageService} from '../service/token-storage.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login-dialog',
   templateUrl: './login-dialog.component.html',
@@ -33,6 +34,7 @@ export class LoginDialogComponent implements OnInit {
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
         this.reloadPage();
+      
       },
       err => {
         this.errorMessage = err.error.message;
