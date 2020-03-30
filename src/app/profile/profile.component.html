@@ -19,7 +19,15 @@
                     (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
             <mat-panel-title>
-               <h3>Order №: {{order.identificationNumber}}</h3> | <h3>{{order.createdDate | date: 'mm-dd-yyyy hh:mm'}}</h3>
+               <div class="epansion__panel_header">
+                   
+                <h3>Order №: {{order.identificationNumber}}</h3>
+                <h3>{{order.createdDate | date: 'mm-dd-yyyy hh:mm'}}</h3>
+                <h3>Amount {{order.customProducts.length}}</h3> 
+
+                <h3>Total price: {{order.totalPrice}}</h3>
+            
+            </div>
             </mat-panel-title>
 
             </mat-expansion-panel-header>

@@ -18,3 +18,8 @@
     /*border: 2px dashed rgba(255, 0, 0, 0.6313725490196078);*/
     padding: 1em;
 }
+
+.epansion__panel_header{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
