@@ -7,6 +7,7 @@ import { Order } from '../model/order.model';
 import { FormGroup } from '@angular/forms';
 import { TokenStorageService } from '../service/token-storage.service';
 import { User } from '../model/user.model';
+import { DialogService } from '../service/dialog.service';
 
 @Component({
   selector: 'app-basket',
@@ -22,11 +23,8 @@ export class BasketComponent implements OnInit {
   public showOrderForm = false;
   public orderNumber: string;
   public user: User;
-
-  //TEST form
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-
+  public isLoading = true;
+  
   
 
   public order: Order = {
@@ -51,15 +49,35 @@ export class BasketComponent implements OnInit {
     //received: false
   }
 
-  constructor(private basketService: BasketService, private productService: ProductService, private orderService: OrderService, private tokenStorage: TokenStorageService) {}
+  constructor(private dialogService: DialogService, private basketService: BasketService, private productService: ProductService, private orderService: OrderService, public tokenStorage: TokenStorageService) {}
 
   ngOnInit(): void {
+     let isLoggedIn = !! this.tokenStorage.getToken();
+
+
       setTimeout(() => {
         this.sa = this.basketService.sa;
         this.price();
+        this.isLoading = false;
       }, 500);
    
-    
+      if(isLoggedIn){
+        this.user = this.tokenStorage.getUser();
+        this.order.user.id = this.user.id;
+        this.order.user.username = this.user.username;
+        this.order.user.email = this.user.email;
+        
+        
+        this.order.costumerName = this.user.firstName;
+        this.order.costumerLastName = this.user.lastName;
+        this.order.costumerCity = this.user.city;
+        this.order.costumerAddress = this.user.address;
+        this.order.customerPostalCode = this.user.postalCode;
+        this.order.customerMobilePhone = this.user.mobilePhone;
+        this.order.email = this.user.email;
+        
+        
+      }
     
   }
 /*
@@ -141,33 +159,15 @@ export class BasketComponent implements OnInit {
 
   //TODO: ПІСЛЯ ПОКУПКИ ВИДАЛЯТИ ВСІ ПРЕДМЕТИ З КОРЗИНИ
   sendOrder(){
-
-    let isLoggedIn = !! this.tokenStorage.getToken();
-
-
-
-
     this.sa.forEach(el=>{
-      
-      this.order.items.push(el);
-        
-    });
 
-    
-    if(isLoggedIn){
-      this.user = this.tokenStorage.getUser();
-      this.order.user.id = this.user.id;
-      this.order.user.username = this.user.username;
-      this.order.user.email = this.user.email;
-      
-    }
+      this.order.items.push(el);
+    });
     this.order.totalPrice = this.totalPrice;
   
     console.log(this.order);
     
     this.orderService.createOrder(this.order).subscribe(
-
-
       res=>{
         if(res != null){
           this.orderNumber = res;
@@ -200,6 +200,10 @@ export class BasketComponent implements OnInit {
   }
   */
 
+
+  loginDialog(){
+      this.dialogService.loginDialog();
+  }
   //TODO: зробити норм видалення
   remove(product: any){
     if(localStorage.getItem('product')!= null){

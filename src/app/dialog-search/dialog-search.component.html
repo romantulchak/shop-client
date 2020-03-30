@@ -4,9 +4,12 @@
         <h1>User Name: {{userDetails.name}} | Last Name: {{userDetails.lastName}}</h1>
         <h3>Total Price: {{userDetails.totalPrice}}</h3>
     </div>
-    <div *ngFor="let item of order">
-    <h2>{{item.product.productName}}</h2>
-    <h3>Amount: {{item.amount}}</h3>
+    <div *ngFor="let item of data.data">
+        <div *ngFor="let products of item.customProducts">
+                <h3>Product: {{products.product.productName}}</h3>
+                <h3>{{products.product.productPrice}}</h3>
+                <h3>Amount: {{products.amount}}</h3>
+        </div>
     </div>
     <div class="status">
         <h1>Status:</h1>

@@ -43,6 +43,7 @@ import { RegistrationGuard } from './guards/registration-guard.service';
 import {MatBadgeModule} from '@angular/material/badge';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RenamerPipe } from './pipes/renamer.pipe';
+import {MatExpansionModule} from '@angular/material/expansion';
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,7 +86,8 @@ import { RenamerPipe } from './pipes/renamer.pipe';
     MatIconModule,
     MatSelectModule,
     MatBadgeModule,
-    MatTabsModule
+    MatTabsModule,
+    MatExpansionModule
 
   ],
   providers: [ProductService,authInterceptorProviders, AuthGuard, RegistrationGuard],

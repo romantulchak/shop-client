@@ -55,7 +55,7 @@ export class OrderComponent implements OnInit {
 
         res=>{
       
-          this.notificationSerivce.openSnackBar(res);
+          //this.notificationSerivce.openSnackBar(res);
           this.getAllOrders();
         },
         error=>{
@@ -97,6 +97,7 @@ export class OrderComponent implements OnInit {
 
 
 
+  //TODO: перенести в сервіс
   openDialog(identificationNumberForSeach: string){
 
     this.orderService.findByIdentificationNumber(identificationNumberForSeach).subscribe(

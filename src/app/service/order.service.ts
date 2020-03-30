@@ -17,7 +17,7 @@ export class OrderService{
     //private SET_TRANSIT = 'http://localhost:8080/api/order/setInTransit/';
     //private SET_DESTINATION = 'http://localhost:8080/api/order/setAtTheDestination/';
     private SET_STATUS = 'http://localhost:8080/api/order/setStatus';
-    private SET_CANCEL = 'http://localhost:8080/api/order/cancel';
+    private SET_CANCEL = 'http://localhost:8080/api/order/cancel/';
     private DELETE_CUSTOM = 'http://localhost:8080/api/order/deleteCustom/';
     
     private GET_ALL_FOR_USER = 'http://localhost:8080/api/order/getAllForUser/';
@@ -47,7 +47,8 @@ export class OrderService{
         return this.http.delete(this.DELETE_CUSTOM + id, {responseType:'text'});
     }
     orderCancel(order: Order){
-        return this.http.put(this.SET_CANCEL, order, {responseType: 'text'});
+        console.log(order.id);
+        return this.http.put(this.SET_CANCEL + order.id, null, {responseType:'text'});
     }
     getAllOrdersForUser(user: User): Observable<Order[]>{
         return this.http.get<Order[]>(this.GET_ALL_FOR_USER + user.id);

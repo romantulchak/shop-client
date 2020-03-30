@@ -16,4 +16,5 @@ export class Order{
     totalPrice?: number;
     identificationNumber?: string;
     user?: User;
+    customProduct?: any[];
 }

@@ -9,6 +9,7 @@ import { DialogSearchComponent } from '../dialog-search/dialog-search.component'
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 import { TokenStorageService } from '../service/token-storage.service';
+import { DialogService } from '../service/dialog.service';
 
 @Component({
   selector: 'app-navbar',
@@ -26,7 +27,7 @@ export class NavbarComponent implements OnInit {
  
 
 
-  constructor(public tokenStorageService: TokenStorageService ,private basketService: BasketService, private dialog: MatDialog, private orderService: OrderService) { }
+  constructor(private dialogService: DialogService, public tokenStorageService: TokenStorageService ,private basketService: BasketService, private dialog: MatDialog, private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.tokenStorageService.logged();
@@ -97,9 +98,7 @@ export class NavbarComponent implements OnInit {
 
 
   public loginDialog(){
-    this.dialog.open(LoginDialogComponent, {
-        panelClass: 'dialog__login'
-    })
+    this.dialogService.loginDialog();
   }
   logout() {
     this.tokenStorageService.signOut();

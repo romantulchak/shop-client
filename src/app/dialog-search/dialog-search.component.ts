@@ -45,15 +45,12 @@ export class DialogSearchComponent implements OnInit {
       //atTheDestination: userData.atTheDestination,
       //received: userData.received
     }
-    console.log(userData);
+
     //TOOD: зробити через JsonView() на сервері і перебирати через цикл тут.
 
     this.order = this.data.data;
     console.log(this.data.data);
-    for(let i = 0; i < this.order.length; i++){
-      console.log(this.order[i]);
-    }
-
+  
     
   }
 

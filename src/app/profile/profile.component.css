@@ -3,7 +3,8 @@
 }
 .profile__orders{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-gap: 1em;
 }
 .order_statuses{
     display: grid;
@@ -14,7 +15,6 @@
 .order__card{
     border-radius: 4px;
     text-align: center;
-    border: 2px dashed rgba(255, 0, 0, 0.6313725490196078);
+    /*border: 2px dashed rgba(255, 0, 0, 0.6313725490196078);*/
     padding: 1em;
-    margin-right: 1em;
 }

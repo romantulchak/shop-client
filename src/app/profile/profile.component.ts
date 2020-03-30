@@ -14,9 +14,9 @@ import { ProfileService } from '../service/profile.service';
 export class ProfileComponent implements OnInit {
 
   public loading = true;
-
+  public panelOpenState = false;
   public orders: any[];
-
+  public currentOrder: any;
   public currentUser: User;
   constructor(private token: TokenStorageService, private orderService: OrderService, private profileService: ProfileService,  private notificationService: NotificationService) { }
 
@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
     
     this.getUserDetails();
     
-    
+    this.getOrdersForUser();
   }
 
   getUserDetails(){
@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
       res=>{
         if(res != null){
           this.currentUser = res;
-          this.orders = res.custom;
+          
 
           setTimeout(() => {
             this.loading = false;
@@ -47,6 +47,28 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  
+  getOrdersForUser(){
+    this.orderService.getAllOrdersForUser(this.currentUser).subscribe(
+
+
+      res=>{
+        this.orders = res;
+        console.log(res);
+      }
+
+    );
+  }
+
+  openPanel(order: Order): boolean{
+
+    this.currentOrder = order;
+    if(this.currentOrder === order){
+      this.panelOpenState = !this.panelOpenState;
+      return true;
+    }
+
+
+    return false;
+  }
 
 }

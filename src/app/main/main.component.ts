@@ -11,6 +11,7 @@ import { OrderService } from '../service/order.service';
 import {DialogSearchComponent} from '../dialog-search/dialog-search.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TokenStorageService } from '../service/token-storage.service';
+import { NotificationService } from '../service/notification.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -52,7 +53,7 @@ export class MainComponent implements OnInit {
     product: null
   };
   public categories: Category[];
-  constructor(private toketnSerivce: TokenStorageService, private productService: ProductService,private orderService: OrderService, private basketService: BasketService, private categoryService: CategoryService, public dialog?: MatDialog) { }
+  constructor(private notificationServcei: NotificationService, private toketnSerivce: TokenStorageService, private productService: ProductService,private orderService: OrderService, private basketService: BasketService, private categoryService: CategoryService, public dialog?: MatDialog) { }
 
   public isAdmin = false;
  
@@ -204,7 +205,7 @@ export class MainComponent implements OnInit {
     this.productToCompare = product;
     product.showButton = true;
     this.basketService.addToBasket(product);
-    
+    this.notificationServcei.openSnackBar("Added to your card " + product.productName);
     /* this.sa.id = product.id;
     this.sa.name = product.productName;
   

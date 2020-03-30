@@ -10,13 +10,37 @@
         </div>
     </mat-tab>
     <mat-tab label="Orders">
+
+        <div class="profile__orders" *ngIf="orders?.length > 0;else message">
+            <div class="order__card" *ngFor="let order of orders; let i = index">
+
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = openPanel(order) && panelOpenState"
+                    (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+               <h3>Order №: {{order.identificationNumber}}</h3> | <h3>{{order.createdDate | date: 'mm-dd-yyyy hh:mm'}}</h3>
+            </mat-panel-title>
+
+            </mat-expansion-panel-header>
+            <p>I'm visible because I am open</p>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+
+    </div>
+    </div>
+
+
+
+<!--
+
         <h1>Your orders:</h1>
         <div class="profile__orders" *ngIf="orders?.length > 0;else message">
             <div class="order__card" *ngFor="let order of orders; let i = index">
-                <div class="order_statuses">
+                <div *ngIf="!order.cancel;else cancel" class="order_statuses">
                 
                         <h5 [ngStyle]="{'color': order.statuses[0].statusCode === 0 ? 'green': 'red'}">{{order.statuses[0].customStatus |renamer}}</h5>
-
                         <h5 [ngStyle]="{'color': order.statuses[1].statusCode === 1 ? 'green': 'red'}">{{order.statuses[1].customStatus |renamer}}</h5>
                         <h5 [ngStyle]="{'color': order.statuses[2].statusCode === 2 ? 'green': 'red'}">{{order.statuses[2].customStatus |renamer}}</h5>
                         <h5 [ngStyle]="{'color': order.statuses[3].statusCode === 3 ? 'green': 'red'}">{{order.statuses[3].customStatus |renamer}}</h5>
@@ -29,6 +53,7 @@
                 <h3 style="color: green;">{{order.identificationNumber}}</h3>
             </div>
         </div>
+        -->
     </mat-tab>
   </mat-tab-group>
 
@@ -40,3 +65,5 @@
 
 </ng-template>
 <ng-template #message>You have not any orders</ng-template>
+
+<ng-template #cancel>This order is closed</ng-template>

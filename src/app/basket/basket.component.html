@@ -1,4 +1,10 @@
 
+<div *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="!isLoading">
+
 <h1 *ngIf="orderNumber != null" style="background-color: brown;">{{orderNumber}}</h1>
 
 <h2>TOTAL PRICE: {{totalPrice}}</h2>
@@ -21,9 +27,13 @@
     
 </div>
 
+<button *ngIf="!tokenStorage.isLoggedIn" (click)="loginDialog()">
 
-<button *ngIf="sa.length != 0" (click)="showForm()">Buy</button>
-<div *ngIf="showOrderForm">
+    Login
+
+</button>
+
+<div >
 
     <form (ngSubmit)="sendOrder()" method="POST">
 
@@ -59,5 +69,7 @@
 
 
     </form>
+
+</div>
 
 </div>
