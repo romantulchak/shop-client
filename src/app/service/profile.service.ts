@@ -17,6 +17,8 @@ export class ProfileService{
     userDetails(id: number): Observable<User>{
         return this.http.get<User>(API_URL + 'userDetails/' + id);
     }
-
+    editUser(user: User){
+        return this.http.put(API_URL + 'editUser', user, {responseType:'text'});
+    }
 
 }

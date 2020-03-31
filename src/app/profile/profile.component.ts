@@ -5,6 +5,7 @@ import { OrderService } from '../service/order.service';
 import { Order } from '../model/order.model';
 import { NotificationService } from '../service/notification.service';
 import { ProfileService } from '../service/profile.service';
+import { DialogService } from '../service/dialog.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +19,7 @@ export class ProfileComponent implements OnInit {
   public orders: any[];
   public currentOrder: any;
   public currentUser: User;
-  constructor(private token: TokenStorageService, private orderService: OrderService, private profileService: ProfileService,  private notificationService: NotificationService) { }
+  constructor(private dialogService: DialogService, private token: TokenStorageService, private orderService: OrderService, private profileService: ProfileService,  private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
@@ -70,5 +71,7 @@ export class ProfileComponent implements OnInit {
 
     return false;
   }
-
+  openEditDialog(user: User){
+    this.dialogService.editUserDialog(user);
+  } 
 }

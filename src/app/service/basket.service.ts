@@ -130,7 +130,7 @@ export class BasketService {
     }
     this.sa.push(this.prodToSave);
     this.productsAfterRemove.next(this.sa);
-    console.log(this.sa);
+
     
     localStorage.setItem('product', JSON.stringify(this.sa));
     this.count.next(this.sa.length); 
@@ -138,6 +138,7 @@ export class BasketService {
 
   remove(){
     this.updateProducts.next(true);
+    this.sa = JSON.parse(localStorage.getItem('product'));
   }
 
 

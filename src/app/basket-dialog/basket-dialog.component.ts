@@ -8,6 +8,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MainComponent } from '../main/main.component';
 import { CategoryService } from '../service/category.service';
 import { asapScheduler } from 'rxjs';
+import { NotificationService } from '../service/notification.service';
 @Component({
   selector: 'app-basket-dialog',
   templateUrl: './basket-dialog.component.html',
@@ -40,7 +41,7 @@ export class BasketDialogComponent implements OnInit {
     totalPrice: null
   }
 
-  constructor(public dialog: MatDialogRef<BasketDialogComponent>, private basketService: BasketService, private productService: ProductService, private orderService: OrderService, private categoryService: CategoryService) {}
+  constructor(private notificationService: NotificationService, public dialog: MatDialogRef<BasketDialogComponent>, private basketService: BasketService, private productService: ProductService, private orderService: OrderService, private categoryService: CategoryService) {}
 
   ngOnInit(): void {
 
@@ -126,7 +127,7 @@ export class BasketDialogComponent implements OnInit {
       this.totalPrice -= product.price;
       this.updateItem(product);
     }else{
-      console.log('Min 1');
+      this.notificationService.openSnackBar("Minimum 1 item");
     }
   }
   plusAmount(product: any){
@@ -136,7 +137,7 @@ export class BasketDialogComponent implements OnInit {
       this.totalPrice += product.price;
       this.updateItem(product);
     }else{
-      console.log('Max 10');
+      this.notificationService.openSnackBar("Maximum 10 items");
     }
   }
 
@@ -193,7 +194,7 @@ export class BasketDialogComponent implements OnInit {
   }
   */
 
-  //TODO: зробити норм видалення
+
   remove(product: any){
     if(localStorage.getItem('product')!= null){
       if(this.sa.length != 0){
@@ -224,6 +225,7 @@ export class BasketDialogComponent implements OnInit {
         this.basketService.count.next(this.sa.length);
         
         this.basketService.productsAfterRemove.next(this.sa);
+        
         
         this.basketService.remove();
         

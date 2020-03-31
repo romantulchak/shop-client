@@ -59,8 +59,10 @@ export class MainComponent implements OnInit {
  
   productCheck: any[] = [];
   ngOnInit(): void {
-    this.isAdmin = this.toketnSerivce.showAdminBoard;
 
+    console.log('TEST');
+    this.isAdmin = this.toketnSerivce.showAdminBoard;
+    console.log(this.basketService.sa);
     setTimeout(() => {
       this.productCheck =  this.basketService.sa;
       this.getProducts();

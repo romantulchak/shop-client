@@ -1,0 +1,32 @@
+
+<form (submit)="editUser()" action="">
+
+    <div>
+        <h3>First Name</h3>
+        <input type="text" name="firstName" [(ngModel)]="user.firstName">
+    </div>
+    <div>
+        <h3>Last Name</h3>
+        <input type="text" name="lastName" [(ngModel)]="user.lastName">
+    </div>
+    <div>
+        <h3>City</h3>
+        <input type="text" name="city" [(ngModel)]="user.city">
+    </div>
+    <div>
+        <h3>Address</h3>
+        <input type="text" name="address" [(ngModel)]="user.address">
+    </div>
+    <div>
+        <h3>Postal Code</h3>
+        <input type="text" name="postalCode" [(ngModel)]="user.postalCode">
+    </div>
+    <div>
+        <h3>Postal Code</h3>
+        <input type="text" name="mobilePhone" [(ngModel)]="user.mobilePhone">
+    </div>
+
+    <button type="submit">Edit</button>
+
+
+</form>
