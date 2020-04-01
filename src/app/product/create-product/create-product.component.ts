@@ -4,6 +4,8 @@ import { Category } from 'src/app/model/category.model';
 import { CategoryService } from 'src/app/service/category.service';
 import { ProductService } from 'src/app/service/product.service';
 import { NotificationService } from 'src/app/service/notification.service';
+import { Brand } from 'src/app/model/brand.models';
+import { BrandService } from 'src/app/service/brand.service';
 
 @Component({
   selector: 'app-create-product',
@@ -29,13 +31,16 @@ export class CreateProductComponent implements OnInit {
     description: '',
     image: null,
     productPrice: 0,
+    brand: new Brand(),
   };
 
   public category: Category[];
-  constructor(private notificationService: NotificationService, private categoryService: CategoryService, private productService: ProductService) { }
+  public brands: Brand[];
+  constructor(private brandService: BrandService,private notificationService: NotificationService, private categoryService: CategoryService, private productService: ProductService) { }
 
   ngOnInit(): void {
     this.getCategories();
+    this.getBrands();
   }
   public getCategories(){
     this.categoryService.getCategories().subscribe(
@@ -84,6 +89,15 @@ export class CreateProductComponent implements OnInit {
   handleImages(event){
     this.selectedFiles = event.target.files;
     console.log(this.selectedFiles);
+  }
+  getBrands(){
+    this.brandService.getAllBrands().subscribe(
+      res=>{
+        if(res != null){
+          this.brands = res;
+        }
+      }
+    );
   }
 
 }

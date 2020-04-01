@@ -11,6 +11,14 @@
             <h3>{{currentUser.mobilePhone}} {{currentUser.postalCode}}</h3>
         </div>
         <button (click)="openEditDialog(currentUser)" >Edit</button>
+
+        <div>
+            <h2>Roles</h2>
+            <div *ngFor="let item of userFromStorage.roles">
+                <h3>{{item}}</h3>
+            </div>
+        </div>
+
     </mat-tab>
     <mat-tab label="Orders">
 

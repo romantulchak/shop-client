@@ -12,6 +12,8 @@ import {DialogSearchComponent} from '../dialog-search/dialog-search.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TokenStorageService } from '../service/token-storage.service';
 import { NotificationService } from '../service/notification.service';
+import { BrandService } from '../service/brand.service';
+import { Brand } from '../model/brand.models';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -53,7 +55,8 @@ export class MainComponent implements OnInit {
     product: null
   };
   public categories: Category[];
-  constructor(private notificationServcei: NotificationService, private toketnSerivce: TokenStorageService, private productService: ProductService,private orderService: OrderService, private basketService: BasketService, private categoryService: CategoryService, public dialog?: MatDialog) { }
+  public brands: Brand[];
+  constructor(private brandService: BrandService,  private notificationServcei: NotificationService, private toketnSerivce: TokenStorageService, private productService: ProductService,private orderService: OrderService, private basketService: BasketService, private categoryService: CategoryService, public dialog?: MatDialog) { }
 
   public isAdmin = false;
  
@@ -67,7 +70,7 @@ export class MainComponent implements OnInit {
       this.productCheck =  this.basketService.sa;
       this.getProducts();
       this.getCategories();
-
+      this.getAllBrands();
 
    }, 500);
 
@@ -101,7 +104,19 @@ export class MainComponent implements OnInit {
 
 
   }
+  getAllBrands(){
+    this.brandService.getAllBrands().subscribe(
 
+      res=>{
+        if (res != null) {
+          this.brands = res;
+          console.log(res);
+        }
+        
+      }
+
+    );
+  }
   mouseEnter(onStyle: boolean, product: Product){
     this.currentProduct = product;
     this.styleOn = onStyle;

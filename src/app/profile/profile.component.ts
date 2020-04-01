@@ -19,11 +19,14 @@ export class ProfileComponent implements OnInit {
   public orders: any[];
   public currentOrder: any;
   public currentUser: User;
+
+  public userFromStorage: any;
+
   constructor(private dialogService: DialogService, private token: TokenStorageService, private orderService: OrderService, private profileService: ProfileService,  private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
-    
+    this.userFromStorage = this.token.getUser();
     this.getUserDetails();
     
     this.getOrdersForUser();

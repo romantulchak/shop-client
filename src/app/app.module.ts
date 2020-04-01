@@ -45,6 +45,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RenamerPipe } from './pipes/renamer.pipe';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { BrandComponent } from './brand/brand.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +65,8 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     BoardAdminComponent,
     NotFoundComponent,
     RenamerPipe,
-    EditUserComponent
+    EditUserComponent,
+    BrandComponent
 
   ],
   imports: [

@@ -13,6 +13,7 @@ import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { AuthGuard } from './guards/auth-guard.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RegistrationGuard } from './guards/registration-guard.service';
+import { BrandComponent } from './brand/brand.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,7 @@ const routes: Routes = [
                     canActivate: [AuthGuard], 
                     data:{role: 'ROLE_USER'},
   },
+  {path: 'brands', component: BrandComponent, canActivate: [AuthGuard], data: {role: 'ROLE_ADMIN'}},
   { path: 'admin', component: BoardAdminComponent, 
               canActivate: [AuthGuard], 
               data:{role: 'ROLE_ADMIN'}

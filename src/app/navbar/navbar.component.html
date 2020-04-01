@@ -9,6 +9,7 @@
     <ul class="navbar__nav">
         <li><a routerLink="/">Home</a></li>
         <li><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/orders">Orders</a></li>
+        <li><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/brands">Brands</a></li>
         <button *ngIf="tokenStorageService.isLoggedIn" class="nav-link" (click)="logout()">LogOut</button>
     </ul>
     <div class="navbar__auth"> 

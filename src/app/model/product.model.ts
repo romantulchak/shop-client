@@ -1,5 +1,6 @@
 import { Image } from './image.model';
 import { Category } from './category.model';
+import { Brand } from './brand.models';
 
 export class Product{
 
@@ -10,4 +11,5 @@ export class Product{
     image: Image[]; 
     category: Category;
     showButton?: boolean;
+    brand: Brand;
 }

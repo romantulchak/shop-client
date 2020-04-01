@@ -131,6 +131,7 @@ export class BasketComponent implements OnInit {
   minusAmount(product: any){
     if(!(product.amount <= 1)){
       product.amount -= 1;
+      this.price();
       this.totalPrice -= product.price;
       this.updateItem(product);
     }else{
@@ -140,6 +141,7 @@ export class BasketComponent implements OnInit {
   plusAmount(product: any){
     if(!(product.amount >= 10)){
       product.amount += 1;
+      this.price();
       this.totalPrice += product.price;
       this.updateItem(product);
     }else{

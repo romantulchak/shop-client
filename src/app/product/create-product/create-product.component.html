@@ -35,6 +35,16 @@ apiKey = "oafydqqtkaeecsa5sztqiauvrrawxqlyhrjhy0lx29dtr56r"
     <h2>Product price</h2>
     <input type="file" multiple name="images" (change)="handleImages($event)" [(ngModel)]="product.image">
 </div>
+
+<div>
+    <h2>Brand</h2>
+    <select name="brand"required [(ngModel)]="product.brand.id">
+        <option *ngFor="let item of brands" value="{{item.id}}" >{{item.name}}</option>
+
+    </select>
+</div>
+
+
 <div *ngIf="showButton;else message">
 <div>
     <h2>Category</h2>

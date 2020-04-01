@@ -33,7 +33,7 @@
 
 </button>
 
-<div >
+<div *ngIf="totalPrice != 0">
 
     <form (ngSubmit)="sendOrder()" method="POST">
 

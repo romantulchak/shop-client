@@ -1,0 +1,13 @@
+
+<form  (submit)="createBrand()" method="POST">
+    <div>
+        <h3>Name</h3>
+        <input type="text" name="name" [(ngModel)]="brand.name">
+    </div>
+    <button type="submit">Create</button>
+</form>
+
+
+<div *ngFor="let brand of brands">
+    <h3>{{brand.name}}</h3>
+</div>

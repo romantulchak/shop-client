@@ -24,12 +24,19 @@
 </form>
 
 <a routerLink="createProduct">Create</a>
- 
-<section *ngIf="products?.length != 0;else message">
+<div class="products__loading" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+</div>
+
+<section class="filters__products" *ngIf="products?.length != 0;else message">
     
 
-    <div class="products__loading" *ngIf="loading">
-        <mat-spinner></mat-spinner>
+
+
+    <div *ngIf="!loading" class="filters">
+        <div *ngFor="let brand of brands">
+            <h4>{{brand.name}}</h4>
+        </div>
     </div>
 
     
