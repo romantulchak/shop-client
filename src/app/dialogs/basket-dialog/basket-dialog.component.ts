@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { BasketService } from '../service/basket.service';
-import { ProductService } from '../service/product.service';
-import { Product } from '../model/product.model';
-import { Order } from '../model/order.model';
-import {OrderService} from '../service/order.service';
+import { BasketService } from '../../service/basket.service';
+import { ProductService } from '../../service/product.service';
+import { Product } from '../../model/product.model';
+import { Order } from '../../model/order.model';
+import {OrderService} from '../../service/order.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { MainComponent } from '../main/main.component';
-import { CategoryService } from '../service/category.service';
+import { MainComponent } from '../../main/main.component';
+import { CategoryService } from '../../service/category.service';
 import { asapScheduler } from 'rxjs';
-import { NotificationService } from '../service/notification.service';
+import { NotificationService } from '../../service/notification.service';
 @Component({
   selector: 'app-basket-dialog',
   templateUrl: './basket-dialog.component.html',
@@ -130,9 +130,24 @@ export class BasketDialogComponent implements OnInit {
       this.notificationService.openSnackBar("Minimum 1 item");
     }
   }
+
+  //TODO: придумати як обмежувати макс кількість.
   plusAmount(product: any){
+
+
+
+
     if(!(product.amount >= 10)){
       product.amount += 1;
+      this.orderService.checkAmount(product.id, product.amount).subscribe(
+
+        res=>{
+          product.amount = res;
+        }
+
+      );
+
+  
       product.totalProducPrice += product.price;
       this.totalPrice += product.price;
       this.updateItem(product);

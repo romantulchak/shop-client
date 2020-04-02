@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Order } from '../model/order.model';
-import { Product } from '../model/product.model';
+import { Order } from '../../model/order.model';
+import { Product } from '../../model/product.model';
 @Component({
   selector: 'app-dialog-search',
   templateUrl: './dialog-search.component.html',

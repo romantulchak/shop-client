@@ -3,31 +3,32 @@ import { HttpClient, HttpEvent, HttpParams } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { Product } from '../model/product.model';
 import { Category } from '../model/category.model';
+import {environment} from '../../environments/environment';
+
+
+
+const API_URL = environment.apiUrl; 
+
+
 @Injectable()
 export class ProductService{
-    private GET_PRODUCTS = 'http://localhost:8080/api/products';
-    private GET_PRODUCTS_BY_PRICE = 'http://localhost:8080/api/products/filterByPrice';
-    private CREATE_PRODUCT = 'http://localhost:8080/api/products/createProduct';
-    private DELETE_PRODUCT = 'http://localhost:8080/api/products/deleteProduct/';
-    private PUSH_IMAGE = 'http://localhost:8080/api/products/pushImage';
-    private DETAILS_PRODUCT = 'http://localhost:8080/api/products/details/';
-    private GET_BY_ID = 'http://localhost:8080/api/products/getProductsById';
-    private FILTER_BY_CATEGORY = 'http://localhost:8080/api/products/filterByCategory/';
+
+
     constructor(private http: HttpClient){}
 
 
     getProducts(): Observable<Product[]>{
 
-       return this.http.get<Product[]>(this.GET_PRODUCTS);
+       return this.http.get<Product[]>(API_URL + 'products');
     }
     getProductsByPrice(): Observable<Product[]>{
-        return this.http.get<Product[]>(this.GET_PRODUCTS_BY_PRICE);
+        return this.http.get<Product[]>(API_URL + 'products/filterByPrice');
     }
     createProduct(product: Product){
-        return this.http.post(this.CREATE_PRODUCT, product, {responseType:'text'});
+        return this.http.post(API_URL + 'products/createProduct', product, {responseType:'text'});
     }
     deleteProduct(id: number){ 
-        return this.http.delete(this.DELETE_PRODUCT + id, {responseType: 'text'});
+        return this.http.delete(API_URL + 'products/deleteProduct/' + id, {responseType: 'text'});
     }
     pushImage(files:File[]){
         const data: FormData = new FormData();
@@ -40,18 +41,18 @@ export class ProductService{
        for(let i = 0; i < files.length; i++){
            data.append('file', files[i]);
        }
-        return this.http.post(this.PUSH_IMAGE, data);
+        return this.http.post(API_URL + 'products/pushImage', data);
 
     }
 
     detailsProduct(id: number): Observable<Product>{
-        return this.http.get<Product>(this.DETAILS_PRODUCT + id);
+        return this.http.get<Product>(API_URL + 'products/details/' + id);
     }
 
     filterByCategory(category: Category): Observable<Product[]>{
         let paramsToSend = new HttpParams();
         paramsToSend = paramsToSend.append('categoryName', category.categoryName);
-        return this.http.get<Product[]>(this.FILTER_BY_CATEGORY, {params: paramsToSend})
+        return this.http.get<Product[]>(API_URL + 'products/filterByCategory/', {params: paramsToSend})
     }
 
 

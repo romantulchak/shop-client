@@ -8,7 +8,7 @@ import { error, element } from 'protractor';
 import { identifierModuleUrl } from '@angular/compiler';
 import { MatDialog} from '@angular/material/dialog';
 import { OrderService } from '../service/order.service';
-import {DialogSearchComponent} from '../dialog-search/dialog-search.component';
+import {DialogSearchComponent} from '../dialogs/dialog-search/dialog-search.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TokenStorageService } from '../service/token-storage.service';
 import { NotificationService } from '../service/notification.service';

@@ -12,4 +12,6 @@ export class Product{
     category: Category;
     showButton?: boolean;
     brand: Brand;
+    amountInStock: number;
+
 }

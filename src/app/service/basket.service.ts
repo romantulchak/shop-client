@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../model/product.model';
 import { ProductService } from './product.service';
-import { Image } from '../model/image.model';
+
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -89,6 +91,7 @@ export class BasketService {
                 this.productsFromDb.forEach(el=>{
                   if(element.id == el.id){
                     prod.push(element);
+                    //prod.push(el);
                     this.products.push(el);
                   }
                 });

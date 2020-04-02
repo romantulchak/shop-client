@@ -4,7 +4,7 @@ import { Order } from '../model/order.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import {DialogSearchComponent} from '../dialog-search/dialog-search.component';
+import {DialogSearchComponent} from '../dialogs/dialog-search/dialog-search.component';
 
 import {NotificationService} from '../service/notification.service';
 import {Status} from '../model/status.model';

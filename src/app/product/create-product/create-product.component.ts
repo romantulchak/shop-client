@@ -32,6 +32,7 @@ export class CreateProductComponent implements OnInit {
     image: null,
     productPrice: 0,
     brand: new Brand(),
+    amountInStock: 0
   };
 
   public category: Category[];

@@ -3,11 +3,11 @@ import { BasketComponent } from '../basket/basket.component';
 import { BasketService } from '../service/basket.service';
 import { ThrowStmt } from '@angular/compiler';
 import { MatDialog } from '@angular/material/dialog';
-import { BasketDialogComponent } from '../basket-dialog/basket-dialog.component';
+import { BasketDialogComponent } from '../dialogs/basket-dialog/basket-dialog.component';
 import { OrderService } from '../service/order.service';
-import { DialogSearchComponent } from '../dialog-search/dialog-search.component';
+import { DialogSearchComponent } from '../dialogs/dialog-search/dialog-search.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
+import { LoginDialogComponent } from '../dialogs/login-dialog/login-dialog.component';
 import { TokenStorageService } from '../service/token-storage.service';
 import { DialogService } from '../service/dialog.service';
 
