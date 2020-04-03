@@ -54,13 +54,13 @@ export class OrderService{
     getAllOrdersForUser(user: User): Observable<Order[]>{
         return this.http.get<Order[]>(API_URL + 'order/getAllForUser/' + user.id);
     }
-    checkAmount(id: string, amount: string){
+    checkAmount(id: string, amount: string): Observable<boolean>{
       
-        
+       
         let paramsToSend = new HttpParams();
         paramsToSend = paramsToSend.append('productId', id);
         paramsToSend = paramsToSend.append('productAmount', amount);
-        return this.http.get(API_URL + 'order/checkAmount', {params: paramsToSend});
+        return this.http.get<boolean>(API_URL + 'order/checkAmount', {params: paramsToSend});
     }
    /*
     setIsBeingProcessed(order: Order){

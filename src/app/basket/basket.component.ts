@@ -177,6 +177,7 @@ export class BasketComponent implements OnInit {
           this.showOrderForm = false;
           this.sa = [];
           localStorage.setItem('product', JSON.stringify(this.sa));
+          this.basketService.productsAfterRemove.next(this.sa);
           this.basketService.count.next(this.sa.length);
           this.price();
         }

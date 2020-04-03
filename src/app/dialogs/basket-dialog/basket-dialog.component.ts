@@ -138,19 +138,23 @@ export class BasketDialogComponent implements OnInit {
 
 
     if(!(product.amount >= 10)){
-      product.amount += 1;
+
       this.orderService.checkAmount(product.id, product.amount).subscribe(
 
         res=>{
-          product.amount = res;
+          if(res === true){
+            product.amount += 1;
+            product.totalProducPrice += product.price;
+            this.totalPrice += product.price;
+            this.updateItem(product);
+          }else{
+            this.notificationService.openSnackBar("Maximum in the stock");
+          }
         }
 
       );
 
-  
-      product.totalProducPrice += product.price;
-      this.totalPrice += product.price;
-      this.updateItem(product);
+
     }else{
       this.notificationService.openSnackBar("Maximum 10 items");
     }

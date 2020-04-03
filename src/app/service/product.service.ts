@@ -55,7 +55,17 @@ export class ProductService{
         return this.http.get<Product[]>(API_URL + 'products/filterByCategory/', {params: paramsToSend})
     }
 
+    filter(brands?:string[]): Observable<Product[]>{
+        let paramsToSend = new HttpParams();
+        if(brands != null){
+            brands.forEach(brand=>{
+                paramsToSend = paramsToSend.append('brands', brand);
+            });
+        }
+        return this.http.get<Product[]>(API_URL + 'products/filter', {params: paramsToSend});
 
+
+    }
 
 
 }

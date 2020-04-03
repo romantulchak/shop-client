@@ -47,7 +47,7 @@ export class MainComponent implements OnInit {
   public loading = true;
   public productToCompare: Product;
   public products: Product[];
-
+  public brandsToSend: string[] = []; 
 
   public category: Category = {
     id: null,
@@ -128,17 +128,43 @@ export class MainComponent implements OnInit {
   }
 
  
+  filter(brandName: string){
+    this.loading = true;
+    if(!this.brandsToSend.includes(brandName)){
+      console.log('1');
+      this.brandsToSend.push(brandName);
+    }else{
+      console.log('2');
+      
+      this.brandsToSend = this.brandsToSend.filter(e=>e != brandName);
+    }
 
+    this.productService.filter(this.brandsToSend).subscribe(
+
+      res=>{
+        if(res !=null){
+          this.products = res;
+          setTimeout(() => {
+            this.loading = false;
+          }, 500);
+        }
+      },
+      error=>{
+        console.log('error');
+      }
+
+    );
+
+  }
 
   getProducts(){
-
-
 
 
     this.productService.getProducts().subscribe(
         res=>{
            if(res != null){
             this.products = res;
+            console.log(res);
             res.forEach(e=>{
              
               setTimeout(() => {

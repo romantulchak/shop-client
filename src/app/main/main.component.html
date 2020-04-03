@@ -28,19 +28,21 @@
     <mat-spinner></mat-spinner>
 </div>
 
-<section class="filters__products" *ngIf="products?.length != 0;else message">
+<section class="filters__products">
     
 
 
 
-    <div *ngIf="!loading" class="filters">
+    <div  class="filters">
         <div *ngFor="let brand of brands">
-            <h4>{{brand.name}}</h4>
+            <input type="checkbox" (change)="filter(brand.name)" value="{{brand.name}}">{{brand.name}}
         </div>
     </div>
 
     
-    <div class="grid__products" *ngIf="!loading">
+    <div *ngIf="products?.length != 0;else message">
+   
+    <div class="grid__products" *ngIf="!loading" >
         <div (mouseleave)="mouseLeave(false, product)" (mouseenter)="mouseEnter(true, product)" class="product__card" *ngFor="let product of products">
             <button *ngIf="isAdmin" class="card__delete" (click)="deleteProduct(product.id)">X</button>
             <div class="product__info">
@@ -51,12 +53,12 @@
                 <div class="prodcut__category_price">
                     <h5>{{product.category.categoryName}}</h5>     
                     <h3 class="product__price">{{product.productPrice}} <span>грн</span></h3>
-                 
+                    <h5>{{product.brand.name}}</h5>
                 </div>
             
                 <div class="grid__buttons">
 
-                    <button class="button__buy" [@fullWidth]="styleOn && currentProduct === product ? 'max': 'min'" *ngIf="!product.showButton;else inBasket" (click)="addToCart(product)">
+                    <button [disabled]="product.amountInStock === 0" class="button__buy" [@fullWidth]="styleOn && currentProduct === product ? 'max': 'min'" *ngIf="!product.showButton;else inBasket" (click)="addToCart(product)">
                         <span  class="material-icons basket_icon">shopping_basket</span>
                         <span class="span__buy" [ngClass]="{'span__buy_hover':styleOn && currentProduct === product}" >Buy</span>
                         
@@ -70,8 +72,12 @@
             </div>
         </div>
     </div>
+         
+</div>
 </section>
-<ng-template #message>lox</ng-template>
+<ng-template #message>
+    <h1>Lox tutaj nic nie ma</h1>
+</ng-template>
 <ng-template #inBasket>
 
     <h6>In basket</h6>
