@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Product } from '../model/product.model';
 import { Category } from '../model/category.model';
 import {environment} from '../../environments/environment';
+import { Cpu } from '../model/cpu.model';
 
 
 
@@ -43,6 +44,15 @@ export class ProductService{
        }
         return this.http.post(API_URL + 'products/pushImage', data);
 
+    }
+
+    getAllCpus(): Observable<Cpu[]>{
+        console.log('sad');
+        return this.http.get<Cpu[]>(API_URL + 'products/cpus');
+    }
+    
+    createCpu(cpu: Cpu){
+        return this.http.post(API_URL + 'products/createCpu', cpu, {responseType: 'text'});
     }
 
     detailsProduct(id: number): Observable<Product>{

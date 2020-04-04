@@ -46,10 +46,34 @@ apiKey = "oafydqqtkaeecsa5sztqiauvrrawxqlyhrjhy0lx29dtr56r"
 
 <div>
     <h2>Amount In Stock</h2>
-    <input type="number" name="amountInStock" [(ngModel)]="product.amountInStock" >
+    <input type="number" name="amountInStock" [(ngModel)]="product.amountInStock" > 
+</div>
+
+<div>
+    <select name="cpus" (change)="showCpuDetails()" [(ngModel)]="product.cpu.id">
+
+        <option  *ngFor="let cpu of cpus"  value="{{cpu.id}}">{{cpu.name}}</option>
+    </select>
 </div>
 
 
+<div *ngIf="currentCpu != null">
+
+    <h3>{{currentCpu.name}}</h3>
+
+    <h3>{{currentCpu.minFrequency}}</h3>
+
+    <h3>{{currentCpu.maxFrequency}}</h3>
+
+    <h3>{{currentCpu.generation}}</h3>
+
+    <h3>{{currentCpu.numberOfCores}}</h3>
+
+    <h3>{{currentCpu.integratedGraphics}}</h3>
+
+
+
+</div>
 
 <div *ngIf="showButton;else message">
 <div>
@@ -71,6 +95,4 @@ apiKey = "oafydqqtkaeecsa5sztqiauvrrawxqlyhrjhy0lx29dtr56r"
 </ng-template>
 
 </form>
-
-
 

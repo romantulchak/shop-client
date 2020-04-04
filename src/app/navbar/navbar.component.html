@@ -5,11 +5,12 @@
     <button (click)="search()">Search</button>
 </div>
 
-<nav id="navbar_sticky" class="navbar animated fadeInDown">
+<nav id="navbar_sticky" class="navbar">
     <ul class="navbar__nav">
         <li><a routerLink="/">Home</a></li>
         <li><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/orders">Orders</a></li>
         <li><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/brands">Brands</a></li>
+        <li><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/cpus">Cpu</a></li>
         <button *ngIf="tokenStorageService.isLoggedIn" class="nav-link" (click)="logout()">LogOut</button>
     </ul>
     <div class="navbar__auth"> 

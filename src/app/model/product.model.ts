@@ -1,6 +1,7 @@
 import { Image } from './image.model';
 import { Category } from './category.model';
 import { Brand } from './brand.models';
+import { Cpu } from './cpu.model';
 
 export class Product{
 
@@ -13,5 +14,6 @@ export class Product{
     showButton?: boolean;
     brand: Brand;
     amountInStock: number;
+    cpu: Cpu;
 
 }

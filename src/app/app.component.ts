@@ -15,6 +15,13 @@ export class AppComponent {
 
   constructor(private tokenStorageService: TokenStorageService){}
 
+
+  @HostListener('window:onbeforeunload', ['$event'])
+  beforeunloadHandler(event) {
+    localStorage.removeItem("auth-token");
+    localStorage.removeItem("auth-user");
+  }
+
   ngOnInit() {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 

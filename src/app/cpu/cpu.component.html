@@ -1,0 +1,43 @@
+<div *ngFor="let cpu of cpus">
+    <h3>{{cpu.name}}</h3>
+</div>
+
+<form (submit)="createCpu()" method="POST" action="">
+
+    <div>
+        <h3>Name</h3>
+        <input type="text" name="name" [(ngModel)]="cpu.name">
+    </div>
+
+
+    <div>
+        <h3>Min Frequency</h3>
+        <input type="text" name="minFrequency" [(ngModel)]="cpu.minFrequency">
+    </div>
+
+    <div>
+        <h3>Max Frequency</h3>
+        <input type="text" name="maxFrequency" [(ngModel)]="cpu.maxFrequency">
+    </div>
+
+    <div>
+        <h3>Generation</h3>
+        <input type="text" name="generation" [(ngModel)]="cpu.generation">
+    </div>
+
+    <div>
+        <h3>Integrated Graphics</h3>
+        <input type="checkbox" name="integratedGraphics" [(ngModel)]="cpu.integratedGraphics">
+    </div>
+
+    <div>
+        <h3>L3 Cache</h3>
+        <input type="number" name="cacheL3" [(ngModel)]="cpu.cacheL3">
+    </div>
+    <div>
+        <h3>Number Of Cores</h3>
+        <input type="number" name="numberOfCores" [(ngModel)]="cpu.numberOfCores">
+    </div>
+    
+    <button type="submit">Save</button>
+</form>

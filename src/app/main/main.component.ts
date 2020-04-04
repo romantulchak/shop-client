@@ -90,8 +90,6 @@ export class MainComponent implements OnInit {
             }
 
           );
-
-
           this.getProducts();
           
         }
@@ -134,16 +132,17 @@ export class MainComponent implements OnInit {
       console.log('1');
       this.brandsToSend.push(brandName);
     }else{
-      console.log('2');
-      
       this.brandsToSend = this.brandsToSend.filter(e=>e != brandName);
     }
-
     this.productService.filter(this.brandsToSend).subscribe(
 
       res=>{
         if(res !=null){
           this.products = res;
+
+          this.checkInBasket(res);
+           
+        
           setTimeout(() => {
             this.loading = false;
           }, 500);
@@ -158,15 +157,15 @@ export class MainComponent implements OnInit {
   }
 
   getProducts(){
-
-
     this.productService.getProducts().subscribe(
         res=>{
            if(res != null){
             this.products = res;
-            console.log(res);
+           
+            this.checkInBasket(res);
+
+           /*
             res.forEach(e=>{
-             
               setTimeout(() => {
                 this.productCheck.forEach(el=>{
                   if(e.id === el.id){
@@ -175,11 +174,7 @@ export class MainComponent implements OnInit {
                });
               });
               }, 1000);
-
-
-
-
-
+              */
 
              setTimeout(() => {
               this.loading = false;
@@ -190,9 +185,19 @@ export class MainComponent implements OnInit {
           console.log(error);
         }
      );
+  }
 
-
-
+  checkInBasket(res: Product[]){
+    res.forEach(e=>{
+      setTimeout(() => {
+        this.productCheck.forEach(el=>{
+          if(e.id === el.id)
+            e.showButton = el.showButton;
+        });
+      }, 1000);
+    });
+    
+    
   }
 
 
@@ -249,26 +254,6 @@ export class MainComponent implements OnInit {
     product.showButton = true;
     this.basketService.addToBasket(product);
     this.notificationServcei.openSnackBar("Added to your card " + product.productName);
-    /* this.sa.id = product.id;
-    this.sa.name = product.productName;
-  
-    if(localStorage.getItem('product') === null){     
-        this.prodToadd.push(this.sa);
-        console.log('sadsadsa');
-        console.log(this.prodToadd);
-        localStorage.setItem('product', JSON.stringify(this.prodToadd));
-        //localStorage.setItem('product', JSON.stringify(this.sa));    
-      }else{
-        this.prodToadd = this.basketService.sa;
-        console.log('Basket sa')
-        console.log(this.basketService.sa);
-        
-        this.prodToadd.push(this.sa);
-        console.log('TOADDDDDDDDDDd');
-        console.log(this.prodToadd);
-        localStorage.setItem('product', JSON.stringify(this.prodToadd));
-    }*/
-    //this.basketService.updateCart();
   }
 
   filterByCategory(){

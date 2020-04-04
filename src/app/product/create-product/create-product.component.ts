@@ -6,6 +6,7 @@ import { ProductService } from 'src/app/service/product.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { Brand } from 'src/app/model/brand.models';
 import { BrandService } from 'src/app/service/brand.service';
+import { Cpu } from 'src/app/model/cpu.model';
 
 @Component({
   selector: 'app-create-product',
@@ -32,16 +33,21 @@ export class CreateProductComponent implements OnInit {
     image: null,
     productPrice: 0,
     brand: new Brand(),
-    amountInStock: 0
+    amountInStock: 0,
+    cpu: new Cpu()
   };
 
   public category: Category[];
   public brands: Brand[];
+  public cpus: Cpu[];
+  public currentCpu: Cpu = new Cpu();
+
   constructor(private brandService: BrandService,private notificationService: NotificationService, private categoryService: CategoryService, private productService: ProductService) { }
 
   ngOnInit(): void {
     this.getCategories();
     this.getBrands();
+    this.getAllCpus();
   }
   public getCategories(){
     this.categoryService.getCategories().subscribe(
@@ -55,6 +61,20 @@ export class CreateProductComponent implements OnInit {
           }else{
             this.showButton = true;
           }
+      },
+      error=>{
+        console.log(error);
+      }
+
+    );
+  }
+  public getAllCpus(){
+    this.productService.getAllCpus().subscribe(
+
+
+      res=>{
+        if(res != null)
+          this.cpus = res;
       },
       error=>{
         console.log(error);
@@ -86,7 +106,19 @@ export class CreateProductComponent implements OnInit {
 
       );
   }
+  showCpuDetails(){
+  
+    this.cpus.forEach(e=>{
+      
 
+      if(e.id == this.product.cpu.id){
+
+        this.currentCpu = e;
+      }
+    });
+
+
+  }
   handleImages(event){
     this.selectedFiles = event.target.files;
     console.log(this.selectedFiles);

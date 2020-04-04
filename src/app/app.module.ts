@@ -46,6 +46,7 @@ import { RenamerPipe } from './pipes/renamer.pipe';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { EditUserComponent } from './profile/edit-user/edit-user.component';
 import { BrandComponent } from './brand/brand.component';
+import { CpuComponent } from './cpu/cpu.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +67,8 @@ import { BrandComponent } from './brand/brand.component';
     NotFoundComponent,
     RenamerPipe,
     EditUserComponent,
-    BrandComponent
+    BrandComponent,
+    CpuComponent
 
   ],
   imports: [
