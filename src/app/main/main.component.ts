@@ -14,6 +14,7 @@ import { TokenStorageService } from '../service/token-storage.service';
 import { NotificationService } from '../service/notification.service';
 import { BrandService } from '../service/brand.service';
 import { Brand } from '../model/brand.models';
+import { Cpu } from '../model/cpu.model';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -24,7 +25,7 @@ import { Brand } from '../model/brand.models';
         width:'7em',
         color: '#fff',
         background: 'orange'
-        
+
       })),
       state('min', style({
         width: '2em'
@@ -47,8 +48,8 @@ export class MainComponent implements OnInit {
   public loading = true;
   public productToCompare: Product;
   public products: Product[];
-  public brandsToSend: string[] = []; 
-
+  public brandsToSend: string[] = [];
+  public cpusToSend: string[] = [];
   public category: Category = {
     id: null,
     categoryName: '',
@@ -56,10 +57,11 @@ export class MainComponent implements OnInit {
   };
   public categories: Category[];
   public brands: Brand[];
+  public cpus: Cpu[];
   constructor(private brandService: BrandService,  private notificationServcei: NotificationService, private toketnSerivce: TokenStorageService, private productService: ProductService,private orderService: OrderService, private basketService: BasketService, private categoryService: CategoryService, public dialog?: MatDialog) { }
 
   public isAdmin = false;
- 
+
   productCheck: any[] = [];
   ngOnInit(): void {
 
@@ -71,17 +73,17 @@ export class MainComponent implements OnInit {
       this.getProducts();
       this.getCategories();
       this.getAllBrands();
-
+      this.getAllCpus();
    }, 500);
 
-    
+
 
 
 
     this.basketService.updateProducts.subscribe(
       res=>{
         if(res === true){
-          
+
           this.basketService.productsAfterRemove.subscribe(
 
             res=>{
@@ -91,17 +93,27 @@ export class MainComponent implements OnInit {
 
           );
           this.getProducts();
-          
+
         }
       }
-  
+
     );
-
-  
-
-
-
   }
+
+  getAllCpus(){
+    this.productService.getAllCpus().subscribe(
+
+      res=>{
+        if(res != null)
+          this.cpus = res;
+      },
+      error=>{
+        console.log(error);
+      }
+
+    );
+  }
+
   getAllBrands(){
     this.brandService.getAllBrands().subscribe(
 
@@ -110,7 +122,7 @@ export class MainComponent implements OnInit {
           this.brands = res;
           console.log(res);
         }
-        
+
       }
 
     );
@@ -125,24 +137,38 @@ export class MainComponent implements OnInit {
 
   }
 
- 
-  filter(brandName: string){
+
+  filter(brandName?: string, cpuName?: string){
     this.loading = true;
-    if(!this.brandsToSend.includes(brandName)){
-      console.log('1');
-      this.brandsToSend.push(brandName);
-    }else{
-      this.brandsToSend = this.brandsToSend.filter(e=>e != brandName);
+    
+    if(brandName != null){
+      if(!this.brandsToSend.includes(brandName)){
+        console.log('1');
+        this.brandsToSend.push(brandName);
+      }else{
+        this.brandsToSend = this.brandsToSend.filter(e=>e != brandName);
+      }
     }
-    this.productService.filter(this.brandsToSend).subscribe(
+    if(cpuName != null){
+      if(!this.cpusToSend.includes(cpuName)){
+        console.log('2');
+        this.cpusToSend.push(cpuName);
+      }else{
+        this.cpusToSend = this.cpusToSend.filter(e=>e != cpuName);
+      }
+    }
+  
+
+
+    this.productService.filter(this.brandsToSend, this.cpusToSend).subscribe(
 
       res=>{
         if(res !=null){
           this.products = res;
 
           this.checkInBasket(res);
-           
-        
+
+
           setTimeout(() => {
             this.loading = false;
           }, 500);
@@ -161,7 +187,7 @@ export class MainComponent implements OnInit {
         res=>{
            if(res != null){
             this.products = res;
-           
+
             this.checkInBasket(res);
 
            /*
@@ -194,10 +220,10 @@ export class MainComponent implements OnInit {
           if(e.id === el.id)
             e.showButton = el.showButton;
         });
-      }, 1000);
+      }, 500);
     });
-    
-    
+
+
   }
 
 
@@ -228,7 +254,7 @@ export class MainComponent implements OnInit {
      },
      error => {
        console.log(error);
-     }  
+     }
 
     );
   }
@@ -264,7 +290,7 @@ export class MainComponent implements OnInit {
           this.products = res;
           console.log(res);
         }
-    
+
       },
       error=>{
         console.log(error);

@@ -5,10 +5,11 @@ import { Product } from '../model/product.model';
 import { Category } from '../model/category.model';
 import {environment} from '../../environments/environment';
 import { Cpu } from '../model/cpu.model';
+import { Gpu } from '../model/gpu.model';
 
 
 
-const API_URL = environment.apiUrl; 
+const API_URL = environment.apiUrl;
 
 
 @Injectable()
@@ -28,17 +29,17 @@ export class ProductService{
     createProduct(product: Product){
         return this.http.post(API_URL + 'products/createProduct', product, {responseType:'text'});
     }
-    deleteProduct(id: number){ 
+    deleteProduct(id: number){
         return this.http.delete(API_URL + 'products/deleteProduct/' + id, {responseType: 'text'});
     }
     pushImage(files:File[]){
         const data: FormData = new FormData();
-        
+
        /* files.forEach(el=>{
             console.log(el);
             data.append('file', el);
         });
-        */  
+        */
        for(let i = 0; i < files.length; i++){
            data.append('file', files[i]);
        }
@@ -47,13 +48,23 @@ export class ProductService{
     }
 
     getAllCpus(): Observable<Cpu[]>{
-        console.log('sad');
+       
         return this.http.get<Cpu[]>(API_URL + 'products/cpus');
     }
-    
+
     createCpu(cpu: Cpu){
         return this.http.post(API_URL + 'products/createCpu', cpu, {responseType: 'text'});
     }
+
+    getAllGpus(): Observable<Gpu[]>{
+        
+        return this.http.get<Gpu[]>(API_URL + 'products/gpus');
+    }
+
+    createGpu(gpu: Gpu){
+        return this.http.post(API_URL + 'products/createGpu', gpu, {responseType: 'text'});
+    }
+
 
     detailsProduct(id: number): Observable<Product>{
         return this.http.get<Product>(API_URL + 'products/details/' + id);
@@ -65,12 +76,17 @@ export class ProductService{
         return this.http.get<Product[]>(API_URL + 'products/filterByCategory/', {params: paramsToSend})
     }
 
-    filter(brands?:string[]): Observable<Product[]>{
+    filter(brands?:string[], cpus?: string[]): Observable<Product[]>{
         let paramsToSend = new HttpParams();
         if(brands != null){
             brands.forEach(brand=>{
                 paramsToSend = paramsToSend.append('brands', brand);
             });
+        }
+        if(cpus != null){
+          cpus.forEach(cpu=>{
+            paramsToSend = paramsToSend.append('cpus', cpu);
+          });
         }
         return this.http.get<Product[]>(API_URL + 'products/filter', {params: paramsToSend});
 
