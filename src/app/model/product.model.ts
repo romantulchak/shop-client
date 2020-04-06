@@ -2,6 +2,7 @@ import { Image } from './image.model';
 import { Category } from './category.model';
 import { Brand } from './brand.models';
 import { Cpu } from './cpu.model';
+import { Gpu } from './gpu.model';
 
 export class Product{
 
@@ -15,5 +16,6 @@ export class Product{
     brand: Brand;
     amountInStock: number;
     cpu: Cpu;
+    gpu: Gpu;
 
 }

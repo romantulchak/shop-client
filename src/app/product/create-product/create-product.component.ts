@@ -7,6 +7,7 @@ import { NotificationService } from 'src/app/service/notification.service';
 import { Brand } from 'src/app/model/brand.models';
 import { BrandService } from 'src/app/service/brand.service';
 import { Cpu } from 'src/app/model/cpu.model';
+import { Gpu } from 'src/app/model/gpu.model';
 
 @Component({
   selector: 'app-create-product',
@@ -34,20 +35,23 @@ export class CreateProductComponent implements OnInit {
     productPrice: 0,
     brand: new Brand(),
     amountInStock: 0,
-    cpu: new Cpu()
+    cpu: new Cpu(),
+    gpu: new Gpu()
   };
 
   public category: Category[];
   public brands: Brand[];
   public cpus: Cpu[];
   public currentCpu: Cpu = new Cpu();
-
+  public gpus: Gpu[];
+  public currentGpu: Gpu = new Gpu();
   constructor(private brandService: BrandService,private notificationService: NotificationService, private categoryService: CategoryService, private productService: ProductService) { }
 
   ngOnInit(): void {
     this.getCategories();
     this.getBrands();
     this.getAllCpus();
+    this.getAllGpus();
   }
   public getCategories(){
     this.categoryService.getCategories().subscribe(
@@ -70,8 +74,6 @@ export class CreateProductComponent implements OnInit {
   }
   public getAllCpus(){
     this.productService.getAllCpus().subscribe(
-
-
       res=>{
         if(res != null)
           this.cpus = res;
@@ -82,6 +84,22 @@ export class CreateProductComponent implements OnInit {
 
     );
   }
+  public getAllGpus(){
+    this.productService.getAllGpus().subscribe(
+
+      res=>{
+        if(res != null)
+          this.gpus = res;
+      },
+      error=>{
+        console.log(error);
+      }
+
+
+    );
+  }
+
+
   public createProduct(){
     this.productService.pushImage(this.selectedFiles).subscribe(
 
@@ -107,17 +125,18 @@ export class CreateProductComponent implements OnInit {
       );
   }
   showCpuDetails(){
-  
     this.cpus.forEach(e=>{
-      
-
       if(e.id == this.product.cpu.id){
-
         this.currentCpu = e;
       }
     });
-
-
+  }
+  showGpuDetails(){
+    this.gpus.forEach(e=>{
+      if(e.id == this.product.gpu.id){
+        this.currentGpu = e;
+      }
+    });
   }
   handleImages(event){
     this.selectedFiles = event.target.files;

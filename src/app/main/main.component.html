@@ -15,10 +15,6 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-
-
-
-
     <button type="submit">Filter</button>
 
 </form>
@@ -41,7 +37,10 @@
         <div *ngFor="let cpu of cpus">
             <input type="checkbox" (change)="filter(null, cpu.name)" value="{{cpu.name}}">{{cpu.name}}
         </div>
-
+        <hr>
+        <div *ngFor="let gpu of gpus">
+            <input type="checkbox" (change)="filter(null, null, gpu)" value="{{gpu.name}}">{{gpu.name}}
+        </div>
     </div>
 
 

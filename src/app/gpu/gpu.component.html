@@ -1,1 +1,41 @@
-<p>gpu works!</p>
+<div *ngIf="gpus.length != 0">
+    <div *ngFor="let gpu of gpus">
+        <h3>{{gpu.name}}</h3>
+    </div>
+</div>
+
+
+<form (submit)="createGpu()">
+
+    <div>
+        <h3>Name</h3>
+        <input type="text" name="name" [(ngModel)]="gpu.name">
+    </div>
+
+
+    <div>
+        <h3>Memory Bus Width</h3>
+        <input type="text" name="memoryBusWidth" [(ngModel)]="gpu.memoryBusWidth">
+    </div>
+
+    <div>
+        <h3>Memory Frequency</h3>
+        <input type="text" name="maxFrequency" [(ngModel)]="gpu.memoryFrequency">
+    </div>
+
+    <div>
+        <h3>Memory Size</h3>
+        <input type="text" name="generation" [(ngModel)]="gpu.memorySize">
+    </div>
+
+    <div>
+        <h3>Memory Type</h3>
+        <input type="number" name="integratedGraphics" [(ngModel)]="gpu.memoryType">
+    </div>
+
+    
+    <button type="submit">Save</button>
+
+
+
+</form>

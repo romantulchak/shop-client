@@ -3,28 +3,44 @@
 </div>
 
 
-<div *ngIf="!loading">
-<h2>TOTAL PRICE: {{totalPrice}}</h2>
+<div class="basket" *ngIf="!loading">
+    <div class="basket__title_button">
+        <h2>Shoping cart</h2>
+        <span>X</span>
+    </div>
 <div class="basket__grid">
     <div class="basket__item" *ngFor="let item of sa">
-        <img style="width: 4em; height: 4em;" src="{{item.images[0].imagePath}}" alt="">
-
-        <h1><a (click)="closeDialog()" routerLink="/detailsProduct/{{item.id}}">{{item.productName}}</a></h1>
-        <div class="basket__title_remove">
-
-            <h5>Code: {{item.id}}</h5>
-            <h3>Price: {{item.price}}</h3>
-            <h4>Total price: {{item.totalProducPrice}}</h4>
+        <div class="basket__image">
+            <img src="{{item.images[0].imagePath}}" alt="">
+        </div>
+        <div class="basket__item_description">
+           <div class="basket__item_name">
+                <div class="basket__name_code">
+                    <h4>
+                        <a (click)="closeDialog()" routerLink="/detailsProduct/{{item.id}}">{{item.productName}}</a>
+                    </h4>
+                    <h5>Code: {{item.id}}</h5>
+                </div>
+                <button (click)="remove(item)">Remove</button>
+           </div>
+                <div class="basket__price_amount">
+    
+                    <h3>{{item.price}} грн</h3>
+                    <div class="basket__amount">
+                        <button class="control__buttons button__minus" (click)="minusAmount(item)"></button>
+                        <h3 >{{item.amount}}</h3>
+                        <button class="control__buttons button__plus" (click)="plusAmount(item)"></button>
+                    </div>
+                    <h4>{{item.totalProducPrice}}</h4>
+                </div>
+       
         </div>
 
-        <div class="basket__amount">
-            <button (click)="minusAmount(item)">-</button>
-            <h3 >{{item.amount}}</h3>
-            <button (click)="plusAmount(item)">+</button>
-        </div>
-        <button (click)="remove(item)">Remove</button>
+        
+
 
     </div>
+    <h2>TOTAL PRICE: {{totalPrice}}</h2>
 </div>
 
 <a (click)="closeDialog()" routerLink="/basket">buy</a>

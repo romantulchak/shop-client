@@ -15,6 +15,7 @@ import { NotificationService } from '../service/notification.service';
 import { BrandService } from '../service/brand.service';
 import { Brand } from '../model/brand.models';
 import { Cpu } from '../model/cpu.model';
+import { Gpu } from '../model/gpu.model';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -50,6 +51,7 @@ export class MainComponent implements OnInit {
   public products: Product[];
   public brandsToSend: string[] = [];
   public cpusToSend: string[] = [];
+  public gpusToSend: string[] = [];
   public category: Category = {
     id: null,
     categoryName: '',
@@ -58,6 +60,7 @@ export class MainComponent implements OnInit {
   public categories: Category[];
   public brands: Brand[];
   public cpus: Cpu[];
+  public gpus: Gpu[];
   constructor(private brandService: BrandService,  private notificationServcei: NotificationService, private toketnSerivce: TokenStorageService, private productService: ProductService,private orderService: OrderService, private basketService: BasketService, private categoryService: CategoryService, public dialog?: MatDialog) { }
 
   public isAdmin = false;
@@ -74,6 +77,7 @@ export class MainComponent implements OnInit {
       this.getCategories();
       this.getAllBrands();
       this.getAllCpus();
+      this.getAllGpus();
    }, 500);
 
 
@@ -95,6 +99,21 @@ export class MainComponent implements OnInit {
           this.getProducts();
 
         }
+      }
+
+    );
+  }
+
+  getAllGpus(){
+    this.productService.getAllGpus().subscribe(
+
+
+      res=>{
+        if(res != null)
+          this.gpus = res;
+      },
+      error=>{
+        console.log(error);
       }
 
     );
@@ -138,7 +157,7 @@ export class MainComponent implements OnInit {
   }
 
 
-  filter(brandName?: string, cpuName?: string){
+  filter(brandName?: string, cpuName?: string, gpuName?: string){
     this.loading = true;
     
     if(brandName != null){
@@ -155,6 +174,16 @@ export class MainComponent implements OnInit {
         this.cpusToSend.push(cpuName);
       }else{
         this.cpusToSend = this.cpusToSend.filter(e=>e != cpuName);
+      }
+
+      if(gpuName != null){
+        if(!this.gpusToSend.includes(gpuName)){
+          console.log('3');
+          this.gpusToSend.push(gpuName);
+        }else{
+          this.gpusToSend = this.gpusToSend.filter(e=>e != gpuName);
+        }
+  
       }
     }
   

@@ -71,9 +71,30 @@ apiKey = "oafydqqtkaeecsa5sztqiauvrrawxqlyhrjhy0lx29dtr56r"
 
     <h3>{{currentCpu.integratedGraphics}}</h3>
 
+</div>
+
+<div>
+    <select name="cpus" (change)="showGpuDetails()" [(ngModel)]="product.gpu.id">
+
+        <option  *ngFor="let gpu of gpus"  value="{{gpu.id}}">{{gpu.name}}</option>
+    </select>
+</div>
+
+<div *ngIf="currentGpu != null">
+
+    <h3>{{currentGpu.name}}</h3>
+
+    <h3>{{currentGpu.memoryBusWidth}}</h3>
+
+    <h3>{{currentGpu.memoryFrequency}}</h3>
+
+    <h3>{{currentGpu.memorySize}}</h3>
+
+    <h3>{{currentGpu.memoryType}}</h3>
 
 
 </div>
+
 
 <div *ngIf="showButton;else message">
 <div>

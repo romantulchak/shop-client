@@ -15,6 +15,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { RegistrationGuard } from './guards/registration-guard.service';
 import { BrandComponent } from './brand/brand.component';
 import { CpuComponent } from './cpu/cpu.component';
+import { GpuComponent } from './gpu/gpu.component';
 
 
 const routes: Routes = [
@@ -46,7 +47,10 @@ const routes: Routes = [
   canActivate: [AuthGuard], 
   data:{role: 'ROLE_ADMIN'}
   },
-
+  { path: 'gpus', component: GpuComponent, 
+  canActivate: [AuthGuard], 
+  data:{role: 'ROLE_ADMIN'}
+  },
   {path: '**', component: NotFoundComponent}
 
 ];
