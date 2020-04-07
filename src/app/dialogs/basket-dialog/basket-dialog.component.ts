@@ -51,13 +51,9 @@ export class BasketDialogComponent implements OnInit {
         //TODO: якщо не працює корзина
        // this.sa = this.basketService.sa;
        this.basketService.productsAfterRemove.subscribe(
-
-
         res=>{
           if(res != null){
             this.sa = res;
-
-      console.log(res);
           }
         }
 
@@ -130,33 +126,93 @@ export class BasketDialogComponent implements OnInit {
       this.notificationService.openSnackBar("Minimum 1 item");
     }
   }
+  
+  updateAmount(product: any, amount: any){
 
+    if(!(product.amount >= 99)){
+      this.orderService.checkAmount(product.id, amount).subscribe(
+        res=>{
+          let sum = res * product.price;
+          if(res === Number.parseInt(amount)){
+            if(Number.parseInt(amount) >= res){
+            
+              product.totalProducPrice = sum;
+              product.amount = res;
+              console.log(product.totalProducPrice);
+              this.updateItem(product);
+             
+            }else{
+
+            }
+          }else{
+            this.totalPrice += sum-product.price;
+            product.amount = res;
+            product.totalProducPrice = sum;
+            this.updateItem(product);
+            this.notificationService.openSnackBar("Maximum in the stock");
+            
+          }
+
+          setTimeout(() => {
+
+            this.price();            
+          }, 1500);
+          this.totalPrice -= product.price;
+        /*
+
+          let sum = (product.price * res);
+          if(res === Number.parseInt(amount)){
+          if(product.amount <= Number.parseInt(amount)){
+            product.totalProducPrice =0;
+            product.amount = res;
+              product.totalProducPrice += sum;
+              this.totalPrice +=sum;
+          }else{
+            product.amount = res;
+            product.totalProducPrice -= sum;
+            this.totalPrice -= sum;
+          }
+          this.updateItem(product);
+        }else{
+          product.amount = res;
+          this.notificationService.openSnackBar("Maximum in the stock");
+        }
+          
+         
+          
+               
+          }else{
+            product.amount = res;
+            this.notificationService.openSnackBar("Maximum in the stock");
+          }
+          */
+    
+
+        
+        }
+
+      );
+    }
+  }
+  
   //TODO: придумати як обмежувати макс кількість.
   plusAmount(product: any){
-
-
-
-
-    if(!(product.amount >= 10)){
-
+    if(!(product.amount >= 99)){
+      product.amount += 1;
       this.orderService.checkAmount(product.id, product.amount).subscribe(
-
         res=>{
-          if(res === true){
-            product.amount += 1;
+          if(res === product.amount){
             product.totalProducPrice += product.price;
             this.totalPrice += product.price;
             this.updateItem(product);
           }else{
+            product.amount = res;
             this.notificationService.openSnackBar("Maximum in the stock");
           }
         }
-
       );
-
-
     }else{
-      this.notificationService.openSnackBar("Maximum 10 items");
+      this.notificationService.openSnackBar("Maximum 99 items");
     }
   }
 
@@ -164,6 +220,7 @@ export class BasketDialogComponent implements OnInit {
 
   updateItem(item: any){
     localStorage.setItem('product', JSON.stringify(this.sa));   
+    this.basketService.sa = this.sa;
   }
   
   showForm(){
@@ -174,17 +231,12 @@ export class BasketDialogComponent implements OnInit {
     this.sa.forEach(el=>{
       this.order.items.push(el);
     });
-
     this.order.totalPrice = this.totalPrice;
-  
-    console.log(this.order);
     this.orderService.createOrder(this.order).subscribe(
-
-
       res=>{
         if(res != null){
           this.orderNumber = res;
-          console.log(res);
+
           this.showOrderForm = false;
           this.sa = [];
           localStorage.setItem('product', JSON.stringify(this.sa));
@@ -217,9 +269,6 @@ export class BasketDialogComponent implements OnInit {
   remove(product: any){
     if(localStorage.getItem('product')!= null){
       if(this.sa.length != 0){
-        console.log('sadasdasdsad');
-        
-        
        /*
         for(let el of this.sa){
           console.log(el.id);
@@ -232,9 +281,7 @@ export class BasketDialogComponent implements OnInit {
         this.sa = this.sa.filter(x=> x != product);
 
         if(product.amount > 1){
-          for(let i = 0; i < product.amount; i++){
-            this.totalPrice -= product.price;
-          }
+          this.totalPrice -= product.price * product.amount;
         }else{
           this.totalPrice -= product.price;
         }

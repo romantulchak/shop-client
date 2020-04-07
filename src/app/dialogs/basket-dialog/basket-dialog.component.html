@@ -27,8 +27,8 @@
     
                     <h3>{{item.price}} грн</h3>
                     <div class="basket__amount">
-                        <button class="control__buttons button__minus" (click)="minusAmount(item)"></button>
-                        <h3 >{{item.amount}}</h3>
+                        <button [disabled]="item.amount == 1" class="control__buttons button__minus" (click)="minusAmount(item)"></button>
+                        <input type="number" (change)="updateAmount(item,f.value )" #f [value]="item.amount" width="2em">
                         <button class="control__buttons button__plus" (click)="plusAmount(item)"></button>
                     </div>
                     <h4>{{item.totalProducPrice}}</h4>
