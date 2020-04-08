@@ -67,10 +67,7 @@ export class MainComponent implements OnInit {
 
   productCheck: any[] = [];
   ngOnInit(): void {
-
-    console.log('TEST');
     this.isAdmin = this.toketnSerivce.showAdminBoard;
-    console.log(this.basketService.sa);
     setTimeout(() => {
       this.productCheck =  this.basketService.sa;
       this.getProducts();
@@ -79,35 +76,25 @@ export class MainComponent implements OnInit {
       this.getAllCpus();
       this.getAllGpus();
    }, 500);
-
-
-
-
-
     this.basketService.updateProducts.subscribe(
       res=>{
         if(res === true){
-
           this.basketService.productsAfterRemove.subscribe(
-
             res=>{
               if(res != null)
-                this.productCheck = res;
+              {
+                  this.productCheck = res;
+              }
             }
-
           );
           this.getProducts();
-
         }
       }
-
     );
   }
 
   getAllGpus(){
     this.productService.getAllGpus().subscribe(
-
-
       res=>{
         if(res != null)
           this.gpus = res;
@@ -115,7 +102,6 @@ export class MainComponent implements OnInit {
       error=>{
         console.log(error);
       }
-
     );
   }
 
@@ -159,7 +145,7 @@ export class MainComponent implements OnInit {
 
   filter(brandName?: string, cpuName?: string, gpuName?: string){
     this.loading = true;
-    
+
     if(brandName != null){
       if(!this.brandsToSend.includes(brandName)){
         console.log('1');
@@ -175,21 +161,19 @@ export class MainComponent implements OnInit {
       }else{
         this.cpusToSend = this.cpusToSend.filter(e=>e != cpuName);
       }
-
-      if(gpuName != null){
-        if(!this.gpusToSend.includes(gpuName)){
-          console.log('3');
-          this.gpusToSend.push(gpuName);
-        }else{
-          this.gpusToSend = this.gpusToSend.filter(e=>e != gpuName);
-        }
-  
-      }
     }
-  
+    
+    if(gpuName != null){
+      console.log('3');
+      if(!this.gpusToSend.includes(gpuName)){
+        console.log('3');
+        this.gpusToSend.push(gpuName);
+      }else{
+        this.gpusToSend = this.gpusToSend.filter(e=>e != gpuName);
+      }
 
-
-    this.productService.filter(this.brandsToSend, this.cpusToSend).subscribe(
+    }
+    this.productService.filter(this.brandsToSend, this.cpusToSend, this.gpusToSend).subscribe(
 
       res=>{
         if(res !=null){
@@ -215,6 +199,7 @@ export class MainComponent implements OnInit {
     this.productService.getProducts().subscribe(
         res=>{
            if(res != null){
+            console.log(res);
             this.products = res;
 
             this.checkInBasket(res);
@@ -245,6 +230,7 @@ export class MainComponent implements OnInit {
   checkInBasket(res: Product[]){
     res.forEach(e=>{
       setTimeout(() => {
+        console.log(this.productCheck);
         this.productCheck.forEach(el=>{
           if(e.id === el.id)
             e.showButton = el.showButton;

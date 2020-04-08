@@ -1,10 +1,6 @@
 
-
-
 <button (click)="filterByPrice()">Filter</button>
-
 <form style="padding: 0.8em;" (ngSubmit)="filterByCategory()">
-
 
     <mat-form-field>
         <mat-label>Choose category</mat-label>
@@ -35,11 +31,11 @@
         </div>
         <hr>
         <div *ngFor="let cpu of cpus">
-            <input type="checkbox" (change)="filter(null, cpu.name)" value="{{cpu.name}}">{{cpu.name}}
+            <input type="checkbox" (change)="filter(null, cpu.name, null)" value="{{cpu.name}}">{{cpu.name}}
         </div>
         <hr>
         <div *ngFor="let gpu of gpus">
-            <input type="checkbox" (change)="filter(null, null, gpu)" value="{{gpu.name}}">{{gpu.name}}
+            <input type="checkbox" (change)="filter(null, null, gpu.name)" value="{{gpu.name}}">{{gpu.name}}
         </div>
     </div>
 
@@ -71,12 +67,9 @@
                         <mat-icon>favorite</mat-icon>
                       </button>
                 </div>
-
-
             </div>
         </div>
     </div>
-
 </div>
 </section>
 <ng-template #message>

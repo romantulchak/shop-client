@@ -1,20 +1,46 @@
-.navbar{
+@font-face{
+    font-family: MuliRegular;
+    src: url("../../assets/fonts/Muli-Regular.ttf");
+}
 
+
+.navbar{
+    display: -webkit-box;
     display: flex;
-    padding: 1em;
+    /* padding: .7em; */
     -webkit-box-pack: center;
     justify-content: center;
-    background: #fff;
-    box-shadow: 0px 2px 3px #401313;
+    background: #252525;
     justify-content: space-around;
+    color: #fff;
 }
 .navbar__nav{
     display: flex;
     list-style-type: none;
 }
-.navbar__nav li{
-    padding: .5em;
+.navbar__nav li > a{
+        /* height: 100%; */
+    /* width: 100%; */
+    align-content: center;
+    padding: 1em 3em 1em 3em;
+    color: #fff;
+    display: block;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: MuliRegular;
+    font-weight: 600;
+
 }
+.navbar__nav li{
+    transition: .5s all;
+    border-right: 2px solid #3b3b3b;
+}
+.navbar__nav li:hover{
+    background: orange;
+}
+
+ 
+
 .search__panel{
     background: rgba(255, 251, 33, 0.34);
     padding: .8em;
@@ -55,5 +81,123 @@
     border-radius: 6px;
     color: #fff;
     cursor: pointer;
-    margin-right: 1em;
+}
+
+
+.active{
+    background: #e7ab3c;
+}
+
+/*
+new
+*/
+
+.navbar__panel{
+    display: grid;
+    grid-template-columns: 1fr 2fr 10em 1fr;
+    background: #fff;
+    border-bottom: 1px solid rgba(101, 88, 88, 0.30);
+}
+.navbar__panel > *{
+    padding: 0.5em;
+    border-right: 1px solid rgba(101, 88, 88, 0.30);
+}
+.shop__email{
+    justify-self: end;
+}
+.panel__element > h4,select, a{
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    display: grid;
+}
+.input__track_search{
+    width: 20em;
+    outline: navajowhite;
+    text-align: center;
+    border-right: none;
+    border-left: 2px solid #ebebeb;
+    border-bottom: 2px solid #ebebeb;
+    border-top: 2px solid #ebebeb;
+}
+.input__track{
+    width: 30em;
+    font-size: 15px;
+    font-family: MuliRegular;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.input__track_search::placeholder{
+    font-family: MuliRegular;
+    font-weight: 900;
+    color: rgba(86, 81, 78, 0.6);
+}
+.shop__track{
+    text-align: center;
+}
+.track__items{
+    height: 100%;
+    display: inline-flex;
+}
+.button__track_search{
+    background: #e7ab3c;
+    border: none;
+    padding: 0.5em;
+    color: white;
+    border-radius: 1px 6px 6px 1px;
+    cursor: pointer;
+    outline: none;
+}
+.shop__login > button{
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    height: 100%;
+}
+.email__items{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    font-size: 14px;
+}
+
+.email__items > h4{
+    font-weight: 100;
+    margin-left: 4px;
+    font-family: MuliRegular;
+}
+.email__items > span{
+    font-size: 19px;
+}
+.shop__basket_panel{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 2em;
+    align-items: center;
+    justify-items: center;
+    background: #fff;
+}
+.basket__panel_tools{
+    display: flex;
+    align-items: center;
+}
+.shop__search{
+    height: 100%;
+}
+.shop__search > input{
+    width: 35em;
+    padding: 1em;
+}
+.shop__search > button{
+    width: 4em;
+    height: 100%;
+}
+.profile__name{
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-family: MuliRegular;
 }

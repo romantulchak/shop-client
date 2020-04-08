@@ -25,6 +25,8 @@ export class BasketDialogComponent implements OnInit {
   public orderNumber: string;
 
 
+  public test: number;
+
   public order: Order = {
     id: null,
     items: [],
@@ -98,21 +100,12 @@ export class BasketDialogComponent implements OnInit {
 
 */
   price(){
-      if(this.sa.length != 0 && this.sa != null){
-        this.sa.forEach(el=>{
-            if(el.amount > 1){
-              for(let i = 0; i < el.amount; i++){
-                this.totalPrice += el.price;
-              }
-            }else{
-              this.totalPrice += el.price;
-            }
-             
-          });        
-          
-      }else{
-        this.totalPrice = 0;
-      }
+    this.totalPrice = 0;
+    if(this.sa.length != 0 && this.sa != null){
+      this.sa.forEach(el=>{
+        this.totalPrice += el.totalProducPrice;
+      });
+    }
   }
   
 
@@ -128,70 +121,36 @@ export class BasketDialogComponent implements OnInit {
   }
   
   updateAmount(product: any, amount: any){
-
-    if(!(product.amount >= 99)){
+    if(!(product.amount > 100)){
       this.orderService.checkAmount(product.id, amount).subscribe(
         res=>{
           let sum = res * product.price;
           if(res === Number.parseInt(amount)){
             if(Number.parseInt(amount) >= res){
-            
               product.totalProducPrice = sum;
               product.amount = res;
-              console.log(product.totalProducPrice);
               this.updateItem(product);
-             
             }else{
-
+              product.amount = res;
             }
           }else{
-            this.totalPrice += sum-product.price;
             product.amount = res;
             product.totalProducPrice = sum;
-            this.updateItem(product);
+          
             this.notificationService.openSnackBar("Maximum in the stock");
             
           }
-
-          setTimeout(() => {
-
-            this.price();            
-          }, 1500);
-          this.totalPrice -= product.price;
-        /*
-
-          let sum = (product.price * res);
-          if(res === Number.parseInt(amount)){
-          if(product.amount <= Number.parseInt(amount)){
-            product.totalProducPrice =0;
-            product.amount = res;
-              product.totalProducPrice += sum;
-              this.totalPrice +=sum;
-          }else{
-            product.amount = res;
-            product.totalProducPrice -= sum;
-            this.totalPrice -= sum;
-          }
-          this.updateItem(product);
-        }else{
-          product.amount = res;
-          this.notificationService.openSnackBar("Maximum in the stock");
-        }
-          
-         
-          
-               
-          }else{
-            product.amount = res;
-            this.notificationService.openSnackBar("Maximum in the stock");
-          }
-          */
-    
-
+          this.price();
+   
         
         }
 
       );
+    }else{
+      product.amount = 99;
+      product.totalProducPrice = product.amount * product.price;
+      this.price();
+      this.notificationService.openSnackBar("Maximum 99 items");
     }
   }
   
@@ -269,38 +228,16 @@ export class BasketDialogComponent implements OnInit {
   remove(product: any){
     if(localStorage.getItem('product')!= null){
       if(this.sa.length != 0){
-       /*
-        for(let el of this.sa){
-          console.log(el.id);
-          if(product.id === el.id){
-            this.sa.splice(this.sa.indexOf(product.id), 1);
-            break;
-          }
-        }*/
-
         this.sa = this.sa.filter(x=> x != product);
-
         if(product.amount > 1){
           this.totalPrice -= product.price * product.amount;
         }else{
           this.totalPrice -= product.price;
         }
-        
         localStorage.setItem('product', JSON.stringify(this.sa));
-        
         this.basketService.count.next(this.sa.length);
-        
         this.basketService.productsAfterRemove.next(this.sa);
-        
-        
         this.basketService.remove();
-        
-        
-
-        //TODO: FIX IT
-        //this.products =  this.basketService.products;
-     
-     
       }
     }
   }

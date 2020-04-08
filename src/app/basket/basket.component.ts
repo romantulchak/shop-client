@@ -66,8 +66,6 @@ export class BasketComponent implements OnInit {
         this.order.user.id = this.user.id;
         this.order.user.username = this.user.username;
         this.order.user.email = this.user.email;
-        
-        
         this.order.costumerName = this.user.firstName;
         this.order.costumerLastName = this.user.lastName;
         this.order.costumerCity = this.user.city;
@@ -128,32 +126,8 @@ export class BasketComponent implements OnInit {
   }
   
 
-  minusAmount(product: any){
-    if(!(product.amount <= 1)){
-      product.amount -= 1;
-      this.price();
-      this.totalPrice -= product.price;
-      this.updateItem(product);
-    }else{
-      console.log('Min 1');
-    }
-  }
-  plusAmount(product: any){
-    if(!(product.amount >= 10)){
-      product.amount += 1;
-      this.price();
-      this.totalPrice += product.price;
-      this.updateItem(product);
-    }else{
-      console.log('Max 10');
-    }
-  }
 
 
-
-  updateItem(item: any){
-    localStorage.setItem('product', JSON.stringify(this.sa));   
-  }
   
   showForm(){
     this.showOrderForm = !this.showOrderForm;
@@ -162,13 +136,10 @@ export class BasketComponent implements OnInit {
   //TODO: ПІСЛЯ ПОКУПКИ ВИДАЛЯТИ ВСІ ПРЕДМЕТИ З КОРЗИНИ
   sendOrder(){
     this.sa.forEach(el=>{
-
       this.order.items.push(el);
+      el.showButton = false;
     });
     this.order.totalPrice = this.totalPrice;
-  
-    console.log(this.order);
-    
     this.orderService.createOrder(this.order).subscribe(
       res=>{
         if(res != null){
@@ -179,6 +150,7 @@ export class BasketComponent implements OnInit {
           localStorage.setItem('product', JSON.stringify(this.sa));
           this.basketService.productsAfterRemove.next(this.sa);
           this.basketService.count.next(this.sa.length);
+          //this.basketService.updateProducts.next(true);
           this.price();
         }
       }

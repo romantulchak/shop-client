@@ -76,7 +76,8 @@ export class ProductService{
         return this.http.get<Product[]>(API_URL + 'products/filterByCategory/', {params: paramsToSend})
     }
 
-    filter(brands?:string[], cpus?: string[]): Observable<Product[]>{
+    filter(brands?:string[], cpus?: string[], gpus?: string[]): Observable<Product[]>{
+        console.log(gpus);
         let paramsToSend = new HttpParams();
         if(brands != null){
             brands.forEach(brand=>{
@@ -87,6 +88,11 @@ export class ProductService{
           cpus.forEach(cpu=>{
             paramsToSend = paramsToSend.append('cpus', cpu);
           });
+        }
+        if(gpus != null){
+            gpus.forEach(gpu=>{
+                paramsToSend = paramsToSend.append('gpus', gpu);
+            });
         }
         return this.http.get<Product[]>(API_URL + 'products/filter', {params: paramsToSend});
 

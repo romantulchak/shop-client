@@ -1,31 +1,78 @@
 <header>
+    <div class="navbar__panel">
+        <div class="panel__element shop__email">
+            <div class="email__items">
+                <span class="material-icons">
+                    email
+                </span>
+                <h4>shop.a43@gmail.com</h4>
+            </div>    
+        </div>
+        <!--<div class="search__panel">-->
+            <div class="pannel__element shop__track">
+                <div class="track__items">
+                    <input class="input__track_search input__track" placeholder="Have you bought any items already?" type="text" [(ngModel)]="identificationNumberForSeach" >
+                    <button class="button__track_search" (click)="search()">
+                        <span class="material-icons">
+                        track_changes
+                        </span>
+                    </button>
+                </div>
+        </div>
+        <div class="pannel__element shop__language">
+            <select>
+                <option selected value="English">English</option>
+                <option value="Polish">Polish</option>
+            </select>
+        </div>
+        <div class="pannel__element shop__login">
+            <button *ngIf="!tokenStorageService.isLoggedIn" (click)="loginDialog()">
+                <span class="material-icons">
+                    supervisor_account
+                    </span>
+                    Login
+            </button>
+            <a class="profile__name" *ngIf="tokenStorageService.isLoggedIn" routerLink="/profile">Hi, {{tokenStorageService.currentUserName}}</a>
+        </div>
+    </div>
 
-<div class="search__panel">
-    <input placeholder="Have you bought any items already?" type="text" [(ngModel)]="identificationNumberForSeach" >
-    <button (click)="search()">Search</button>
-</div>
+    <div class="shop__basket_panel">  
+        <div class="shop__logo">
+            <h2>Logo.</h2>
+        </div>
+        <div class="basket__panel_tools shop__search">
+            <input class="input__track_search" type="text" placeholder="What do you need">
+            <button class="button__track_search">
+                <span class="material-icons">
+                    search
+                </span>
+            </button>
+        </div>
+        <div class="basket__panel_tools shop__tools">
+            <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+                <span class="material-icons">
+                    favorite_border
+                    </span>
+              </button>
+              <div class="navbar__auth"> 
+                <mat-icon (click)="openBasket()" class="basket__button" matBadge="{{basketLength}}" matBadgeColor="warn">shopping_cart</mat-icon>
+            </div>
+            <h4>150 грн</h4>
+        </div>
+
+    </div>
+
 
 <nav id="navbar_sticky" class="navbar">
-    <ul class="navbar__nav">
-        <li><a routerLink="/">Home</a></li>
-        <li><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/orders">Orders</a></li>
-        <li><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/brands">Brands</a></li>
-        <li><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/cpus">Cpu</a></li>
-        <li><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/gpus">Gpus</a></li>
+    <ul  class="navbar__nav">
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/" >Home</a></li>
+        <li routerLinkActive="active"><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/orders">Orders</a></li>
+        <li routerLinkActive="active"><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/brands">Brands</a></li>
+        <li routerLinkActive="active"><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/cpus">Cpu</a></li>
+        <li routerLinkActive="active"><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/gpus">Gpus</a></li>
         <button *ngIf="tokenStorageService.isLoggedIn" class="nav-link" (click)="logout()">LogOut</button>
     
     </ul>
-    <div class="navbar__auth"> 
-        <mat-icon (click)="openBasket()" class="basket__button" matBadge="{{basketLength}}" matBadgeColor="warn">shopping_cart</mat-icon>
 
-
-        
-        <button *ngIf="!tokenStorageService.isLoggedIn" (click)="loginDialog()">
-            <span class="material-icons">
-                supervisor_account
-                </span>
-        </button>
-        <div><a *ngIf="tokenStorageService.isLoggedIn" routerLink="/profile">Hi, {{tokenStorageService.currentUserName}}</a></div>
-    </div>
 </nav>
 </header>

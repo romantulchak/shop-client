@@ -33,16 +33,8 @@ export class BasketService {
   constructor(private productService: ProductService){
     this.updateProducts = new BehaviorSubject(false);
     if(localStorage.getItem('product') != null){
-      //this.products = JSON.parse(localStorage.getItem('product'));
-    
-    
       this.getProductsFromDb();
-      setTimeout(() => {
-        
-      this.count = new BehaviorSubject(this.sa.length);
     
-      this.productsAfterRemove = new BehaviorSubject(this.sa);
-      }, 500);
       
     }else{
       this.count = new BehaviorSubject<number>(0);
@@ -79,8 +71,10 @@ export class BasketService {
      //this.products = JSON.parse(localStorage.getItem('product'));
      this.sa = JSON.parse(localStorage.getItem('product'));
 
-     //this.products = this.productInBasket();
      this.sa = this.productInBasket();
+     if(this.sa != null)
+      this.count = new BehaviorSubject(this.sa.length);
+      this.productsAfterRemove = new BehaviorSubject(this.sa);
     }
 
     //return this.products;
