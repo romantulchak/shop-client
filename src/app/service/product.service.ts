@@ -95,9 +95,17 @@ export class ProductService{
             });
         }
         return this.http.get<Product[]>(API_URL + 'products/filter', {params: paramsToSend});
-
-
     }
 
 
+    addPromo(product: Product, percent: number, numberOfDays: number, numberOfUses: number){
+    
+        return this.http.post(API_URL + 'products/createPromo/' + product.id + '/' + percent + '/' + numberOfDays + '/' + numberOfUses, null, {responseType: 'text'});
+    }
+
+    checkDiscount(code: string): Observable<Number>{
+        let paramsToSend = new HttpParams();
+        paramsToSend = paramsToSend.append('code', code)
+        return this.http.get<Number>(API_URL + 'products/checkDiscount', {params: paramsToSend});
+    }
 }

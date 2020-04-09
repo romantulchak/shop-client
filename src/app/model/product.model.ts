@@ -3,6 +3,7 @@ import { Category } from './category.model';
 import { Brand } from './brand.models';
 import { Cpu } from './cpu.model';
 import { Gpu } from './gpu.model';
+import { PromotionalCode } from './promotionalCode.model';
 
 export class Product{
 
@@ -17,5 +18,5 @@ export class Product{
     amountInStock: number;
     cpu: Cpu;
     gpu: Gpu;
-
+    promotionalCodes?: PromotionalCode[];
 }

@@ -1,5 +1,33 @@
-<div class="container">
-    <header class="jumbotron">
-      <p>{{ content }}</p>
-    </header>
+<div>
+
+  <div *ngFor="let item of product"> 
+    <h3>{{item.productName}}</h3>
+    <div *ngFor="let code of item.promotionalCodes">
+        <code>
+          {{code.code}}
+        </code>
+    </div>
+    <form (submit)="addPromo(item ,percent.value, numberOfDays.value, numberOfUses.value)">
+
+      <div>
+        <h3>1</h3>
+        <input type="number" #numberOfUses>
+      </div>
+
+
+      <div>
+        <h3>2</h3>
+        <input type="number" #percent>
+      </div>
+
+      <div>
+        <h3>3</h3>
+        <input type="number" #numberOfDays>
+      </div>
+
+      <button type="submit">Send</button>
+  </form>
   </div>
+
+
+</div>

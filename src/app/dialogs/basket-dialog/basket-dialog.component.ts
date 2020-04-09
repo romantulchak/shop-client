@@ -47,27 +47,43 @@ export class BasketDialogComponent implements OnInit {
 
   ngOnInit(): void {
 
-  
-      setTimeout(() => {
-
-        //TODO: якщо не працює корзина
-       // this.sa = this.basketService.sa;
-       this.basketService.productsAfterRemove.subscribe(
-        res=>{
-          if(res != null){
-            this.sa = res;
-          }
-        }
-
-       );
-        if(this.sa != null){
-          this.loading = false;
-        }
-        this.price();
-      }, 500);
+    this.basketLoad();
+    
    
     
   }
+
+  //TODO: FIX IT 
+  basketLoad(){
+    setTimeout(() => {
+
+      //TODO: якщо не працює корзина
+     // this.sa = this.basketService.sa;
+     this.basketService.productsAfterRemove.subscribe(
+      res=>{
+        if(res != null){
+          res.forEach(el=>{
+            if(el.discount > 0){
+              el.price = Math.round(el.price - (el.price * (el.discount / 100)));
+              el.totalProducPrice += el.price;
+            }
+          });
+
+
+          this.sa = res;
+
+        }
+      }
+
+     );
+      if(this.sa != null){
+        this.loading = false;
+      }
+      this.price();
+    }, 500);
+  }
+
+
   closeDialog(){
     this.dialog.close();
   }
@@ -99,11 +115,30 @@ export class BasketDialogComponent implements OnInit {
   }
 
 */
+  chechDiscount(code: string, product: any){
+      this.productService.checkDiscount(code).subscribe(
+
+        res=>{
+          if(res != null)
+            product.discount = res;
+            this.updateItem(product);
+            this.basketLoad();
+        }
+
+      );
+  }
+
   price(){
     this.totalPrice = 0;
     if(this.sa.length != 0 && this.sa != null){
       this.sa.forEach(el=>{
-        this.totalPrice += el.totalProducPrice;
+
+        
+        if(el.discount > 0){
+          this.totalPrice += el.totalProducPrice  - ( el.totalProducPrice * (el.discount / 100));
+        }else{
+          this.totalPrice += el.totalProducPrice;
+        }
       });
     }
   }

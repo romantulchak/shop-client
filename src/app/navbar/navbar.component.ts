@@ -32,18 +32,20 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.tokenStorageService.logged();
   
-    setTimeout(() => { 
-      this.basketService.count.subscribe(
-
-        res=>{
-          if(res !=null){
-            this.basketLength = res;
+    setTimeout(() => {
+      if(this.basketService.count != null){
+        this.basketService.count.subscribe(
+          res=>{
+            if(res !=null){
+              this.basketLength = res;
+            }
           }
-        }
-
-    );
+  
+      );
+      } 
+     
     
-    }, 500);
+    }, 1000);
 
   
   }

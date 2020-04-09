@@ -23,7 +23,8 @@ export class BasketService {
     images: null,
     amount: 1,
     showButton: false,
-    totalProducPrice: null
+    totalProducPrice: null,
+    discount: 0
   };
   public productsFromDb: Product[];
 
@@ -118,8 +119,8 @@ export class BasketService {
       images: product.image,
       amount: 1,
       showButton: true,
-      totalProducPrice: product.productPrice
-
+      totalProducPrice: product.productPrice,
+      discount:0
       
     }
     if(localStorage.getItem('product') != null){
