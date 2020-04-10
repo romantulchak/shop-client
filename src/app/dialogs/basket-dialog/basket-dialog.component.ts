@@ -7,8 +7,9 @@ import {OrderService} from '../../service/order.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MainComponent } from '../../main/main.component';
 import { CategoryService } from '../../service/category.service';
-import { asapScheduler } from 'rxjs';
+import {Promo} from '../../model/enum/promo.enum';
 import { NotificationService } from '../../service/notification.service';
+import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-basket-dialog',
   templateUrl: './basket-dialog.component.html',
@@ -46,11 +47,8 @@ export class BasketDialogComponent implements OnInit {
   constructor(private notificationService: NotificationService, public dialog: MatDialogRef<BasketDialogComponent>, private basketService: BasketService, private productService: ProductService, private orderService: OrderService, private categoryService: CategoryService) {}
 
   ngOnInit(): void {
-
     this.basketLoad();
-    
    
-    
   }
 
   //TODO: FIX IT 
@@ -61,108 +59,121 @@ export class BasketDialogComponent implements OnInit {
      // this.sa = this.basketService.sa;
      this.basketService.productsAfterRemove.subscribe(
       res=>{
-        if(res != null){
-          res.forEach(el=>{
-            if(el.discount > 0){
-              el.price = Math.round(el.price - (el.price * (el.discount / 100)));
-              el.totalProducPrice += el.price;
-            }
-          });
-
-
+        if(res != null){    
           this.sa = res;
-
+          //this.totalPrice =  this.basketService.price(res);
         }
-      }
 
+      }
      );
       if(this.sa != null){
         this.loading = false;
       }
-      this.price();
+      this.basketService.totalPrice.subscribe(
+
+        res=>{
+          console.log(res);
+          if(res != null)
+            this.totalPrice = res;
+        }
+
+      );
+      //this.price();
     }, 500);
   }
 
+  price(){
+    this.basketService.totalPrice.subscribe(
+
+      res=>{
+        if(res != null)
+          this.totalPrice = Math.round(res);
+      }
+
+    );
+  }
 
   closeDialog(){
     this.dialog.close();
   }
-/*
-  getProductsFromDb(){
-    this.productService.getProducts().subscribe(
-      res=>{
-        if(res != null){
-          this.productsFromDb = res;
-          this.getProducts();
-        }
-      },
-      error =>{
-        console.log(error);
-      }
-    );
-  }
-*/
-/*
-  getProducts(){
-    if(localStorage.getItem('product') != null){
-     this.products = JSON.parse(localStorage.getItem('product'));
-
-     this.products = this.productInBasket();
-
-     this.basketService.currentCounter(this.products);
-     
-    }
-  }
-
-*/
   chechDiscount(code: string, product: any){
-      this.productService.checkDiscount(code).subscribe(
-
+    this.loading = true;
+      this.productService.checkDiscount(code, product.id).subscribe(
         res=>{
-          if(res != null)
-            product.discount = res;
-            this.updateItem(product);
-            this.basketLoad();
+          if(res != ''){
+            if(res != Promo.UNCORRECTED_PRODUCT){
+              if(res != Promo.DETERMINED){
+                product.discount = res;
+                product.discountPrice = Math.round(product.price - (product.price * (product.discount / 100)));
+                product.promo = code;
+                product.totalProducPrice = Math.round(product.discountPrice * product.amount);
+                
+                this.updateItem(product);
+                this.basketLoad();
+                this.notificationService.openSnackBar('Ok');
+            
+              }else{
+                this.notificationService.openSnackBar('Code is determined');
+              }
+            }else{
+              this.notificationService.openSnackBar('The code isn\'t correct for this product');
+            }
+          }else{
+            console.log(res);
+            this.notificationService.openSnackBar(`Code: ${code} doesn't exist`);
+          }
+          setTimeout(() => {
+            this.loading = false;
+          }, 500);
         }
-
+        
       );
   }
-
+/*
   price(){
     this.totalPrice = 0;
     if(this.sa.length != 0 && this.sa != null){
       this.sa.forEach(el=>{
-
-        
-        if(el.discount > 0){
-          this.totalPrice += el.totalProducPrice  - ( el.totalProducPrice * (el.discount / 100));
-        }else{
           this.totalPrice += el.totalProducPrice;
-        }
       });
+      this.totalPrice = Math.round(this.totalPrice);
     }
   }
-  
-
+  */
   minusAmount(product: any){
     if(!(product.amount <= 1)){
       product.amount -= 1;
-      product.totalProducPrice -= product.price;
-      this.totalPrice -= product.price;
+      
+      if(product.discount > 0){
+        product.totalProducPrice -= product.discountPrice;
+        this.totalPrice -= product.discountPrice;
+      }else{
+
+        product.totalProducPrice -= product.price;
+        this.totalPrice -= product.price;
+      }
+
       this.updateItem(product);
     }else{
       this.notificationService.openSnackBar("Minimum 1 item");
     }
+    this.basketService.totalPrice.next(this.totalPrice);
   }
   
   updateAmount(product: any, amount: any){
     if(!(product.amount > 100)){
       this.orderService.checkAmount(product.id, amount).subscribe(
         res=>{
-          let sum = res * product.price;
+          let sum = Math.round(res * product.price);
+          let discountSum = Math.round(res * product.discountPrice);
           if(res === Number.parseInt(amount)){
             if(Number.parseInt(amount) >= res){
-              product.totalProducPrice = sum;
+
+              if(product.discount > 0){
+                product.totalProducPrice = discountSum;
+              }else{
+                product.totalProducPrice = sum;
+              }
               product.amount = res;
               this.updateItem(product);
             }else{
@@ -170,23 +181,29 @@ export class BasketDialogComponent implements OnInit {
             }
           }else{
             product.amount = res;
-            product.totalProducPrice = sum;
-          
+            if(product.discount > 0){
+              product.totalProducPrice = discountSum;
+            }else{
+              product.totalProducPrice = sum;
+            }
             this.notificationService.openSnackBar("Maximum in the stock");
-            
           }
+          
           this.price();
-   
-        
+          this.basketService.totalPrice.next(this.totalPrice);
+          //this.totalPrice = this.basketService.price(this.sa);
         }
 
       );
     }else{
       product.amount = 99;
       product.totalProducPrice = product.amount * product.price;
+      //this.totalPrice = this.basketService.price(this.sa);
+      this.basketService.totalPrice.next(this.totalPrice);
       this.price();
       this.notificationService.openSnackBar("Maximum 99 items");
     }
+
   }
   
   //TODO: придумати як обмежувати макс кількість.
@@ -196,18 +213,28 @@ export class BasketDialogComponent implements OnInit {
       this.orderService.checkAmount(product.id, product.amount).subscribe(
         res=>{
           if(res === product.amount){
+
+            if(product.discount > 0){
+              product.totalProducPrice += product.discountPrice;
+              this.totalPrice += product.discountPrice;  
+            }else{
             product.totalProducPrice += product.price;
             this.totalPrice += product.price;
+            }
             this.updateItem(product);
           }else{
             product.amount = res;
             this.notificationService.openSnackBar("Maximum in the stock");
           }
+         
+
         }
       );
     }else{
       this.notificationService.openSnackBar("Maximum 99 items");
     }
+    this.basketService.totalPrice.next(this.totalPrice);
+   
   }
 
 
@@ -215,6 +242,8 @@ export class BasketDialogComponent implements OnInit {
   updateItem(item: any){
     localStorage.setItem('product', JSON.stringify(this.sa));   
     this.basketService.sa = this.sa;
+
+    this.basketService.totalPrice = new BehaviorSubject(this.basketService.price());
   }
   
   showForm(){
@@ -235,12 +264,14 @@ export class BasketDialogComponent implements OnInit {
           this.sa = [];
           localStorage.setItem('product', JSON.stringify(this.sa));
           this.basketService.count.next(this.sa.length);
-          this.price();
+          //this.basketService.price(this.sa);
         }
       }
 
     );
   }
+
+
   /*
 
   productInBasket(): Product[]{
@@ -265,13 +296,22 @@ export class BasketDialogComponent implements OnInit {
       if(this.sa.length != 0){
         this.sa = this.sa.filter(x=> x != product);
         if(product.amount > 1){
-          this.totalPrice -= product.price * product.amount;
+          if(product.discount > 0){
+            this.totalPrice -= product.discountPrice * product.amount;
+          }else{
+            this.totalPrice -= product.price * product.amount;
+          }
         }else{
-          this.totalPrice -= product.price;
+          if(product.discount > 0){
+            this.totalPrice -= product.discountPrice;
+          }else{
+            this.totalPrice -= product.price;
+          }
         }
         localStorage.setItem('product', JSON.stringify(this.sa));
         this.basketService.count.next(this.sa.length);
         this.basketService.productsAfterRemove.next(this.sa);
+        this.basketService.totalPrice.next(this.totalPrice);
         this.basketService.remove();
       }
     }

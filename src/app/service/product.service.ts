@@ -103,9 +103,9 @@ export class ProductService{
         return this.http.post(API_URL + 'products/createPromo/' + product.id + '/' + percent + '/' + numberOfDays + '/' + numberOfUses, null, {responseType: 'text'});
     }
 
-    checkDiscount(code: string): Observable<Number>{
+    checkDiscount(code: string, productId: number){
         let paramsToSend = new HttpParams();
         paramsToSend = paramsToSend.append('code', code)
-        return this.http.get<Number>(API_URL + 'products/checkDiscount', {params: paramsToSend});
+        return this.http.get(API_URL + 'products/checkDiscount/' + productId , {params: paramsToSend, responseType:'text'});
     }
 }

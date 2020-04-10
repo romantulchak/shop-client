@@ -108,21 +108,14 @@ export class BasketComponent implements OnInit {
 */
 
   price(){
-      if(this.sa.length != 0 && this.sa != null){
-        this.sa.forEach(el=>{
-            if(el.amount > 1){
-              for(let i = 0; i < el.amount; i++){
-                this.totalPrice += el.price;
-              }
-            }else{
-              this.totalPrice += el.price;
-            }
-             
-          });        
-          
-      }else{
-        this.totalPrice = 0;
+    this.basketService.totalPrice.subscribe(
+      res=>{
+        console.log('TOTLA PRICE AFTER UPDATE');
+        console.log(res);
+        if(res != null)
+          this.totalPrice = res;
       }
+    );
   }
   
 
@@ -157,59 +150,6 @@ export class BasketComponent implements OnInit {
 
     );
   }
-  /*
-
-  productInBasket(): Product[]{
-    let prod = [];      
-            this.products.forEach(element => {
-                
-                this.productsFromDb.forEach(el=>{
-                  if(element.id == el.id){
-                    prod.push(element);
-                  }
-                });
-             
-            });
-
-      return prod;
-  }
-  */
 
 
-  loginDialog(){
-      this.dialogService.loginDialog();
-  }
-  //TODO: зробити норм видалення
-  remove(product: any){
-    if(localStorage.getItem('product')!= null){
-      if(this.sa.length != 0){
-        console.log('sadasdasdsad');
-        
-        
-       
-        for(let el of this.sa){
-          console.log(el.id);
-          if(product.id === el.id){
-            this.sa.splice(this.sa.indexOf(product.id), 1);
-            break;
-          }
-        }
-        if(product.amount > 1){
-          for(let i = 0; i < product.amount; i++){
-            this.totalPrice -= product.price;
-          }
-        }else{
-          this.totalPrice -= product.price;
-        }
-        
-        localStorage.setItem('product', JSON.stringify(this.sa));
-        //
-        this.products =  this.basketService.products;
-        //
-
-        this.basketService.count.next(this.sa.length);
-        //this.basketService.updateCart();
-      }
-    }
-  }
 }

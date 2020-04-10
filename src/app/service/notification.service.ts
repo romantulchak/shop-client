@@ -12,7 +12,7 @@ export class NotificationService {
     let config = new MatSnackBarConfig();
     config.verticalPosition = "top";
     config.horizontalPosition = "right";
-    config.duration = 2000;
+    config.duration = 5000;
     config.panelClass = ['success']; 
     this.snackBar.open(message, "Ok", config);
   }

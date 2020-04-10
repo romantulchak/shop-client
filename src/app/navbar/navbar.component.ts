@@ -37,6 +37,8 @@ export class NavbarComponent implements OnInit {
         this.basketService.count.subscribe(
           res=>{
             if(res !=null){
+              console.log('RES NAV');
+              console.log(res);
               this.basketLength = res;
             }
           }
@@ -93,6 +95,7 @@ export class NavbarComponent implements OnInit {
 
   
   public openBasket(){
+    
       this.dialog.open(BasketDialogComponent, {
         panelClass: 'dialog__basket'
       });

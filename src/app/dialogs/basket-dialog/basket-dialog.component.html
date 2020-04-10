@@ -5,7 +5,7 @@
 
 <div class="basket" *ngIf="!loading">
     <div class="basket__title_button">
-        <h2>Shoping cart</h2>
+        <h2>Shopping cart</h2>
         <span>X</span>
     </div>
 <div class="basket__grid">
@@ -25,13 +25,17 @@
            </div>
                 <div class="basket__price_amount">
     
-                    <h3>{{item.price}} грн</h3>
+                    <div class="basket__price">
+                        <h3 [ngClass]="{'discountPrice': item.discountPrice != null}">{{item.price}} <span *ngIf="item.discountPrice == null">грн</span></h3>
+                        <h5 *ngIf="item.discountPrice != null">{{item.discountPrice}} <span class="span__price">грн</span></h5>
+                       
+                    </div>
                     <div class="basket__amount">
                         <button [disabled]="item.amount == 1" class="control__buttons button__minus" (click)="minusAmount(item)"></button>
                         <input type="number" (change)="updateAmount(item,f.value )" min="1" max="99" #f [(ngModel)]="item.amount" width="2em">
                         <button class="control__buttons button__plus" (click)="plusAmount(item)"></button>
                     </div>
-                    <input type="text" (change)="chechDiscount(discount.value, item)" #discount>
+                    <input type="text" (change)="chechDiscount(discount.value, item)" [disabled]="item.promo != null" [value]="item.promo" #discount placeholder="Promocode">
                     <h4>{{item.totalProducPrice}}</h4>
                 </div>
        
