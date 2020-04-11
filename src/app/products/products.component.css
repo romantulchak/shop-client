@@ -1,0 +1,117 @@
+.grid__products{
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    margin-left: 2em;
+    margin-right: 2em;
+}
+.product__card{
+    box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,0.16), 0 0 2px rgba(0,0,0,.17);
+    border-radius: 1em;
+    /* text-align: center; */
+
+    position: relative;
+    text-align: center;
+    padding: 2em 1em 2em 1em;
+    background: #fff;
+    max-height: 18em;
+    cursor: pointer;
+    transition: .5s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.product__card:hover{
+    box-shadow: 0 1px 4px rgba(177, 113, 47, 0.22), 0 2px 7px rgba(216, 137, 19, 0.16), 0 0 11px rgba(247, 108, 10, 0.17);
+    transform: scale(1.1);
+    z-index: 99;
+}
+.card__delete{
+    background: rgba(255, 0, 0, 0.75);
+    position: absolute;
+    right: -1em;
+    border: none;
+    font-weight: 900;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    top: -1em;
+    outline: none;
+    cursor: pointer;
+    transition: .5s all;
+}
+.card__delete:hover{
+    background: rgba(255, 0, 0, 1);
+    color: #fff;
+}
+.product__info{
+    
+}
+.product__info a{
+    text-decoration: none;
+    color: #3b6d9a;
+    font-size: 17px;
+    font-family: MuktaRegular;
+}
+.product__info h1, h3{
+    text-align: start;
+}
+.product__info h1{
+    border-bottom: 2px dashed #00000052;
+    margin-bottom: .4em;
+}
+.product__info img{
+    width: 10em; 
+    height: 10em;
+    border-radius: .5em;
+    margin-bottom: 5px;
+}
+.product__price span{
+    font-size: 11px;
+}
+.products__loading{
+    display: flex;
+    justify-content: center;
+}
+
+.prodcut__category_price{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2em;
+}
+
+.button__buy_hover{
+   width: 100%;
+    
+
+}
+.button__buy{
+    border: none;
+    border-radius: 4px;
+    width: 7em;
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, .2);
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    padding-left: 1.5em;
+    padding-top: .2em;
+    padding-right: 1.5em;
+    padding-bottom: .2em;   
+}
+
+.span__buy{
+    /*display: none;*/
+    color: #fff;
+    overflow: hidden;
+    font-weight: 900;
+}
+.span__buy_hover{
+    display: block;
+}
+
+.grid__buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}

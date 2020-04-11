@@ -102,21 +102,15 @@ export class CreateProductComponent implements OnInit {
 
   public createProduct(){
     this.productService.pushImage(this.selectedFiles).subscribe(
-
       res=>{
-        
         console.log(res);
-        
       },
       error=>{console.log(error);}
 
     );
-
-      this.productService.createProduct(this.product).subscribe(
-          
+    this.productService.createProduct(this.product).subscribe(
           res=>{
             this.notificationService.openSnackBar(res);
-            console.log(res);
           },
           error=>{
             console.log(error);
@@ -140,7 +134,6 @@ export class CreateProductComponent implements OnInit {
   }
   handleImages(event){
     this.selectedFiles = event.target.files;
-    console.log(this.selectedFiles);
   }
   getBrands(){
     this.brandService.getAllBrands().subscribe(

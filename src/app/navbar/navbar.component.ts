@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
   public basketLength:number;
   public identificationNumberForSeach: string;
 
-
+  public totalPrice: number;
  
 
 
@@ -45,11 +45,17 @@ export class NavbarComponent implements OnInit {
   
       );
       } 
-     
+      this.getTotalPrice();
     
     }, 1000);
+    this.basketService.updateOrder.subscribe(
 
-  
+      res=>{
+         if(res === true){
+          this.getTotalPrice();
+      }
+    }
+    );
   }
 
 
@@ -79,18 +85,18 @@ export class NavbarComponent implements OnInit {
               if(res != null){
                 this.basketLength = res;
               }
-         
-            console.log('RES');
-            console.log(res);
-          
           }
         );
       }, 500);
-      
-    
-        
+  }
 
-
+  getTotalPrice(){
+    this.basketService.totalPrice.subscribe(
+      res=>{
+        if(res != null)
+          this.totalPrice = res;
+      }
+   );
   }
 
   

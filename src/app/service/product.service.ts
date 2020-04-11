@@ -34,12 +34,6 @@ export class ProductService{
     }
     pushImage(files:File[]){
         const data: FormData = new FormData();
-
-       /* files.forEach(el=>{
-            console.log(el);
-            data.append('file', el);
-        });
-        */
        for(let i = 0; i < files.length; i++){
            data.append('file', files[i]);
        }
@@ -70,9 +64,9 @@ export class ProductService{
         return this.http.get<Product>(API_URL + 'products/details/' + id);
     }
 
-    filterByCategory(category: Category): Observable<Product[]>{
+    filterByCategory(categoryNamy: string): Observable<Product[]>{
         let paramsToSend = new HttpParams();
-        paramsToSend = paramsToSend.append('categoryName', category.categoryName);
+        paramsToSend = paramsToSend.append('categoryName', categoryNamy);
         return this.http.get<Product[]>(API_URL + 'products/filterByCategory/', {params: paramsToSend})
     }
 

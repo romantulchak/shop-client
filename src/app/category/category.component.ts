@@ -20,7 +20,12 @@ export class CategoryComponent implements OnInit {
     categoryName: '',
     product: null
   };
+  public selectedFile: File;
   categories: Category[];
+
+  
+
+
   constructor(private categoryService: CategoryService, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
@@ -28,6 +33,14 @@ export class CategoryComponent implements OnInit {
     this.getAllCategories();
   }
   createCategory(){
+    this.categoryService.pushCategoryImage(this.selectedFile).subscribe(
+
+      res=>{
+        console.log(res);
+      }
+
+    );
+
     this.categoryService.createCategory(this.category).subscribe(
 
       res=>{
@@ -41,7 +54,11 @@ export class CategoryComponent implements OnInit {
   getAllCategories(){
     this.categoryService.getCategories().subscribe(
 
-      res=>{this.categories = res;},
+      res=>{
+        
+        this.categories = res;
+        console.log(res);
+      },
       error=>{console.log(error);}
 
     );
@@ -59,7 +76,7 @@ export class CategoryComponent implements OnInit {
   }
 
   edit(category: Category){
-    this.editCategory = new Category(category.id, category.categoryName, category.product);
+    this.editCategory = new Category(category.id, category.categoryName, category.product, category.imagePath);
   }
 
   loadTemplate(category: Category){
@@ -82,6 +99,10 @@ export class CategoryComponent implements OnInit {
       error=>{console.log(error);}
 
     );
+  }
+
+  handleImages(event){
+    this.selectedFile = event.target.files[0];
   }
 
 } 

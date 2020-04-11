@@ -52,7 +52,31 @@ export class BasketComponent implements OnInit {
   constructor(private dialogService: DialogService, private basketService: BasketService, private productService: ProductService, private orderService: OrderService, public tokenStorage: TokenStorageService) {}
 
   ngOnInit(): void {
-     let isLoggedIn = !! this.tokenStorage.getToken();
+     
+      this.basketUpdate();
+      
+      this.basketService.updateOrder.subscribe(
+
+        res=>{
+          this.isLoading = true;
+          if(res === true){
+            
+            this.price();
+            setTimeout(() => {
+              this.isLoading = false;
+            }, 500);
+          }
+            
+        }
+
+      );
+
+
+    
+  }
+
+  basketUpdate(){
+    let isLoggedIn = !! this.tokenStorage.getToken();
 
 
       setTimeout(() => {
@@ -60,24 +84,28 @@ export class BasketComponent implements OnInit {
         this.price();
         this.isLoading = false;
       }, 500);
-   
-      if(isLoggedIn){
-        this.user = this.tokenStorage.getUser();
-        this.order.user.id = this.user.id;
-        this.order.user.username = this.user.username;
-        this.order.user.email = this.user.email;
-        this.order.costumerName = this.user.firstName;
-        this.order.costumerLastName = this.user.lastName;
-        this.order.costumerCity = this.user.city;
-        this.order.costumerAddress = this.user.address;
-        this.order.customerPostalCode = this.user.postalCode;
-        this.order.customerMobilePhone = this.user.mobilePhone;
-        this.order.email = this.user.email;
-        
-        
-      }
-    
+      this.autoComplete(isLoggedIn);
   }
+
+
+  autoComplete(isLoggedIn: boolean){
+    if(isLoggedIn){
+      this.user = this.tokenStorage.getUser();
+      this.order.user.id = this.user.id;
+      this.order.user.username = this.user.username;
+      this.order.user.email = this.user.email;
+      this.order.costumerName = this.user.firstName;
+      this.order.costumerLastName = this.user.lastName;
+      this.order.costumerCity = this.user.city;
+      this.order.costumerAddress = this.user.address;
+      this.order.customerPostalCode = this.user.postalCode;
+      this.order.customerMobilePhone = this.user.mobilePhone;
+      this.order.email = this.user.email;
+    }
+  }
+
+
+
 /*
   getProductsFromDb(){
     this.productService.getProducts().subscribe(
@@ -108,14 +136,14 @@ export class BasketComponent implements OnInit {
 */
 
   price(){
-    this.basketService.totalPrice.subscribe(
-      res=>{
-        console.log('TOTLA PRICE AFTER UPDATE');
-        console.log(res);
-        if(res != null)
-          this.totalPrice = res;
-      }
-    );
+    setTimeout(() => {
+      this.basketService.totalPrice.subscribe(
+        res=>{
+          if(res != null)
+            this.totalPrice = res;
+        }
+      );
+    }, 500);
   }
   
 
@@ -144,6 +172,7 @@ export class BasketComponent implements OnInit {
           this.basketService.productsAfterRemove.next(this.sa);
           this.basketService.count.next(this.sa.length);
           //this.basketService.updateProducts.next(true);
+          this.basketService.totalPrice.next(0);
           this.price();
         }
       }

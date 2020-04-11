@@ -16,6 +16,7 @@ import { RegistrationGuard } from './guards/registration-guard.service';
 import { BrandComponent } from './brand/brand.component';
 import { CpuComponent } from './cpu/cpu.component';
 import { GpuComponent } from './gpu/gpu.component';
+import { ProductComponent } from './product/product.component';
 
 
 const routes: Routes = [
@@ -51,6 +52,7 @@ const routes: Routes = [
   canActivate: [AuthGuard], 
   data:{role: 'ROLE_ADMIN'}
   },
+  {path: 'category/:categoryName', component: ProductComponent},
   {path: '**', component: NotFoundComponent}
 
 ];

@@ -1,7 +1,17 @@
+<div class="slider">
+    <h2>Slider</h2>
+</div>
+<div class="categories" >
+    <div class="category__card" style="background-image: url({{category.imagePath}});" *ngFor="let category of categories" [routerLink]="['category', category.categoryName]">
+        <h2>{{category.categoryName}}</h2>
+    </div>
+    <div class="category__card category__card_all" [routerLink]="['category', 'all']">
+        <h2>All</h2>
+    </div>
+</div>
 
 <button (click)="filterByPrice()">Filter</button>
 <form style="padding: 0.8em;" (ngSubmit)="filterByCategory()">
-
     <mat-form-field>
         <mat-label>Choose category</mat-label>
         <mat-select name="category" [(ngModel)]="category.categoryName">
@@ -12,18 +22,16 @@
         </mat-select>
       </mat-form-field>
     <button type="submit">Filter</button>
-
 </form>
 
 <a routerLink="createProduct">Create</a>
+
+<!--
 <div class="products__loading" *ngIf="loading">
     <mat-spinner></mat-spinner>
 </div>
-
+-->
 <section class="filters__products">
-
-
-
 
     <div  class="filters">
         <div *ngFor="let brand of brands">
@@ -38,10 +46,9 @@
             <input type="checkbox" (change)="filter(null, null, gpu.name)" value="{{gpu.name}}">{{gpu.name}}
         </div>
     </div>
-
-
-    <div *ngIf="products?.length != 0;else message">
-
+    <app-products></app-products>
+<!--
+<div *ngIf="products?.length != 0;else message">
     <div class="grid__products" *ngIf="!loading" >
         <div (mouseleave)="mouseLeave(false, product)" (mouseenter)="mouseEnter(true, product)" class="product__card" *ngFor="let product of products">
             <button *ngIf="isAdmin" class="card__delete" (click)="deleteProduct(product.id)">X</button>
@@ -71,6 +78,7 @@
         </div>
     </div>
 </div>
+-->
 </section>
 <ng-template #message>
     <h1>Lox tutaj nic nie ma</h1>
@@ -79,4 +87,7 @@
 
     <h6>In basket</h6>
 
+</ng-template>
+<ng-template #lod>
+    <h1>Loading...</h1>
 </ng-template>

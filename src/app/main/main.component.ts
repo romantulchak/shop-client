@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../service/product.service';
 import { Product } from '../model/product.model';
 import { BasketService } from '../service/basket.service';
@@ -16,6 +16,7 @@ import { BrandService } from '../service/brand.service';
 import { Brand } from '../model/brand.models';
 import { Cpu } from '../model/cpu.model';
 import { Gpu } from '../model/gpu.model';
+import { ProductsComponent } from '../products/products.component';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -46,7 +47,11 @@ export class MainComponent implements OnInit {
   public currentProduct: Product;
 
 
-  public loading = true;
+  @ViewChild(ProductsComponent) childComp: ProductsComponent;
+
+
+
+  public mainLoading = true;
   public productToCompare: Product;
   public products: Product[];
   public brandsToSend: string[] = [];
@@ -70,27 +75,14 @@ export class MainComponent implements OnInit {
     this.isAdmin = this.toketnSerivce.showAdminBoard;
     setTimeout(() => {
       this.productCheck =  this.basketService.sa;
-      this.getProducts();
+      //this.getProducts();
       this.getCategories();
       this.getAllBrands();
       this.getAllCpus();
       this.getAllGpus();
    }, 500);
-    this.basketService.updateProducts.subscribe(
-      res=>{
-        if(res === true){
-          this.basketService.productsAfterRemove.subscribe(
-            res=>{
-              if(res != null)
-              {
-                  this.productCheck = res;
-              }
-            }
-          );
-          this.getProducts();
-        }
-      }
-    );
+   
+
   }
 
   getAllGpus(){
@@ -144,7 +136,7 @@ export class MainComponent implements OnInit {
 
 
   filter(brandName?: string, cpuName?: string, gpuName?: string){
-    this.loading = true;
+    this.mainLoading = true;
 
     if(brandName != null){
       if(!this.brandsToSend.includes(brandName)){
@@ -174,16 +166,11 @@ export class MainComponent implements OnInit {
 
     }
     this.productService.filter(this.brandsToSend, this.cpusToSend, this.gpusToSend).subscribe(
-
       res=>{
         if(res !=null){
-          this.products = res;
-
-          this.checkInBasket(res);
-
-
+          this.childComp.filterCategory(res);
           setTimeout(() => {
-            this.loading = false;
+            this.mainLoading = false;
           }, 500);
         }
       },
@@ -195,62 +182,17 @@ export class MainComponent implements OnInit {
 
   }
 
-  getProducts(){
-    this.productService.getProducts().subscribe(
-        res=>{
-           if(res != null){
-            console.log(res);
-            this.products = res;
-
-            this.checkInBasket(res);
-
-           /*
-            res.forEach(e=>{
-              setTimeout(() => {
-                this.productCheck.forEach(el=>{
-                  if(e.id === el.id){
-                    e.showButton = el.showButton;
-                  }
-               });
-              });
-              }, 1000);
-              */
-
-             setTimeout(() => {
-              this.loading = false;
-             }, 500);
-           }
-        },
-        error => {
-          console.log(error);
-        }
-     );
-  }
-
-  checkInBasket(res: Product[]){
-    res.forEach(e=>{
-      setTimeout(() => {
-        console.log(this.productCheck);
-        this.productCheck.forEach(el=>{
-          if(e.id === el.id)
-            e.showButton = el.showButton;
-        });
-      }, 500);
-    });
-
-
-  }
-
 
   getCategories(){
+    this.mainLoading = true;
     this.categoryService.getCategories().subscribe(
-
       res=>{
-
         if(res != null){
           this.categories = res;
+          setTimeout(() => {
+            this.mainLoading = false;
+          }, 500);
         }
-
       },
       error=>{
         console.log(error);
@@ -262,7 +204,6 @@ export class MainComponent implements OnInit {
 
   filterByPrice(){
     this.productService.getProductsByPrice().subscribe(
-
       res=>{
         this.products = res;
         console.log(res);
@@ -270,25 +211,9 @@ export class MainComponent implements OnInit {
      error => {
        console.log(error);
      }
-
     );
   }
-  deleteProduct(id: number){
-    console.log(id);
-
-    console.log(JSON.parse(localStorage.getItem('product')));
-
-    this.productService.deleteProduct(id).subscribe(
-      res=>{
-        console.log(res);
-        this.getProducts();
-        this.basketService.getProductsFromDb();
-      },
-      error=>{console.log(error);}
-
-    );
-  }
-
+ 
 
   addToCart(product: Product){
     this.productToCompare = product;
@@ -298,20 +223,22 @@ export class MainComponent implements OnInit {
   }
 
   filterByCategory(){
-    console.log(this.category.categoryName);
-    this.productService.filterByCategory(this.category).subscribe(
+    this.productService.filterByCategory(this.category.categoryName).subscribe(
       res=>{
         if(res != null){
-          this.products = res;
-          console.log(res);
-        }
+ 
+          if(this.childComp){
 
+            this.childComp.filterCategory(res);
+         
+          }else{
+            alert('Something wrong')
+          }
+        }
       },
       error=>{
         console.log(error);
       }
-
     );
   }
-
 }

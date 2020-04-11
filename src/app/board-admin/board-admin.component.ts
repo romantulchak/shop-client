@@ -25,6 +25,7 @@ export class BoardAdminComponent implements OnInit {
         console.log(res);
         if(res != null)
           this.product = res;
+          console.log(res);
       },
       error=>{
         console.log(error);

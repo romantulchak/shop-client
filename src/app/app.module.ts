@@ -48,6 +48,7 @@ import { EditUserComponent } from './profile/edit-user/edit-user.component';
 import { BrandComponent } from './brand/brand.component';
 import { CpuComponent } from './cpu/cpu.component';
 import { GpuComponent } from './gpu/gpu.component';
+import { ProductsComponent } from './products/products.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { GpuComponent } from './gpu/gpu.component';
     BrandComponent,
     CpuComponent,
     GpuComponent,
+    ProductsComponent,
 
   ],
   imports: [

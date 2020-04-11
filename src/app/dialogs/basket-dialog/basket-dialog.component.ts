@@ -72,7 +72,6 @@ export class BasketDialogComponent implements OnInit {
       this.basketService.totalPrice.subscribe(
 
         res=>{
-          console.log(res);
           if(res != null)
             this.totalPrice = res;
         }
@@ -106,9 +105,9 @@ export class BasketDialogComponent implements OnInit {
                 product.discount = res;
                 product.discountPrice = Math.round(product.price - (product.price * (product.discount / 100)));
                 product.promo = code;
-                product.totalProducPrice = Math.round(product.discountPrice * product.amount);
-                
+                product.totalProducPrice = Math.round(product.discountPrice * product.amount);        
                 this.updateItem(product);
+        
                 this.basketLoad();
                 this.notificationService.openSnackBar('Ok');
             
@@ -233,7 +232,7 @@ export class BasketDialogComponent implements OnInit {
     }else{
       this.notificationService.openSnackBar("Maximum 99 items");
     }
-    this.basketService.totalPrice.next(this.totalPrice);
+
    
   }
 
@@ -242,8 +241,8 @@ export class BasketDialogComponent implements OnInit {
   updateItem(item: any){
     localStorage.setItem('product', JSON.stringify(this.sa));   
     this.basketService.sa = this.sa;
-
     this.basketService.totalPrice = new BehaviorSubject(this.basketService.price());
+    this.basketService.updateOrder.next(true);
   }
   
   showForm(){

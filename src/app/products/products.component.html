@@ -1,0 +1,42 @@
+<div class="products__loading" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+</div>
+<div class="products">
+    <div *ngIf="products?.length != 0;else message">
+        <div class="grid__products" *ngIf="!loading" >
+            <div (mouseleave)="mouseLeave(false, product)" (mouseenter)="mouseEnter(true, product)" class="product__card" *ngFor="let product of products">
+                <button *ngIf="isAdmin" class="card__delete" (click)="deleteProduct(product.id)">X</button>
+                <div class="product__info">
+                    <img [src]="product.image[0].imagePath" alt="">
+                    <h1>
+                        <a routerLink="/detailsProduct/{{product.id}}">{{product.productName}}</a>
+                    </h1>
+                    <div class="prodcut__category_price">
+                        <h5>{{product.category.categoryName}}</h5>
+                        <h3 class="product__price">{{product.productPrice}} <span>грн</span></h3>
+                        <h5>{{product.brand.name}}</h5>
+                    </div>
+    
+                    <div class="grid__buttons">
+    
+                        <button [disabled]="product.amountInStock === 0" class="button__buy" [@fullWidth]="styleOn && currentProduct === product ? 'max': 'min'" *ngIf="!product.showButton;else inBasket" (click)="addToCart(product)">
+                            <span  class="material-icons basket_icon">shopping_basket</span>
+                            <span class="span__buy" [ngClass]="{'span__buy_hover':styleOn && currentProduct === product}" >Buy</span>
+    
+                        </button>
+                        <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+                            <mat-icon>favorite</mat-icon>
+                          </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #message>
+    <h1>Nothing</h1>
+</ng-template>
+<ng-template #inBasket>
+    <h6>In basket</h6>
+</ng-template>

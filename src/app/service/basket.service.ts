@@ -14,6 +14,7 @@ export class BasketService {
 
   public count: BehaviorSubject<number>;
   public updateProducts: BehaviorSubject<boolean>; 
+  public updateOrder: BehaviorSubject<boolean>;
   public productsAfterRemove: BehaviorSubject<any>;
   public totalPrice: BehaviorSubject<number>;
   public products: Product[] = [];
@@ -40,7 +41,7 @@ export class BasketService {
 
   constructor(private productService: ProductService){
     this.updateProducts = new BehaviorSubject(false);
-
+    this.updateOrder = new BehaviorSubject(false);
 
     
  

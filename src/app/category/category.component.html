@@ -30,10 +30,15 @@
     </form>
 </ng-template>
 
-<form (ngSubmit)="createCategory()">
+<form (ngSubmit)="createCategory()" enctype="multipart/form-data">
 
     <div>
+        <h1>Name</h1>
         <input type="text" name="categoryName" [(ngModel)]="category.categoryName">
+    </div>
+    <div>
+        <h2>File</h2>
+        <input type="file" name="image" (change)="handleImages($event)">
     </div>
 
     <button type="submit">Create</button>
