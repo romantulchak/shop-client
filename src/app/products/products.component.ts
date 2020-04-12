@@ -34,9 +34,20 @@ export class ProductsComponent implements OnInit {
 
   constructor(private productService: ProductService, private tokenService: TokenStorageService, private basketService: BasketService, private notificationService: NotificationService) { }
 
+  
+
+
   @Input() isCategory: boolean;
   @Input() categoryName: string;
- 
+  @Input() numberOfColumns:number = 4;
+  @Input() showButtons = true;
+
+
+
+  public gridStyle: any = {};
+
+
+  
   @Output() categoryFilter = new EventEmitter<any>();
 
   productCheck: any[] = [];
@@ -45,22 +56,26 @@ export class ProductsComponent implements OnInit {
   public currentProduct: Product;
   public isAdmin = false;
   public loading: boolean;
-  public products: Product[];
+  @Input() products: Product[] = null;
   ngOnInit(): void {
-   
     this.isAdmin = this.tokenService.showAdminBoard;
-    
     setTimeout(() => {
       this.productCheck =  this.basketService.sa;
       if(this.isCategory === true){
-        this.findByCategory();
+        
+        if(this.products === null)
+        {
+          this.findByCategory();
+        }      
+        
       }else{
-        this.findAllProducts();
+        if(this.products === null){
+          this.findAllProducts();
+        }
       }
     }, 500);
 
-
-
+    //TODO: пофіксити тут
     this.basketService.updateProducts.subscribe(
       res=>{
         if(res === true){
@@ -72,16 +87,21 @@ export class ProductsComponent implements OnInit {
               }
             }
           );
+
           if(this.isCategory === true){
-            this.findByCategory();
+              this.findByCategory();
           }else{
-            this.findAllProducts();
+              this.findAllProducts();
           }
         }
       }
     );
+    this.gridStyle={
+      'grid-template-columns': `repeat(${this.numberOfColumns}, 1fr)`
+    }
   }
 
+  
 
   findAllProducts(){
     this.loading = true;
@@ -89,9 +109,7 @@ export class ProductsComponent implements OnInit {
       res=>{
         if(res != null){
           this.products = res;
-
           this.checkInBasket(res);
-
           setTimeout(() => {
             this.loading = false;
           }, 500);

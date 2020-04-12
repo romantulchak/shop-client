@@ -1,5 +1,5 @@
-<div class="slider">
-    <h2>Slider</h2>
+<div class="">
+    <app-carousel [slides]="slides"></app-carousel>
 </div>
 <div class="categories" >
     <div class="category__card" style="background-image: url({{category.imagePath}});" *ngFor="let category of categories" [routerLink]="['category', category.categoryName]">
@@ -79,6 +79,14 @@
     </div>
 </div>
 -->
+
+
+    
+</section>
+<section>
+        <hr>
+    <h3>MOST Most Purchased</h3>
+        <app-products [numberOfColumns]="5" [products]="productsToComponent" [showButtons]="false"></app-products>
 </section>
 <ng-template #message>
     <h1>Lox tutaj nic nie ma</h1>

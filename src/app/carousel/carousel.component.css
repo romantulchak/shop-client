@@ -1,0 +1,21 @@
+
+.carousel{
+    position: relative;
+    height: 30em;
+    width: 90vw;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.slide{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.controls{
+    position: absolute;
+}
+img{
+    pointer-events: none;
+}

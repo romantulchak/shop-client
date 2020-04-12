@@ -46,14 +46,18 @@ export class MainComponent implements OnInit {
   public styleOn = false;
   public currentProduct: Product;
 
-
   @ViewChild(ProductsComponent) childComp: ProductsComponent;
 
+  public slides = [
+    { src: 'http://localhost:8080/categoryImages/556d8101-4e6a-49c4-bf2d-16e0c8197ee3.GettyImages-811268074.jpg' },
+    { src: 'http://localhost:8080/categoryImages/5501ddcf-8dd9-4476-b6f5-8a9be2cb83e9.razer-render-computer-mouse-computer-mice-wallpaper-preview.jpg' },
+    { src: 'http://localhost:8080/categoryImages/f2399fef-605b-426b-8420-f26cdc730225.2458797.jpg' }
+  ]
 
 
   public mainLoading = true;
   public productToCompare: Product;
-  public products: Product[];
+  public productsToComponent: Product[];
   public brandsToSend: string[] = [];
   public cpusToSend: string[] = [];
   public gpusToSend: string[] = [];
@@ -80,6 +84,7 @@ export class MainComponent implements OnInit {
       this.getAllBrands();
       this.getAllCpus();
       this.getAllGpus();
+      this.mostPurchased();
    }, 500);
    
 
@@ -205,7 +210,7 @@ export class MainComponent implements OnInit {
   filterByPrice(){
     this.productService.getProductsByPrice().subscribe(
       res=>{
-        this.products = res;
+        //this.products = res;
         console.log(res);
      },
      error => {
@@ -213,24 +218,13 @@ export class MainComponent implements OnInit {
      }
     );
   }
- 
-
-  addToCart(product: Product){
-    this.productToCompare = product;
-    product.showButton = true;
-    this.basketService.addToBasket(product);
-    this.notificationServcei.openSnackBar("Added to your card " + product.productName);
-  }
 
   filterByCategory(){
     this.productService.filterByCategory(this.category.categoryName).subscribe(
       res=>{
         if(res != null){
- 
           if(this.childComp){
-
             this.childComp.filterCategory(res);
-         
           }else{
             alert('Something wrong')
           }
@@ -241,4 +235,19 @@ export class MainComponent implements OnInit {
       }
     );
   }
+
+  mostPurchased(){
+    this.productService.mostPurchased().subscribe(
+
+      res=>{
+        if(res != null){
+          this.childComp.checkInBasket(res);
+          this.productsToComponent = res;
+          
+        }
+      }
+
+    );
+  }
+
 }

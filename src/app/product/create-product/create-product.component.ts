@@ -36,7 +36,9 @@ export class CreateProductComponent implements OnInit {
     brand: new Brand(),
     amountInStock: 0,
     cpu: new Cpu(),
-    gpu: new Gpu()
+    gpu: new Gpu(),
+    discountPrice: 0,
+    isGlobalDiscount: false
   };
 
   public category: Category[];
@@ -58,7 +60,6 @@ export class CreateProductComponent implements OnInit {
 
       res=>{
           this.category = res;
-          console.log(res.length);
           if(res.length == 0){
           
             this.showButton = false;

@@ -70,7 +70,6 @@ export class BasketDialogComponent implements OnInit {
         this.loading = false;
       }
       this.basketService.totalPrice.subscribe(
-
         res=>{
           if(res != null)
             this.totalPrice = res;
@@ -158,7 +157,7 @@ export class BasketDialogComponent implements OnInit {
     }
     this.basketService.totalPrice.next(this.totalPrice);
   }
-  
+  //TODO: баг ціна коли макс
   updateAmount(product: any, amount: any){
     if(!(product.amount > 100)){
       this.orderService.checkAmount(product.id, amount).subscribe(
@@ -167,7 +166,6 @@ export class BasketDialogComponent implements OnInit {
           let discountSum = Math.round(res * product.discountPrice);
           if(res === Number.parseInt(amount)){
             if(Number.parseInt(amount) >= res){
-
               if(product.discount > 0){
                 product.totalProducPrice = discountSum;
               }else{
@@ -198,8 +196,11 @@ export class BasketDialogComponent implements OnInit {
       product.amount = 99;
       product.totalProducPrice = product.amount * product.price;
       //this.totalPrice = this.basketService.price(this.sa);
-      this.basketService.totalPrice.next(this.totalPrice);
+      //this.basketService.totalPrice.next(this.totalPrice);
+      
+      this.updateItem(product);
       this.price();
+      this.basketService.totalPrice.next(this.totalPrice);
       this.notificationService.openSnackBar("Maximum 99 items");
     }
 

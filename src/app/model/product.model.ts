@@ -19,4 +19,6 @@ export class Product{
     cpu: Cpu;
     gpu: Gpu;
     promotionalCodes?: PromotionalCode[];
+    discountPrice: number;
+    isGlobalDiscount: boolean;
 }

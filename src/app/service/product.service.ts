@@ -59,11 +59,16 @@ export class ProductService{
         return this.http.post(API_URL + 'products/createGpu', gpu, {responseType: 'text'});
     }
 
+    mostPurchased(): Observable<Product[]>{
+        return this.http.get<Product[]>(API_URL + 'products/mostPurchased');
+    }
 
     detailsProduct(id: number): Observable<Product>{
         return this.http.get<Product>(API_URL + 'products/details/' + id);
     }
-
+    setGlobalDiscount(product: Product, percent: number){
+        return this.http.put(API_URL + 'products/setDiscountPrice/' + percent, product, {responseType: 'text'});
+    }
     filterByCategory(categoryNamy: string): Observable<Product[]>{
         let paramsToSend = new HttpParams();
         paramsToSend = paramsToSend.append('categoryName', categoryNamy);

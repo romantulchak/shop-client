@@ -120,15 +120,24 @@ export class BasketService {
     this.prodToSave={
       id:product.id,
       productName: product.productName,
-      price: product.productPrice,
       images: product.image,
       amount: 1,
+      price: null,
       showButton: true,
-      totalProducPrice: product.productPrice,
+      totalProducPrice: null,
       discount:0,
       discountPrice:null,
       promo: null
     }
+    if(product.isGlobalDiscount){
+      this.prodToSave.price = product.discountPrice;
+      this.prodToSave.totalProducPrice = product.discountPrice;
+    }else{
+      this.prodToSave.price = product.productPrice;
+      this.prodToSave.totalProducPrice = product.productPrice;
+    }
+
+
     if(localStorage.getItem('product') != null){
       this.sa = JSON.parse(localStorage.getItem('product'));
     }
@@ -143,7 +152,6 @@ export class BasketService {
   remove(){
     this.updateProducts.next(true);
     this.sa = JSON.parse(localStorage.getItem('product'));
-
     this.totalPrice = new BehaviorSubject(this.price());
   }
 

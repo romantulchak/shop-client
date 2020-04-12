@@ -1,7 +1,7 @@
 .grid__products{
     display: grid;
     grid-gap: 1em;
-    grid-template-columns: repeat(4, 1fr);
+    /*grid-template-columns: repeat(4, 1fr);*/
     justify-content: center;
     margin-left: 2em;
     margin-right: 2em;
@@ -114,4 +114,14 @@
     grid-template-columns: 1fr 1fr;
     justify-items: center;
     align-items: center;
+}
+.product__discount_price{
+    text-decoration: line-through;
+    font-size: 14px;
+    display: flex;
+}
+
+.discount{
+    display: flex;
+    color: red;
 }
