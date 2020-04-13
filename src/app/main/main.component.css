@@ -67,3 +67,24 @@
     font-family: MuktaRegular;
     text-align: center;
 }
+
+
+.section__title{
+    background: #da9b24;
+
+    height: 10em;
+    width: 100%;
+}
+.section__title > h1{
+   
+    padding: 1em;
+    color: #fff;
+    /* text-decoration: overline; */
+    letter-spacing: 2px;
+    font-weight: 400;
+    font-size: 40px;
+}
+.novely__products{
+    position: relative;
+    top: -4em;
+}

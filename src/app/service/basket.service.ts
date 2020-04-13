@@ -48,8 +48,6 @@ export class BasketService {
 
     if(localStorage.getItem('product') != null){
       this.getProductsFromDb();
-     
-      
     }else{
       this.count = new BehaviorSubject<number>(0);
       this.productsAfterRemove = new BehaviorSubject(this.sa);
@@ -105,8 +103,6 @@ export class BasketService {
                   }
                 });
             });
-            console.log('PROD');
-            console.log(prod);
 
       return prod;
   }
@@ -149,6 +145,7 @@ export class BasketService {
 
   }
 
+  //TODO: don't update products after remove
   remove(){
     this.updateProducts.next(true);
     this.sa = JSON.parse(localStorage.getItem('product'));

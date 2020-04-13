@@ -1,0 +1,42 @@
+
+<em>{{product.id}}</em>
+
+<form (ngSubmit)="setGlobalDiscount(product, discount.value)">
+
+    <div>
+        <h3>{{product.productName}}</h3>
+        <input type="checkbox" #name>
+        <input type="text" [(ngModel)]="product.productName">
+    </div>
+    <div>
+        <h6 [innerHTML]="product.description"></h6>
+        <input type="checkbox" #description>
+        <textarea >{{product.description}}</textarea>
+    </div>
+    <div>
+        <h3>{{product.productPrice}}</h3>
+        <input type="checkbox" #productPrice>
+        <input type="number" [(ngModel)]="product.productPrice">
+    </div>
+    <div>
+        {{product.gpu | json}}
+    </div>
+        <div>
+            <h3>Is global discount</h3>
+            <input type="checkbox" [checked]="product.isGlobalDiscount" (change)="isGlobalDiscount(product)">
+          </div>
+          <div>
+            <h3>Percent</h3>
+            <input type="number" max="99" min="1" [(disabled)]="!product.isGlobalDiscount"  #discount>
+          </div>
+
+    <div>
+        {{product.cpu | json}}
+    </div>
+    <div>
+        {{product.category | json}}
+    </div>
+
+
+    <button type="submit">Send</button>
+</form>

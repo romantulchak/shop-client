@@ -1,4 +1,10 @@
 <div>
+
+  <app-products [numberOfColumns]="5" [adminLook]="true"></app-products>
+   
+  <hr>
+  
+
   <h1>PROMO CODES</h1>
   <div *ngFor="let item of product"> 
     <h3>{{item.productName}}</h3>
@@ -25,16 +31,3 @@
   </div>
 </div>
 
-<div>
-  <h1>Global discounts</h1>
-  <div *ngFor="let item of product"> 
-    <h3>{{item.productName}}</h3>
-    <form (submit)="setGlobalDiscount(item, discount.value)">
-      <div>
-        <h3>Percent</h3>
-        <input type="number" #discount>
-      </div>
-      <button type="submit">Send</button>
-  </form>
-  </div>
-</div>

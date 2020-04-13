@@ -17,29 +17,11 @@ import { Brand } from '../model/brand.models';
 import { Cpu } from '../model/cpu.model';
 import { Gpu } from '../model/gpu.model';
 import { ProductsComponent } from '../products/products.component';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
-  animations: [
-    trigger('fullWidth',[
-      state('max', style({
-        width:'7em',
-        color: '#fff',
-        background: 'orange'
-
-      })),
-      state('min', style({
-        width: '2em'
-      })),
-      transition('max => min', [
-        animate('0.5s')
-      ]),
-      transition('min => max', [
-        animate('0.3s')
-      ]),
-    ]),
-  ],
 })
 export class MainComponent implements OnInit {
 
@@ -53,6 +35,11 @@ export class MainComponent implements OnInit {
     { src: 'http://localhost:8080/categoryImages/5501ddcf-8dd9-4476-b6f5-8a9be2cb83e9.razer-render-computer-mouse-computer-mice-wallpaper-preview.jpg' },
     { src: 'http://localhost:8080/categoryImages/f2399fef-605b-426b-8420-f26cdc730225.2458797.jpg' }
   ]
+
+ 
+
+
+  public lastTenProducts: Product[];
 
 
   public mainLoading = true;
@@ -76,18 +63,30 @@ export class MainComponent implements OnInit {
 
   productCheck: any[] = [];
   ngOnInit(): void {
+    this.mostPurchased();
+    this.getLastTenProducts();
     this.isAdmin = this.toketnSerivce.showAdminBoard;
     setTimeout(() => {
       this.productCheck =  this.basketService.sa;
+
       //this.getProducts();
       this.getCategories();
       this.getAllBrands();
       this.getAllCpus();
       this.getAllGpus();
-      this.mostPurchased();
+   
+     
    }, 500);
    
+   this.basketService.updateProducts.subscribe(
 
+    res=>{
+      if(res === true){
+        this.getLastTenProducts();
+      }
+    }
+
+   );
   }
 
   getAllGpus(){
@@ -187,7 +186,19 @@ export class MainComponent implements OnInit {
 
   }
 
+  getLastTenProducts(){
+    this.productService.getLastTenProducts().subscribe(
 
+      res=>{
+        if(res != null){
+          this.childComp.checkInBasket(res);
+          this.lastTenProducts = res;
+        }
+      }
+
+    );
+  }
+  
   getCategories(){
     this.mainLoading = true;
     this.categoryService.getCategories().subscribe(
@@ -238,12 +249,10 @@ export class MainComponent implements OnInit {
 
   mostPurchased(){
     this.productService.mostPurchased().subscribe(
-
       res=>{
         if(res != null){
           this.childComp.checkInBasket(res);
           this.productsToComponent = res;
-          
         }
       }
 

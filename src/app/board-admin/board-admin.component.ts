@@ -11,7 +11,7 @@ import { NotificationService } from '../service/notification.service';
 export class BoardAdminComponent implements OnInit {
 
   public product: Product[];
-
+  public currnetProduct: Product;
   constructor(private productService: ProductService, private notificiationService: NotificationService) { }
   
   ngOnInit() {
@@ -34,8 +34,6 @@ export class BoardAdminComponent implements OnInit {
     );
   }
   addPromo(product: Product,percent: string,numberOfDays: any, numberOfUses: string){
-    
-
     this.productService.addPromo(product,  Number.parseInt(percent),Number.parseInt(numberOfDays),  Number.parseInt(numberOfUses)).subscribe(
 
       res=>{
@@ -54,4 +52,5 @@ export class BoardAdminComponent implements OnInit {
       }
     );
   }
+  
 }

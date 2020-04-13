@@ -74,7 +74,9 @@ export class ProductService{
         paramsToSend = paramsToSend.append('categoryName', categoryNamy);
         return this.http.get<Product[]>(API_URL + 'products/filterByCategory/', {params: paramsToSend})
     }
-
+    getLastTenProducts(): Observable<Product[]>{
+        return this.http.get<Product[]>(API_URL + 'products/lastTenProducts');
+    }
     filter(brands?:string[], cpus?: string[], gpus?: string[]): Observable<Product[]>{
         console.log(gpus);
         let paramsToSend = new HttpParams();

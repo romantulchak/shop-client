@@ -50,6 +50,7 @@ import { CpuComponent } from './cpu/cpu.component';
 import { GpuComponent } from './gpu/gpu.component';
 import { ProductsComponent } from './products/products.component';
 import { CarouselComponent } from './carousel/carousel.component';
+import { EditProductDialogComponent } from './dialogs/edit-product-dialog/edit-product-dialog.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { CarouselComponent } from './carousel/carousel.component';
     GpuComponent,
     ProductsComponent,
     CarouselComponent,
+    EditProductDialogComponent,
 
   ],
   imports: [

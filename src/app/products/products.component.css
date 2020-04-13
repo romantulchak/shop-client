@@ -42,6 +42,21 @@
     background: rgba(255, 0, 0, 1);
     color: #fff;
 }
+.card__edit{
+    background: rgba(63, 0, 255, 0.75);
+    position: absolute;
+    left: -1em;
+    border: none;
+    font-weight: 900;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    top: -1em;
+    outline: none;
+    cursor: pointer;
+    -webkit-transition: .5s all;
+    transition: .5s all;
+}
 .product__info{
     
 }

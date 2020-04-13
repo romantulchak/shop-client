@@ -34,16 +34,7 @@ export class NavbarComponent implements OnInit {
   
     setTimeout(() => {
       if(this.basketService.count != null){
-        this.basketService.count.subscribe(
-          res=>{
-            if(res !=null){
-              console.log('RES NAV');
-              console.log(res);
-              this.basketLength = res;
-            }
-          }
-  
-      );
+       this.getBasketCount();
       } 
       this.getTotalPrice();
     
@@ -53,6 +44,7 @@ export class NavbarComponent implements OnInit {
       res=>{
          if(res === true){
           this.getTotalPrice();
+          this.getBasketCount();
       }
     }
     );
@@ -98,7 +90,16 @@ export class NavbarComponent implements OnInit {
       }
    );
   }
+  getBasketCount(){
+    this.basketService.count.subscribe(
+      res=>{
+        if(res !=null){
+          this.basketLength = res;
+        }
+      }
 
+  );
+  }
   
   public openBasket(){
     

@@ -5,6 +5,9 @@ import { TokenStorageService } from '../service/token-storage.service';
 import { BasketService } from '../service/basket.service';
 import { NotificationService } from '../service/notification.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Subject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { EditProductDialogComponent } from '../dialogs/edit-product-dialog/edit-product-dialog.component';
 
 @Component({
   selector: 'app-products',
@@ -32,7 +35,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private productService: ProductService, private tokenService: TokenStorageService, private basketService: BasketService, private notificationService: NotificationService) { }
+  constructor(private productService: ProductService, private tokenService: TokenStorageService, private basketService: BasketService, private notificationService: NotificationService, private dialog: MatDialog) { }
 
   
 
@@ -42,13 +45,31 @@ export class ProductsComponent implements OnInit {
   @Input() numberOfColumns:number = 4;
   @Input() showButtons = true;
 
+  @Input() usualLook: boolean = false;
+  @Input() topFiveLook: boolean = false;
+  @Input() adminLook: boolean = false;
 
+  @Input() productsFromComponent: Product[];
+
+
+ // @Input() productOfDayLook: boolean;
+
+
+
+
+
+
+
+
+
+  @Input() updateTopFive: Subject<boolean> = new Subject<boolean>();
 
   public gridStyle: any = {};
 
 
   
-  @Output() categoryFilter = new EventEmitter<any>();
+
+
 
   productCheck: any[] = [];
 
@@ -56,23 +77,23 @@ export class ProductsComponent implements OnInit {
   public currentProduct: Product;
   public isAdmin = false;
   public loading: boolean;
-  @Input() products: Product[] = null;
+  @Input() products: Product[];
+  
+
+
   ngOnInit(): void {
     this.isAdmin = this.tokenService.showAdminBoard;
     setTimeout(() => {
       this.productCheck =  this.basketService.sa;
-      if(this.isCategory === true){
-        
-        if(this.products === null)
-        {
-          this.findByCategory();
-        }      
-        
-      }else{
-        if(this.products === null){
-          this.findAllProducts();
+      console.log(this.products);
+      if(this.products === undefined){
+        if(this.isCategory === true){
+            this.findByCategory(); 
+        }else{
+            this.findAllProducts();
         }
       }
+
     }, 500);
 
     //TODO: пофіксити тут
@@ -96,6 +117,7 @@ export class ProductsComponent implements OnInit {
         }
       }
     );
+    
     this.gridStyle={
       'grid-template-columns': `repeat(${this.numberOfColumns}, 1fr)`
     }
@@ -140,7 +162,6 @@ export class ProductsComponent implements OnInit {
   checkInBasket(res: Product[]){
     res.forEach(e=>{
       setTimeout(() => {
-        console.log(this.productCheck);
         this.productCheck.forEach(el=>{
           if(e.id === el.id)
             e.showButton = el.showButton;
@@ -159,16 +180,18 @@ export class ProductsComponent implements OnInit {
 
   }
   deleteProduct(id: number){
-
     this.productService.deleteProduct(id).subscribe(
       res=>{
-        
-        this.findAllProducts();
+        if(this.isCategory && this.categoryName != null){
+          this.findByCategory();
+        }else{
+          this.findAllProducts();
+        }
         this.notificationService.openSnackBar(res);
         this.basketService.getProductsFromDb();
+        
       },
       error=>{console.log(error);}
-
     );
   }
   addToCart(product: Product){
@@ -189,6 +212,12 @@ export class ProductsComponent implements OnInit {
       }, 500);
 
     }
+  }
+
+  edit(product: Product){
+    this.dialog.open(EditProductDialogComponent, {
+      data: product
+    });
   }
 
   
