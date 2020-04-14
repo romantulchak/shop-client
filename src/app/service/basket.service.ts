@@ -150,6 +150,8 @@ export class BasketService {
     this.updateProducts.next(true);
     this.sa = JSON.parse(localStorage.getItem('product'));
     this.totalPrice = new BehaviorSubject(this.price());
+
+
   }
 
   price():number{

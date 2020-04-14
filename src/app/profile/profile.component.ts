@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
 
       res=>{
         this.orders = res;
-        console.log(res);
+
       }
 
     );
@@ -70,8 +70,6 @@ export class ProfileComponent implements OnInit {
       this.panelOpenState = !this.panelOpenState;
       return true;
     }
-
-
     return false;
   }
   openEditDialog(user: User){

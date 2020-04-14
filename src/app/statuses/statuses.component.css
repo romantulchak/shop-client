@@ -1,0 +1,141 @@
+.order{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    padding: .5em;
+    align-items: center;
+}
+.order__customer{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.product__name_id{
+    display: flex;
+    margin-bottom: 1em;
+    flex-wrap: wrap;
+}
+.product__name_id > a{
+    margin-right: 1em;
+    font-size: 18px;
+    text-decoration: none;
+    color: #3e77aa;
+    font-weight: 400;
+}
+.product__name_id > span{
+    color: #a2abb1;
+    font-size: 13px;
+}
+
+
+.product__card{
+    border-bottom: 2px dashed rgba(130, 127, 127, 0.85);
+    margin-bottom: 1em;
+}
+.card{
+    display: grid;
+    grid-template-columns: 5em 1fr;
+    align-items: center;
+    margin-bottom: .5em;
+}
+.product__price_amount{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+}
+.product__price_amount :first-child{
+    justify-self: start;
+}
+.product__price_amount :last-child{
+    justify-self: end;
+}
+.name__price{
+    margin-left: 3em;
+}
+
+.customer__card{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.customer__titles{
+    text-align: justify;
+    justify-self: end;
+    margin-right: 1em;
+}
+
+.customer__titles > h3{
+    color: #4d4b4b;
+    font-family: sans-serif;
+    font-weight: 400;
+    line-height: 2;
+}
+
+.customer__info{
+    justify-self: start;
+    text-align: justify;
+}
+
+
+.customer__info > h3{
+    line-height: 2;
+    font-family: sans-serif;
+}
+
+.statuse__card{
+    display: grid;
+    grid-template-rows: 1.5em 10em;
+}
+.statuse__titels{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+}
+.statuse__titels > h2{
+    font-family: sans-serif;
+    text-align: center;
+}
+.statuse__images{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-items: center;
+    align-items: center;
+}
+.statuse__title{
+    color: #da8656;
+    font-size: 30px;
+    font-family: sans-serif;
+    font-weight: 100;
+    letter-spacing: 3px;
+    margin-bottom: 1em;
+}
+.image__card{
+    position: relative;
+}
+.circle{
+    width: 2em;
+    border-radius: 50%;
+    background: #3fd61a;
+    height: 2em;
+    right: .5em;
+    bottom: 1em;
+    position: absolute;
+    display: grid;
+    align-items: center;
+}
+.circle > span{
+    color: white;
+    font-weight: 900;
+    font-size: 20px;
+    top: 3px;
+    left: 0;
+    right: 0;
+    display: grid;
+    bottom: 0;
+    justify-content: center;
+}
+.opacity__image{
+    opacity: 0.5;
+}
+.statuses__date{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}

@@ -1,29 +1,8 @@
-<section *ngIf="data.data.length != 0; else message">
-    <h6><button (click)="cancelOrder(userDetails.identificationNumber)" >Cancle</button></h6>    
-    <div>
-        <h1>User Name: {{userDetails.name}} | Last Name: {{userDetails.lastName}}</h1>
-        <h3>Total Price: {{userDetails.totalPrice}}</h3>
-    </div>
-    <div *ngFor="let item of data.data">
-        <div *ngFor="let products of item.customProducts">
-                <h3>Product: {{products.product.productName}}</h3>
-                <h3>{{products.product.productPrice}}</h3>
-                <h3>Amount: {{products.amount}}</h3>
-        </div>
-    </div>
-    <div class="status">
-        <h1>Status:</h1>
-       <h2 *ngIf="userDetails.statuses[0].statusCode === 0;">Is Being Processed</h2>
-       <h6 >{{userDetails.statuses[0].statusDateTime | date}}</h6>
-       <h2 [style.color]="userDetails.statuses[1].statusCode === 1 ? 'green' : 'red' ">Is Completed</h2>
-       <h6 >{{userDetails.statuses[1].statusDateTime | date}}</h6>
-       <h2 [style.color]="userDetails.statuses[2].statusCode === 2 ? 'green' : 'red' ">In Transit</h2>
-       <h6 >{{userDetails.statuses[2].statusDateTime | date}}</h6>
-       <h2 [style.color]="userDetails.statuses[3].statusCode === 3 ? 'green' : 'red' ">At The Destination</h2>
-       <h6 >{{userDetails.statuses[3].statusDateTime | date}}</h6>
-       <h2 [style.color]="userDetails.statuses[4].statusCode === 4 ? 'green' : 'red' ">Received</h2>
-       <h6 >{{userDetails.statuses[4].statusDateTime | date}}</h6>
-    </div>
+<section *ngIf="data != null; else message">
+
+    <app-statuses [order]="order" [products]="order.customProducts"></app-statuses>
+
+
 </section>
 <ng-template #message>
     Not found

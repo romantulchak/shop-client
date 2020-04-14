@@ -103,7 +103,6 @@ export class OrderComponent implements OnInit {
     this.orderService.findByIdentificationNumber(identificationNumberForSeach).subscribe(
       res=>{
 
-
         if(res != null){
           this.dialog.open(DialogSearchComponent,{
             data: {
@@ -111,9 +110,6 @@ export class OrderComponent implements OnInit {
             }
           });
         }
-
-        console.log('FROM MAIN');
-        console.log(res);
 
 
       },

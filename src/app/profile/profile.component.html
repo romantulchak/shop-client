@@ -28,27 +28,27 @@
         <mat-accordion>
             <mat-expansion-panel (opened)="panelOpenState = openPanel(order) && panelOpenState"
                     (closed)="panelOpenState = false">
-            <mat-expansion-panel-header class="expansion__panel_header">
+            <mat-expansion-panel-header class="expansion__panel_header" [class.expansion__style]="currentOrder === order && panelOpenState">
             <mat-panel-title>
                <div class="epansion__panel_header">
                    
                 <h3>Order №: {{order.identificationNumber}}</h3>
                 <h3>{{order.createdDate | date: 'mm-dd-yyyy hh:mm'}}</h3>
-
-                    <div>
+                 <div>
                     <img width="50em" height="50em" *ngFor="let item of order.customProducts" src="{{item.product.image[0].imagePath}}" alt="">
                 </div>
-
-
                 <h3>Amount {{order.customProducts.length}}</h3> 
                 <h3>Total price: {{order.totalPrice}}</h3>
             
             </div>
             </mat-panel-title>
-
             </mat-expansion-panel-header>
-            <p>I'm visible because I am open</p>
+            <ng-template matExpansionPanelContent>
+                <app-statuses [order]="order" [products]="null"></app-statuses>
+              </ng-template>
             </mat-expansion-panel>
+
+       
         </mat-accordion>
 
 

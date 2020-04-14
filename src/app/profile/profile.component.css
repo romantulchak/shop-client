@@ -27,3 +27,10 @@
 .expansion__panel_header{
     height: 60px;
 }
+.expansion__style{
+    border-radius: 8px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.27);
+}
+.mat-expansion-panel-body{
+    padding: 1em;
+}

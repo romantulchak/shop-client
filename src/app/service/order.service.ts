@@ -33,8 +33,8 @@ export class OrderService{
     getAllOrders(): Observable<Order[]>{
         return this.http.get<Order[]>(API_URL + 'order/getAll/');
     }
-    findByIdentificationNumber(identificationNumber: string): Observable<Order[]>{
-        return this.http.get<Order[]>(API_URL + 'order/findByIdentificationNumber/' + identificationNumber);
+    findByIdentificationNumber(identificationNumber: string): Observable<Order>{
+        return this.http.get<Order>(API_URL + 'order/findByIdentificationNumber/' + identificationNumber);
     }
     setStatus(order: Order, code: string){
         

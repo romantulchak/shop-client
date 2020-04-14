@@ -23,7 +23,7 @@ export class DialogSearchComponent implements OnInit {
     //received: false
   }
   public items: Product[];
-  public order: any[];
+  public order: Order;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   cancelOrder(identificationNumber: string){
@@ -31,7 +31,10 @@ export class DialogSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    
+    this.order = this.data.data;
+    
+    /*
     let userData = this.data.data[0];
     this.userDetails = {
       name: userData.costumerName,
@@ -50,7 +53,7 @@ export class DialogSearchComponent implements OnInit {
 
     this.order = this.data.data;
     console.log(this.data.data);
-  
+    */
     
   }
 

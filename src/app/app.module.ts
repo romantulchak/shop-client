@@ -51,6 +51,7 @@ import { GpuComponent } from './gpu/gpu.component';
 import { ProductsComponent } from './products/products.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { EditProductDialogComponent } from './dialogs/edit-product-dialog/edit-product-dialog.component';
+import { StatusesComponent } from './statuses/statuses.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { EditProductDialogComponent } from './dialogs/edit-product-dialog/edit-p
     ProductsComponent,
     CarouselComponent,
     EditProductDialogComponent,
+    StatusesComponent,
 
   ],
   imports: [

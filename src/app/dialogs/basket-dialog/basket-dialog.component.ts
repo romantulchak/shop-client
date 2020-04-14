@@ -100,7 +100,7 @@ export class BasketDialogComponent implements OnInit {
         res=>{
           if(res != ''){
             if(res != Promo.UNCORRECTED_PRODUCT){
-              if(res != Promo.DETERMINED){
+              if(res != Promo.EXPIRED){
                 product.discount = res;
                 product.discountPrice = Math.round(product.price - (product.price * (product.discount / 100)));
                 product.promo = code;

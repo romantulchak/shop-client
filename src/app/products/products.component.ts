@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { ProductService } from '../service/product.service';
 import { Product } from '../model/product.model';
 import { TokenStorageService } from '../service/token-storage.service';
 import { BasketService } from '../service/basket.service';
 import { NotificationService } from '../service/notification.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProductDialogComponent } from '../dialogs/edit-product-dialog/edit-product-dialog.component';
 
@@ -33,7 +33,7 @@ import { EditProductDialogComponent } from '../dialogs/edit-product-dialog/edit-
     ]),
   ],
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnChanges {
 
   constructor(private productService: ProductService, private tokenService: TokenStorageService, private basketService: BasketService, private notificationService: NotificationService, private dialog: MatDialog) { }
 
@@ -53,21 +53,10 @@ export class ProductsComponent implements OnInit {
 
 
  // @Input() productOfDayLook: boolean;
-
-
-
-
-
-
-
-
-
-  @Input() updateTopFive: Subject<boolean> = new Subject<boolean>();
-
   public gridStyle: any = {};
 
 
-  
+
 
 
 
@@ -77,6 +66,10 @@ export class ProductsComponent implements OnInit {
   public currentProduct: Product;
   public isAdmin = false;
   public loading: boolean;
+
+
+  @Input() pr: Product[];
+
   @Input() products: Product[];
   
 
@@ -85,17 +78,19 @@ export class ProductsComponent implements OnInit {
     this.isAdmin = this.tokenService.showAdminBoard;
     setTimeout(() => {
       this.productCheck =  this.basketService.sa;
-      console.log(this.products);
-      if(this.products === undefined){
+     
+      if(this.pr === undefined || this.pr === null){
         if(this.isCategory === true){
             this.findByCategory(); 
         }else{
             this.findAllProducts();
         }
+      }else{
+ 
+        this.products = this.pr;
       }
 
     }, 500);
-
     //TODO: пофіксити тут
     this.basketService.updateProducts.subscribe(
       res=>{
@@ -108,11 +103,18 @@ export class ProductsComponent implements OnInit {
               }
             }
           );
+          if(this.pr === undefined){
+            if(this.isCategory === true){
+                this.findByCategory();
+            }else{
+                this.findAllProducts();
+            }
+          }
+          else{
 
-          if(this.isCategory === true){
-              this.findByCategory();
-          }else{
-              this.findAllProducts();
+        console.log('products updated');
+            this.checkInBasket(this.pr);
+            this.products = this.pr;
           }
         }
       }
@@ -123,7 +125,18 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  
+  ngOnChanges(){
+    this.basketService.updateProducts.subscribe(
+
+      res=>{
+        if(res === true){
+          this.products = this.pr;
+        }
+      }
+
+
+    );
+  }
 
   findAllProducts(){
     this.loading = true;
@@ -163,8 +176,10 @@ export class ProductsComponent implements OnInit {
     res.forEach(e=>{
       setTimeout(() => {
         this.productCheck.forEach(el=>{
-          if(e.id === el.id)
+          if(e.id === el.id){
             e.showButton = el.showButton;
+            console.log(e.showButton);
+          }
         });
       }, 500);
     });
@@ -219,6 +234,15 @@ export class ProductsComponent implements OnInit {
       data: product
     });
   }
+
+
+
+
+
+
+
+
+
 
   
 

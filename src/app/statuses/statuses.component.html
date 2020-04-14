@@ -1,0 +1,101 @@
+<div class="order">
+    <div class="order__customer">
+        <div class="customer__card">
+            <div class="customer__titles">
+                <h3>Name and Surname:</h3>
+                <h3>City:</h3>
+                <h3>Address:</h3>
+                <h3>Phone number</h3>
+                <h3>Email</h3>
+            </div>
+            <div class="customer__info">
+                <h3>{{order.costumerName | titlecase}} {{order.costumerLastName | titlecase}} </h3>
+                <h3>{{order.costumerCity | titlecase}}</h3>
+                <h3>{{order.costumerAddress}}</h3>
+                <h3>{{order.customerMobilePhone}}</h3>
+                <h3>{{order.email}}</h3>
+            </div>
+        </div>
+        <div class="statuses">
+            <h2 class="statuse__title">Statuses</h2>
+            <div class="statuse__card">
+                <div class="statuse__titels">
+                    <h2>{{order.statuses[0].customStatus | renamer}}</h2>
+                    <h2>{{order.statuses[1].customStatus | renamer}}</h2>
+                    <h2>{{order.statuses[2].customStatus | renamer}}</h2>
+                    <h2>{{order.statuses[3].customStatus | renamer}}</h2>
+                    <h2>{{order.statuses[4].customStatus | renamer}}</h2>
+                </div>
+                <div class="statuse__images">
+                    <div class="image__card">
+                        <img [class.opacity__image]="order.statuses[0].statusCode != 0" src="../../assets/statuses/IsBeingProcessed.svg" width="100em" height="100em" alt="">
+                        <div *ngIf="order.statuses[0].statusCode === 0" class="circle">
+                            <span class="material-icons">
+                                done
+                            </span>
+                        </div>
+                    </div>
+                    <div class="image__card">
+                        <img [class.opacity__image]="order.statuses[1].statusCode != 1" src="../../assets/statuses/IsCompleted.svg" width="100em" height="100em" alt="">
+                        <div *ngIf="order.statuses[1].statusCode === 1" class="circle">
+                            <span class="material-icons">
+                                done
+                            </span>
+                        </div>
+                    </div>
+                    <div class="image__card">
+                        <img [class.opacity__image]="order.statuses[2].statusCode != 2" src="../../assets/statuses/InTransit.svg" width="100em" height="100em" alt="">
+                        <div *ngIf="order.statuses[2].statusCode === 2" class="circle">
+                            <span class="material-icons">
+                                done
+                            </span>
+                        </div>
+                    </div>
+                    <div class="image__card">
+                        <img [class.opacity__image]="order.statuses[3].statusCode != 3" src="../../assets/statuses/AtTheDestination.svg" width="100em" height="100em" alt="">
+                        <div *ngIf="order.statuses[3].statusCode === 3" class="circle">
+                            <span class="material-icons">
+                                done
+                            </span>
+                        </div>
+                    </div>
+                    <div class="image__card">
+                        <img [class.opacity__image]="order.statuses[4].statusCode != 4" src="../../assets/statuses/Recived.svg" width="100em" height="100em" alt="">
+                        <div *ngIf="order.statuses[4].statusCode === 4" class="circle">
+                            <span class="material-icons">
+                                done
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="statuses__date">
+                    <h4 *ngIf="order.statuses[0].statusDateTime != null">{{order.statuses[0].statusDateTime | date: 'dd-MM-yyyy HH:ss'}}</h4>
+                    <h4 *ngIf="order.statuses[1].statusDateTime != null">{{order.statuses[1].statusDateTime | date: 'dd-MM-yyyy HH:ss'}}</h4>
+                    <h4 *ngIf="order.statuses[2].statusDateTime != null">{{order.statuses[2].statusDateTime | date: 'dd-MM-yyyy HH:ss'}}</h4>
+                    <h4 *ngIf="order.statuses[3].statusDateTime != null">{{order.statuses[3].statusDateTime | date: 'dd-MM-yyyy HH:ss'}}</h4>
+                    <h4 *ngIf="order.statuses[4].statusDateTime != null">{{order.statuses[4].statusDateTime | date: 'dd-MM-yyyy HH:ss'}}</h4>
+                </div>
+         </div>
+        </div>
+    </div>
+    <div class="order__products">
+        <div class="product__card" *ngFor="let item of this.products">
+            <div class="card">
+                <img [src]="item.product.image[0].imagePath" height="70em" width="70em" alt="">
+               <div class="name__price">
+                    <div class="product__name_id">
+                        <!--TODO: FIX LINK-->
+                        <a routerLink="detailsProduct/{{item.product.id}}">{{item.product.productName}}</a>
+                        <span>№{{item.product.id}}</span>
+                    </div>
+                    <div class="product__price_amount">
+                        <h3>{{item.currentProductPrice}} <span class="product__symbol">грн</span></h3>
+                        <h4>{{item.amount}} <span>шт.</span></h4>
+                        <h3>{{item.amount * item.currentProductPrice}} <span class="product__symbol">грн</span></h3>
+                    </div>
+                </div>
+            </div>   
+        </div>
+   </div> 
+</div>
+

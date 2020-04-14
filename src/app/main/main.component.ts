@@ -63,25 +63,25 @@ export class MainComponent implements OnInit {
 
   productCheck: any[] = [];
   ngOnInit(): void {
-    this.mostPurchased();
+    this.productCheck =  this.basketService.sa;
     this.getLastTenProducts();
+    this.mostPurchased();
     this.isAdmin = this.toketnSerivce.showAdminBoard;
     setTimeout(() => {
-      this.productCheck =  this.basketService.sa;
-
-      //this.getProducts();
       this.getCategories();
       this.getAllBrands();
       this.getAllCpus();
       this.getAllGpus();
    
-     
    }, 500);
    
+
+
    this.basketService.updateProducts.subscribe(
 
     res=>{
       if(res === true){
+        console.log('ERRRRRRRRRRRRRRRRRRRRRRRROOOOO');
         this.getLastTenProducts();
       }
     }
@@ -121,7 +121,6 @@ export class MainComponent implements OnInit {
       res=>{
         if (res != null) {
           this.brands = res;
-          console.log(res);
         }
 
       }
@@ -186,18 +185,7 @@ export class MainComponent implements OnInit {
 
   }
 
-  getLastTenProducts(){
-    this.productService.getLastTenProducts().subscribe(
-
-      res=>{
-        if(res != null){
-          this.childComp.checkInBasket(res);
-          this.lastTenProducts = res;
-        }
-      }
-
-    );
-  }
+ 
   
   getCategories(){
     this.mainLoading = true;
@@ -251,12 +239,21 @@ export class MainComponent implements OnInit {
     this.productService.mostPurchased().subscribe(
       res=>{
         if(res != null){
-          this.childComp.checkInBasket(res);
           this.productsToComponent = res;
         }
       }
 
     );
   }
+  getLastTenProducts(){
+    this.productService.getLastTenProducts().subscribe(
+      res=>{
+        if(res != null){
+          this.childComp.checkInBasket(res);
+          this.lastTenProducts = res;
+        }
+      }
 
+    );
+  }
 }
