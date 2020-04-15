@@ -19,14 +19,20 @@
                         <h4 *ngIf="product.isGlobalDiscount" class="discount">{{product.discountPrice}} <span>грн</span></h4>
                         <h5>{{product.brand.name}}</h5>
                     </div>
+                      
                     <div class="grid__buttons">
-                        <button [disabled]="product.amountInStock === 0" class="button__buy" [@fullWidth]="styleOn && currentProduct === product ? 'max': 'min'" *ngIf="!product.showButton;else inBasket" (click)="addToCart(product)">
+                    <ng-container *ngIf="product.amountInStock != 0">
+                        <button class="button__buy" [@fullWidth]="styleOn && currentProduct === product ? 'max': 'min'" *ngIf="!product.showButton;else inBasket" (click)="addToCart(product)">
                             <span  class="material-icons basket_icon">shopping_basket</span>
                             <span class="span__buy" [ngClass]="{'span__buy_hover':styleOn && currentProduct === product}" >Buy</span>
                         </button>
-                        <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+                    </ng-container>
+                    <button  class="button__buy" *ngIf="product.amountInStock === 0;" (click)="remindMeDiaglog(product)">Remind me</button>
+                
+                    <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
                             <mat-icon>favorite</mat-icon>
                           </button>
+
                     </div>
                 </div>
             </div>

@@ -13,7 +13,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { TokenStorageService } from '../service/token-storage.service';
 import { NotificationService } from '../service/notification.service';
 import { BrandService } from '../service/brand.service';
-import { Brand } from '../model/brand.models';
+import { Brand } from '../model/brand.model';
 import { Cpu } from '../model/cpu.model';
 import { Gpu } from '../model/gpu.model';
 import { ProductsComponent } from '../products/products.component';

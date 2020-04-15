@@ -59,6 +59,14 @@ export class ProductService{
         return this.http.post(API_URL + 'products/createGpu', gpu, {responseType: 'text'});
     }
 
+
+    updateProduct(product: Product){
+        return this.http.put(API_URL + "products/updateProduct", product, {responseType: 'text'});
+    }
+    findById(id:number): Observable<Product>{
+        return this.http.get<Product>(API_URL + 'products/findById/' + id);
+    }
+
     mostPurchased(): Observable<Product[]>{
         return this.http.get<Product[]>(API_URL + 'products/mostPurchased');
     }

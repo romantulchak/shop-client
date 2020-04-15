@@ -1,6 +1,6 @@
 import { Image } from './image.model';
 import { Category } from './category.model';
-import { Brand } from './brand.models';
+import { Brand } from './brand.model';
 import { Cpu } from './cpu.model';
 import { Gpu } from './gpu.model';
 import { PromotionalCode } from './promotionalCode.model';

@@ -3,8 +3,6 @@
     src: url("../../assets/fonts/Mukta-Regular.ttf");
 }
 
-
-
 .filters__products{
     display: grid;
     grid-template-columns: 15em 1fr;

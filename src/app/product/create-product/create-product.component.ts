@@ -4,7 +4,7 @@ import { Category } from 'src/app/model/category.model';
 import { CategoryService } from 'src/app/service/category.service';
 import { ProductService } from 'src/app/service/product.service';
 import { NotificationService } from 'src/app/service/notification.service';
-import { Brand } from 'src/app/model/brand.models';
+import { Brand } from 'src/app/model/brand.model';
 import { BrandService } from 'src/app/service/brand.service';
 import { Cpu } from 'src/app/model/cpu.model';
 import { Gpu } from 'src/app/model/gpu.model';

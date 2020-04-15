@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Brand } from '../model/brand.models';
+import { Brand } from '../model/brand.model';
 import {environment} from '../../environments/environment';
 
 const API_KEY = environment.apiUrl;

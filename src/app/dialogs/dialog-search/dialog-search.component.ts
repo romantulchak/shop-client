@@ -31,7 +31,7 @@ export class DialogSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    console.log(this.data);
     this.order = this.data.data;
     
     /*

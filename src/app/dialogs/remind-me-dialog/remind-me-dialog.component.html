@@ -1,0 +1,10 @@
+
+<h1>Enter your email</h1>
+<form (ngSubmit)="createRemindMe()">
+    
+    <div>
+        <h2>Email</h2>
+        <input type="email" name="email" [(ngModel)]="remindMe.email">
+    </div>
+    <button type="submit">Ok</button>
+</form>

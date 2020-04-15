@@ -98,6 +98,7 @@ export class BasketDialogComponent implements OnInit {
     this.loading = true;
       this.productService.checkDiscount(code, product.id).subscribe(
         res=>{
+          console.log(res);
           if(res != ''){
             if(res != Promo.UNCORRECTED_PRODUCT){
               if(res != Promo.EXPIRED){
@@ -159,9 +160,15 @@ export class BasketDialogComponent implements OnInit {
   }
   //TODO: баг ціна коли макс
   updateAmount(product: any, amount: any){
-    if(!(product.amount > 100)){
+    
       this.orderService.checkAmount(product.id, amount).subscribe(
         res=>{
+
+          if(!(product.amount > 100)){
+
+
+
+
           let sum = Math.round(res * product.price);
           let discountSum = Math.round(res * product.discountPrice);
           if(res === Number.parseInt(amount)){
@@ -184,25 +191,22 @@ export class BasketDialogComponent implements OnInit {
               product.totalProducPrice = sum;
             }
             this.notificationService.openSnackBar("Maximum in the stock");
-          }
+            this.updateItem(product);
+          } 
           
           this.price();
           this.basketService.totalPrice.next(this.totalPrice);
-          //this.totalPrice = this.basketService.price(this.sa);
+        }else{
+          product.amount = res;
+          product.totalProducPrice = product.amount * product.price;
+          this.updateItem(product);
+          this.price();
+          this.basketService.totalPrice.next(this.totalPrice);
+          this.notificationService.openSnackBar("Maximum 99 items");
         }
-
+        }
       );
-    }else{
-      product.amount = 99;
-      product.totalProducPrice = product.amount * product.price;
-      //this.totalPrice = this.basketService.price(this.sa);
-      //this.basketService.totalPrice.next(this.totalPrice);
-      
-      this.updateItem(product);
-      this.price();
-      this.basketService.totalPrice.next(this.totalPrice);
-      this.notificationService.openSnackBar("Maximum 99 items");
-    }
+    
 
   }
   

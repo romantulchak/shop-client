@@ -52,6 +52,7 @@ import { ProductsComponent } from './products/products.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { EditProductDialogComponent } from './dialogs/edit-product-dialog/edit-product-dialog.component';
 import { StatusesComponent } from './statuses/statuses.component';
+import { RemindMeDialogComponent } from './dialogs/remind-me-dialog/remind-me-dialog.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { StatusesComponent } from './statuses/statuses.component';
     CarouselComponent,
     EditProductDialogComponent,
     StatusesComponent,
+    RemindMeDialogComponent,
 
   ],
   imports: [

@@ -1,42 +1,93 @@
 
-<em>{{product.id}}</em>
+<h1>Edit product</h1>
 
-<form (ngSubmit)="setGlobalDiscount(product, discount.value)">
 
+<div style="display: grid; grid-template-columns: 1fr 1fr;">
     <div>
         <h3>{{product.productName}}</h3>
-        <input type="checkbox" #name>
-        <input type="text" [(ngModel)]="product.productName">
-    </div>
-    <div>
-        <h6 [innerHTML]="product.description"></h6>
-        <input type="checkbox" #description>
-        <textarea >{{product.description}}</textarea>
-    </div>
-    <div>
+        <div *ngFor="let img of product.image">
+            <img src="{{img.imagePath}}" width="50em" height="50em" alt="">
+        </div>
         <h3>{{product.productPrice}}</h3>
-        <input type="checkbox" #productPrice>
-        <input type="number" [(ngModel)]="product.productPrice">
+        <h3>{{product.category.categoryName}}</h3>
+        <span [innerHTML]="product.description"></span>
+        <h3>{{product.amountInStock}}</h3>
+        <div *ngIf="product.promotionalCodes === null || product.promotionalCodes.length === 0">
+            <code>Nothing</code>
+        </div>
+        <div *ngFor="let promo of product.promotionalCodes">
+            <h2>{{promo.code}}</h2>
+        </div>
+        <h3>{{product.cpu.name}}</h3>
+        <h3>{{product.gpu.name}}</h3>
+        <div *ngIf="product.isGlobalDiscount">
+            <em>{{product.discountPrice}}</em>
+        </div>
     </div>
     <div>
-        {{product.gpu | json}}
+        <form (ngSubmit)="updateProduct()">
+
+            <div>
+                <h3>Name</h3>
+                <input type="text" name="productName" [(ngModel)]="product.productName">
+            </div>
+            <div>
+                <h3>Description</h3>
+                <input type="text" name="description" [(ngModel)]="product.description">
+            </div>
+            <div>
+                <h3>Product Price</h3>
+                <input type="text" name="productPrice" [(ngModel)]="product.productPrice">
+            </div>
+            <div>
+                <h3>Amount In Stock</h3>
+                <input type="number" name="amountInStock" [(ngModel)]="product.amountInStock">
+            </div>
+            
+
+            <button type="submit">Update</button>
+
+
+
+
+
+        </form>
     </div>
+</div>
+
+
+
+
+<button (click)="isDiscount = !isDiscount">Set discount</button>
+<form (ngSubmit)="setGlobalDiscount(product)" *ngIf="isDiscount">
         <div>
             <h3>Is global discount</h3>
             <input type="checkbox" [checked]="product.isGlobalDiscount" (change)="isGlobalDiscount(product)">
           </div>
           <div>
             <h3>Percent</h3>
-            <input type="number" max="99" min="1" [(disabled)]="!product.isGlobalDiscount"  #discount>
+            <input type="number" max="99" min="1" [(disabled)]="!product.isGlobalDiscount" [(ngModel)]="percent">
           </div>
-
-    <div>
-        {{product.cpu | json}}
-    </div>
-    <div>
-        {{product.category | json}}
-    </div>
-
-
     <button type="submit">Send</button>
 </form>
+
+
+<button (click)="isPromo = !isPromo">Create promo</button>
+
+<form *ngIf="isPromo" (submit)="addPromo(product ,percent.value, numberOfDays.value, numberOfUses.value)">
+    <div>
+      <h3>Number Of Uses</h3>
+      <input type="number" #numberOfUses>
+    </div>
+    <div>
+      <h3>Percent</h3>
+      <input type="number" #percent>
+    </div>
+    <div>
+      <h3>Number Of Days</h3>
+      <input type="number" #numberOfDays>
+    </div>
+    <button type="submit">Send</button>
+</form>
+
+

@@ -36,9 +36,12 @@ export class NavbarComponent implements OnInit {
       if(this.basketService.count != null){
        this.getBasketCount();
       } 
-      this.getTotalPrice();
-    
+      if(this.basketService.totalPrice != null){
+        this.getTotalPrice();
+      }
     }, 1000);
+
+
     this.basketService.updateOrder.subscribe(
 
       res=>{
@@ -54,7 +57,6 @@ export class NavbarComponent implements OnInit {
   
      //TODO: дублювання в OrderComponent
   search(){
-   
     this.orderService.findByIdentificationNumber(this.identificationNumberForSeach).subscribe(
       res=>{
         if(res != null){
@@ -64,8 +66,6 @@ export class NavbarComponent implements OnInit {
             }
           });
         }
-        console.log('FROM MAIN');
-        console.log(res);
       },
       error=>{
         console.log(error);

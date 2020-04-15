@@ -43,14 +43,15 @@ export class BoardAdminComponent implements OnInit {
 
     );
   }
-
+/*
   setGlobalDiscount(product: Product, percent: number){
     this.productService.setGlobalDiscount(product, percent).subscribe(
 
       res=>{
+        this.getProducts();
         this.notificiationService.openSnackBar(res);
       }
     );
   }
-  
+  */
 }

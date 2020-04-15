@@ -8,6 +8,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { Subject, BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProductDialogComponent } from '../dialogs/edit-product-dialog/edit-product-dialog.component';
+import { RemindMeDialogComponent } from '../dialogs/remind-me-dialog/remind-me-dialog.component';
 
 @Component({
   selector: 'app-products',
@@ -230,9 +231,18 @@ export class ProductsComponent implements OnInit, OnChanges {
   }
 
   edit(product: Product){
-    this.dialog.open(EditProductDialogComponent, {
-      data: product
+    const dialog = this.dialog.open(EditProductDialogComponent, {
+      data: product.id
     });
+
+    dialog.afterClosed().subscribe(
+      res=>{
+        this.findAllProducts();
+      }
+    )
+
+    
+
   }
 
 
@@ -240,7 +250,11 @@ export class ProductsComponent implements OnInit, OnChanges {
 
 
 
-
+  remindMeDiaglog(product: Product){
+    this.dialog.open(RemindMeDialogComponent, {
+      data: product
+    })
+  }
 
 
 
