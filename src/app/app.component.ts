@@ -1,38 +1,44 @@
 import { Component, HostListener } from '@angular/core';
 import {TokenStorageService} from './service/token-storage.service';
+import { WebSocketService } from './service/webSocket.service';
+import { ProductService } from './service/product.service';
+import { BasketService } from './service/basket.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+
+
+
+
   title = 'ShopFrontEnd';
-  private roles: string[];
-  isLoggedIn = false;
-  showAdminBoard = false;
-  showModeratorBoard = false;
-  username: string;
 
-  constructor(private tokenStorageService: TokenStorageService){}
+  public notifications = 0;
 
+  constructor(private webSocketService: WebSocketService, private productService: ProductService, private basketService: BasketService){
 
-  @HostListener('window:onbeforeunload', ['$event'])
-  beforeunloadHandler(event) {
-    localStorage.removeItem("auth-token");
-    localStorage.removeItem("auth-user");
+    let stompClient = this.webSocketService.connect();
+    stompClient.connect({},frame=>{
+      stompClient.subscribe('/topic/update', res => {
+      if(res.body === 'true'){
+               this.productService.updateProducts.next(true);
+               this.basketService.updateBasket.next(true);
+              }
+        })
+    });
+
   }
+
+
+
 
   ngOnInit() {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
 
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.roles = user.roles;
-
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
-
-      this.username = user.username;
-    }
   }
+
+
 }

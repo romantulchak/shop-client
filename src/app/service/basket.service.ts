@@ -15,6 +15,11 @@ export class BasketService {
   public count: BehaviorSubject<number>;
   public updateProducts: BehaviorSubject<boolean>; 
   public updateOrder: BehaviorSubject<boolean>;
+
+  public updateBasket: BehaviorSubject<boolean>;
+
+  public updatePrice: BehaviorSubject<boolean>;
+
   public productsAfterRemove: BehaviorSubject<any>;
   public totalPrice: BehaviorSubject<number>;
   public products: Product[] = [];
@@ -36,6 +41,8 @@ export class BasketService {
   public productsFromDb: Product[];
   public sa: any[] = [];
   constructor(private productService: ProductService){
+    this.updatePrice = new BehaviorSubject(false);
+    this.updateBasket = new BehaviorSubject(false);
     this.updateProducts = new BehaviorSubject(false);
     this.updateOrder = new BehaviorSubject(false);
     if(localStorage.getItem('product') != null){
@@ -80,6 +87,7 @@ export class BasketService {
       this.count = new BehaviorSubject(this.sa.length);
       this.productsAfterRemove = new BehaviorSubject(this.sa);
       this.totalPrice = new BehaviorSubject(this.price());
+      this.updatePrice.next(true);
     }
 
     //return this.products;
@@ -102,9 +110,6 @@ export class BasketService {
                   }
                 });
             });
-
-      console.log('prod');
-      console.log(prod);
       return prod;
   }
   updateCart(){

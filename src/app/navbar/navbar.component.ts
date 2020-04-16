@@ -31,19 +31,39 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.tokenStorageService.logged();
-  
-    setTimeout(() => {
-      if(this.basketService.count != null){
-       this.getBasketCount();
-      } 
-      if(this.basketService.totalPrice != null){
-        this.getTotalPrice();
-      }
-    }, 1000);
 
+     this.basketService.updatePrice.subscribe(
+       res=>{
+         if(res === true){
+          console.log('lox');
+          this.getBasketCount();
+
+          this.getTotalPrice();
+         }
+       }
+     );
+
+      
+
+
+
+
+    this.basketService.updateBasket.subscribe(
+      res=>{
+        if(res === true){
+          this.basketService.getProductsFromDb();
+          this.basketService.updatePrice.subscribe(
+            res=>{
+              if(res === true){
+                this.getTotalPrice();
+              }
+            }
+          );
+        }
+      }
+    );
 
     this.basketService.updateOrder.subscribe(
-
       res=>{
          if(res === true){
           this.getTotalPrice();
@@ -59,13 +79,13 @@ export class NavbarComponent implements OnInit {
   search(){
     this.orderService.findByIdentificationNumber(this.identificationNumberForSeach).subscribe(
       res=>{
-        if(res != null){
+       
           this.dialog.open(DialogSearchComponent,{
             data: {
               data: res
             }
           });
-        }
+        
       },
       error=>{
         console.log(error);

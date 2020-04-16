@@ -53,6 +53,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { EditProductDialogComponent } from './dialogs/edit-product-dialog/edit-product-dialog.component';
 import { StatusesComponent } from './statuses/statuses.component';
 import { RemindMeDialogComponent } from './dialogs/remind-me-dialog/remind-me-dialog.component';
+import { WebSocketService } from './service/webSocket.service';
 
 @NgModule({
   declarations: [
@@ -109,7 +110,7 @@ import { RemindMeDialogComponent } from './dialogs/remind-me-dialog/remind-me-di
     MatExpansionModule
 
   ],
-  providers: [ProductService,authInterceptorProviders, AuthGuard, RegistrationGuard],
+  providers: [ProductService,authInterceptorProviders, AuthGuard, RegistrationGuard, WebSocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

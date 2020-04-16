@@ -174,6 +174,7 @@ export class BasketComponent implements OnInit {
           //this.basketService.updateProducts.next(true);
           this.basketService.totalPrice.next(0);
           this.price();
+
         }
       }
 

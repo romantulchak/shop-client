@@ -78,11 +78,20 @@ export class MainComponent implements OnInit {
    
 
 
-   this.basketService.updateProducts.subscribe(
-
+  this.productService.updateProducts.subscribe(
     res=>{
       if(res === true){
-        console.log('ERRRRRRRRRRRRRRRRRRRRRRRROOOOO');
+        console.log('WEB UPDATE ');
+        this.getLastTenProducts();
+        this.mostPurchased();
+      }
+    }
+  );
+
+
+   this.basketService.updateProducts.subscribe(
+    res=>{
+      if(res === true){
         this.getLastTenProducts();
       }
     }

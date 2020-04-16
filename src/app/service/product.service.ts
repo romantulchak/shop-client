@@ -10,15 +10,25 @@ import { Gpu } from '../model/gpu.model';
 
 
 const API_URL = environment.apiUrl;
-
+const WEB_SOCKET_URL = environment.webSocket;
 
 @Injectable()
 export class ProductService{
 
+
+
+
+
     public lastProducts: BehaviorSubject<boolean>;
+
+    public updateProducts: BehaviorSubject<boolean>;
+
+
+
+
     constructor(private http: HttpClient){
         this.lastProducts =  new BehaviorSubject<boolean>(false);
-
+        this.updateProducts = new BehaviorSubject<boolean>(false);
     }
 
 
