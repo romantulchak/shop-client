@@ -64,8 +64,9 @@
 -->
 
 
-    <div class="novely__products">
-        <app-products  [numberOfColumns]="5" [pr]="lastTenProducts" [usualLook]="true" ></app-products>   </div>
+    <div class="novely__products" *ngIf="!mainLoading; else lod">
+        <app-products  [numberOfColumns]="5" [pr]="lastTenProducts" [usualLook]="true" ></app-products>   
+    </div>
 
     
 </section>
@@ -86,5 +87,5 @@
 
 </ng-template>
 <ng-template #lod>
-    <h1>Loading...</h1>
+    <mat-spinner></mat-spinner>
 </ng-template>

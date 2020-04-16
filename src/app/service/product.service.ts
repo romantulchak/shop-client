@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpEvent, HttpParams } from "@angular/common/http";
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Product } from '../model/product.model';
 import { Category } from '../model/category.model';
 import {environment} from '../../environments/environment';
@@ -15,8 +15,11 @@ const API_URL = environment.apiUrl;
 @Injectable()
 export class ProductService{
 
+    public lastProducts: BehaviorSubject<boolean>;
+    constructor(private http: HttpClient){
+        this.lastProducts =  new BehaviorSubject<boolean>(false);
 
-    constructor(private http: HttpClient){}
+    }
 
 
     getProducts(): Observable<Product[]>{

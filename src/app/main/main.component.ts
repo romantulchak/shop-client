@@ -17,7 +17,7 @@ import { Brand } from '../model/brand.model';
 import { Cpu } from '../model/cpu.model';
 import { Gpu } from '../model/gpu.model';
 import { ProductsComponent } from '../products/products.component';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -36,7 +36,8 @@ export class MainComponent implements OnInit {
     { src: 'http://localhost:8080/categoryImages/f2399fef-605b-426b-8420-f26cdc730225.2458797.jpg' }
   ]
 
- 
+  
+
 
 
   public lastTenProducts: Product[];
@@ -246,11 +247,17 @@ export class MainComponent implements OnInit {
     );
   }
   getLastTenProducts(){
+    this.mainLoading = true;
     this.productService.getLastTenProducts().subscribe(
       res=>{
         if(res != null){
+   
           this.childComp.checkInBasket(res);
           this.lastTenProducts = res;
+          this.productService.lastProducts.next(true);
+          setTimeout(() => {
+            this.mainLoading = false;
+          }, 500);
         }
       }
 

@@ -77,8 +77,13 @@ export class ProductsComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.isAdmin = this.tokenService.showAdminBoard;
+   // this.productCheck =  this.basketService.sa;
+      this.setProducts();
+
+
+   /*
     setTimeout(() => {
-      this.productCheck =  this.basketService.sa;
+      
      
       if(this.pr === undefined || this.pr === null){
         if(this.isCategory === true){
@@ -112,19 +117,69 @@ export class ProductsComponent implements OnInit, OnChanges {
             }
           }
           else{
-
-        console.log('products updated');
             this.checkInBasket(this.pr);
             this.products = this.pr;
           }
         }
       }
     );
-    
+    */
     this.gridStyle={
       'grid-template-columns': `repeat(${this.numberOfColumns}, 1fr)`
     }
   }
+
+
+
+
+  setProducts(){
+    
+    this.productService.lastProducts.subscribe(
+      res=>{
+        if(res === true){
+          this.products = this.pr;
+        }
+      }
+    );
+
+    if(this.pr === undefined || this.pr===null){
+      if(this.isCategory === true){
+        this.findByCategory(); 
+      }else{
+        this.findAllProducts();
+      }
+    }
+    
+    
+    
+    this.basketService.updateProducts.subscribe(
+      res=>{
+        if(res === true){
+          this.basketService.productsAfterRemove.subscribe(
+            res=>{
+              if(res != null)
+              {
+                  this.productCheck = res;
+              }
+            }
+          );
+          if(this.pr === undefined){
+            if(this.isCategory === true){
+                this.findByCategory();
+            }else{
+                this.findAllProducts();
+            }
+          }
+          else{
+            this.checkInBasket(this.pr);
+            this.products = this.pr;
+          }
+        }
+      }
+    );
+  }
+
+
 
   ngOnChanges(){
     this.basketService.updateProducts.subscribe(
@@ -174,6 +229,7 @@ export class ProductsComponent implements OnInit, OnChanges {
   }
 
   checkInBasket(res: Product[]){
+    this.productCheck =  this.basketService.sa;
     res.forEach(e=>{
       setTimeout(() => {
         this.productCheck.forEach(el=>{

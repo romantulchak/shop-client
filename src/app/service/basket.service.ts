@@ -34,18 +34,10 @@ export class BasketService {
     promo: null
   };
   public productsFromDb: Product[];
-
-  
   public sa: any[] = [];
-
-
   constructor(private productService: ProductService){
     this.updateProducts = new BehaviorSubject(false);
     this.updateOrder = new BehaviorSubject(false);
-
-    
- 
-
     if(localStorage.getItem('product') != null){
       this.getProductsFromDb();
     }else{
@@ -83,7 +75,6 @@ export class BasketService {
     if(localStorage.getItem('product') != null){
      //this.products = JSON.parse(localStorage.getItem('product'));
      this.sa = JSON.parse(localStorage.getItem('product'));
-
      this.sa = this.productInBasket();
      if(this.sa != null)
       this.count = new BehaviorSubject(this.sa.length);
@@ -98,12 +89,22 @@ export class BasketService {
             this.sa.forEach(element => {
                 this.productsFromDb.forEach(el=>{
                   if(element.id == el.id){
+                    if(el.isGlobalDiscount){
+                      element.price = el.discountPrice;
+                      element.totalProducPrice = el.discountPrice * element.amount;
+                    }else{
+                      element.price = el.productPrice;
+
+                      element.totalProducPrice = el.productPrice * element.amount;
+                    }
                     prod.push(element);
                     this.products.push(el);
                   }
                 });
             });
 
+      console.log('prod');
+      console.log(prod);
       return prod;
   }
   updateCart(){

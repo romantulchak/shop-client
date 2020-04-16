@@ -50,6 +50,9 @@ export class EditProductDialogComponent implements OnInit {
 
   setGlobalDiscount(product: Product){
 
+    console.log(this.percent);
+
+
     if(this.percent === undefined){
       this.percent = 0;
     }

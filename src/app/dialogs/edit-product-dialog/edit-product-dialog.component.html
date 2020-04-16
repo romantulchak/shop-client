@@ -62,11 +62,11 @@
 <form (ngSubmit)="setGlobalDiscount(product)" *ngIf="isDiscount">
         <div>
             <h3>Is global discount</h3>
-            <input type="checkbox" [checked]="product.isGlobalDiscount" (change)="isGlobalDiscount(product)">
+            <input type="checkbox" name="isGlobalDiscount" [checked]="product.isGlobalDiscount" (change)="isGlobalDiscount(product)">
           </div>
           <div>
             <h3>Percent</h3>
-            <input type="number" max="99" min="1" [(disabled)]="!product.isGlobalDiscount" [(ngModel)]="percent">
+            <input type="number" max="99" min="1" name="percent" [(disabled)]="!product.isGlobalDiscount" [(ngModel)]="percent">
           </div>
     <button type="submit">Send</button>
 </form>
