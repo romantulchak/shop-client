@@ -67,8 +67,6 @@
     <div class="novely__products" *ngIf="!mainLoading; else lod">
         <app-products  [numberOfColumns]="5" [pr]="lastTenProducts" [usualLook]="true" ></app-products>   
     </div>
-
-    
 </section>
 <section>
     <div class="section__title">
@@ -78,6 +76,21 @@
         <app-products [numberOfColumns]="5" [productsFromComponent]="productsToComponent" [topFiveLook]="true"></app-products>
     </div> 
 </section>
+
+
+<section>
+    <div>
+        <h1>Novelties, discounts and best deals</h1>
+        <p>All the best, just for you!</p>
+        <div>
+            <form ngNativeValidate action="" (ngSubmit)="subscribe(email.value)">
+                <input type="email" #email [required]="true">
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </div>
+</section>
+
 <ng-template #message>
     <h1>Nothing</h1>
 </ng-template>

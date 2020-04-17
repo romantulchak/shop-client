@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { User } from '../model/user.model';
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
@@ -14,20 +15,21 @@ export class TokenStorageService {
   public showAdminBoard = false;
   public currentUserName: string;
 
+  public currentUser: User;
   constructor() {
-
     this.logged();
-
    }
+
+
    logged(){
     this.isLoggedIn = !!this.getToken();
     
     if(this.isLoggedIn){
-      const user = this.getUser();
-      this.roles = user.roles;
-
+      this.currentUser = this.getUser();
+      this.roles = this.currentUser.roles;
+      
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.currentUserName = user.username;
+      this.currentUserName = this.currentUser.username;
     }
   }
   signOut() {

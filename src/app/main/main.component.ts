@@ -18,6 +18,8 @@ import { Cpu } from '../model/cpu.model';
 import { Gpu } from '../model/gpu.model';
 import { ProductsComponent } from '../products/products.component';
 import { Subject, BehaviorSubject } from 'rxjs';
+import { SubscriptionService } from '../service/subscription.service';
+import { Subscription } from '../model/subscription.model';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -37,7 +39,7 @@ export class MainComponent implements OnInit {
   ]
 
   
-
+  public subscribtion: Subscription = new Subscription();
 
 
   public lastTenProducts: Product[];
@@ -58,13 +60,19 @@ export class MainComponent implements OnInit {
   public brands: Brand[];
   public cpus: Cpu[];
   public gpus: Gpu[];
-  constructor(private brandService: BrandService,  private notificationServcei: NotificationService, private toketnSerivce: TokenStorageService, private productService: ProductService,private orderService: OrderService, private basketService: BasketService, private categoryService: CategoryService, public dialog?: MatDialog) { }
+  constructor(private brandService: BrandService,  private notificationService: NotificationService, private toketnSerivce: TokenStorageService, private productService: ProductService,private orderService: OrderService, private basketService: BasketService, private categoryService: CategoryService, private subscriptionService: SubscriptionService) { }
 
   public isAdmin = false;
 
   productCheck: any[] = [];
   ngOnInit(): void {
     this.productCheck =  this.basketService.sa;
+    
+     
+    
+    
+
+
     this.getLastTenProducts();
     this.mostPurchased();
     this.isAdmin = this.toketnSerivce.showAdminBoard;
@@ -75,7 +83,15 @@ export class MainComponent implements OnInit {
       this.getAllGpus();
    
    }, 500);
-   
+   this.categoryService.updateCategories.subscribe(
+
+    res=>{
+      if(res === true){
+        this.getCategories();
+      }
+    }
+
+  );
 
 
   this.productService.updateProducts.subscribe(
@@ -268,6 +284,21 @@ export class MainComponent implements OnInit {
             this.mainLoading = false;
           }, 500);
         }
+      }
+
+    );
+  }
+  subscribe(email: string){
+    let userId = null;
+    if(this.toketnSerivce.currentUser != null){
+     userId = this.toketnSerivce.currentUser.id;
+    }
+    this.subscribtion.email = email;
+    console.log(this.subscribtion);
+    this.subscriptionService.follow(this.subscribtion, userId).subscribe(
+
+      res=>{
+        this.notificationService.openSnackBar(res);
       }
 
     );

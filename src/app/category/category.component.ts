@@ -31,6 +31,7 @@ export class CategoryComponent implements OnInit {
   ngOnInit(): void {
   
     this.getAllCategories();
+    
   }
   createCategory(){
     this.categoryService.pushCategoryImage(this.selectedFile).subscribe(

@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Product } from 'src/app/model/product.model';
 import { ProductService } from 'src/app/service/product.service';
 import { NotificationService } from 'src/app/service/notification.service';
-import { BoardAdminComponent } from 'src/app/board-admin/board-admin.component';
+import { BoardAdminComponent } from '../../templates/admin-component/board-admin.component';
 
 @Component({
   selector: 'app-edit-product-dialog',
@@ -18,8 +18,13 @@ export class EditProductDialogComponent implements OnInit {
   public isDiscount: boolean = false;
   public isPromo: boolean = false;
 
+  public notifyDiscount: boolean = false;
+
   public percent:number;
   public product: Product;
+
+
+
 
   constructor(@Inject(MAT_DIALOG_DATA) public productId: number, private productService: ProductService, private notificationService: NotificationService) { }
 
@@ -50,13 +55,10 @@ export class EditProductDialogComponent implements OnInit {
 
   setGlobalDiscount(product: Product){
 
-    console.log(this.percent);
-
-
     if(this.percent === undefined){
       this.percent = 0;
     }
-    this.productService.setGlobalDiscount(product, this.percent).subscribe(
+    this.productService.setGlobalDiscount(product, this.percent, this.notifyDiscount).subscribe(
       res=>{
 
         this.getProduct();

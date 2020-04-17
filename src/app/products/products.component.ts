@@ -9,6 +9,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProductDialogComponent } from '../dialogs/edit-product-dialog/edit-product-dialog.component';
 import { RemindMeDialogComponent } from '../dialogs/remind-me-dialog/remind-me-dialog.component';
+import { DialogService } from '../service/dialog.service';
 
 @Component({
   selector: 'app-products',
@@ -36,7 +37,7 @@ import { RemindMeDialogComponent } from '../dialogs/remind-me-dialog/remind-me-d
 })
 export class ProductsComponent implements OnInit, OnChanges {
 
-  constructor(private productService: ProductService, private tokenService: TokenStorageService, private basketService: BasketService, private notificationService: NotificationService, private dialog: MatDialog) { }
+  constructor(private productService: ProductService, private tokenService: TokenStorageService, private basketService: BasketService, private notificationService: NotificationService, private dialogService: DialogService) { }
 
   
 
@@ -235,7 +236,6 @@ export class ProductsComponent implements OnInit, OnChanges {
         this.productCheck.forEach(el=>{
           if(e.id === el.id){
             e.showButton = el.showButton;
-            console.log(e.showButton);
           }
         });
       }, 500);
@@ -287,16 +287,24 @@ export class ProductsComponent implements OnInit, OnChanges {
   }
 
   edit(product: Product){
+    
+    const dialog = this.dialogService.editProductDialog(product);
+    dialog.afterClosed().subscribe(
+      res=>{
+        this.findAllProducts();
+      }
+    );
+    /*
     const dialog = this.dialog.open(EditProductDialogComponent, {
       data: product.id
     });
-
+  
     dialog.afterClosed().subscribe(
       res=>{
         this.findAllProducts();
       }
     )
-
+      */
     
 
   }
@@ -307,9 +315,7 @@ export class ProductsComponent implements OnInit, OnChanges {
 
 
   remindMeDiaglog(product: Product){
-    this.dialog.open(RemindMeDialogComponent, {
-      data: product
-    })
+    this.dialogService.remindMeDiaglog(product);
   }
 
 

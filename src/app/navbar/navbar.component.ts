@@ -35,7 +35,6 @@ export class NavbarComponent implements OnInit {
      this.basketService.updatePrice.subscribe(
        res=>{
          if(res === true){
-          console.log('lox');
           this.getBasketCount();
 
           this.getTotalPrice();

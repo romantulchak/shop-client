@@ -68,6 +68,10 @@
             <h3>Percent</h3>
             <input type="number" max="99" min="1" name="percent" [(disabled)]="!product.isGlobalDiscount" [(ngModel)]="percent">
           </div>
+          <div>
+              <h3>Notifiy subscriber?</h3>
+              <input type="checkbox" name="notify" (change)="notifyDiscount = !notifyDiscount">
+          </div>
     <button type="submit">Send</button>
 </form>
 

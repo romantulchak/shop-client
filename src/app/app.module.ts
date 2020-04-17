@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './templates/app-component/app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MainComponent } from './main/main.component';
 import { ProductComponent } from './product/product.component';
@@ -33,7 +33,6 @@ import {MatIconModule} from '@angular/material/icon';
 import { LoginDialogComponent } from './dialogs/login-dialog/login-dialog.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ProfileComponent } from './profile/profile.component';
-import { BoardAdminComponent } from './board-admin/board-admin.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { AuthGuard } from './guards/auth-guard.service';
@@ -54,6 +53,8 @@ import { EditProductDialogComponent } from './dialogs/edit-product-dialog/edit-p
 import { StatusesComponent } from './statuses/statuses.component';
 import { RemindMeDialogComponent } from './dialogs/remind-me-dialog/remind-me-dialog.component';
 import { WebSocketService } from './service/webSocket.service';
+import { FooterComponent } from './footer/footer.component';
+import { BoardAdminComponent } from './templates/admin-component/board-admin.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,6 @@ import { WebSocketService } from './service/webSocket.service';
     LoginDialogComponent,
     RegistrationComponent,
     ProfileComponent,
-    BoardAdminComponent,
     NotFoundComponent,
     RenamerPipe,
     EditUserComponent,
@@ -83,7 +83,9 @@ import { WebSocketService } from './service/webSocket.service';
     EditProductDialogComponent,
     StatusesComponent,
     RemindMeDialogComponent,
-
+    FooterComponent,
+    BoardAdminComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,
@@ -107,8 +109,8 @@ import { WebSocketService } from './service/webSocket.service';
     MatSelectModule,
     MatBadgeModule,
     MatTabsModule,
-    MatExpansionModule
-
+    MatExpansionModule,
+  
   ],
   providers: [ProductService,authInterceptorProviders, AuthGuard, RegistrationGuard, WebSocketService],
   bootstrap: [AppComponent]

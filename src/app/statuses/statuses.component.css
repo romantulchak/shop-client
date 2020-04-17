@@ -141,3 +141,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
 }
+.statuses__date > h4{
+    font-size: 12px;
+    text-align: center;
+}

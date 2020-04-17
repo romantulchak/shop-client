@@ -18,7 +18,7 @@ export class CreateProductComponent implements OnInit {
 
 
   public showButton = true;
-
+  public notify: boolean = false;
   public selectedFiles: File[];
 
 
@@ -109,7 +109,8 @@ export class CreateProductComponent implements OnInit {
       error=>{console.log(error);}
 
     );
-    this.productService.createProduct(this.product).subscribe(
+    console.log(this.notify);
+    this.productService.createProduct(this.product, this.notify).subscribe(
           res=>{
             this.notificationService.openSnackBar(res);
           },

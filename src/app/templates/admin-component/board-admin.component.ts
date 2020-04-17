@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from '../service/user.service';
-import { Product } from '../model/product.model';
-import { ProductService } from '../service/product.service';
-import { NotificationService } from '../service/notification.service';
+import {UserService} from '../../service/user.service';
+import { Product } from '../../model/product.model';
+import { ProductService } from '../../service/product.service';
+import { NotificationService } from '../../service/notification.service';
 @Component({
   selector: 'app-board-admin',
   templateUrl: './board-admin.component.html',
@@ -25,7 +25,6 @@ export class BoardAdminComponent implements OnInit {
         console.log(res);
         if(res != null)
           this.product = res;
-          console.log(res);
       },
       error=>{
         console.log(error);

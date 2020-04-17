@@ -39,8 +39,8 @@ export class ProductService{
     getProductsByPrice(): Observable<Product[]>{
         return this.http.get<Product[]>(API_URL + 'products/filterByPrice');
     }
-    createProduct(product: Product){
-        return this.http.post(API_URL + 'products/createProduct', product, {responseType:'text'});
+    createProduct(product: Product, notify: boolean){
+        return this.http.post(API_URL + 'products/createProduct/' + notify, product, {responseType:'text'});
     }
     deleteProduct(id: number){
         return this.http.delete(API_URL + 'products/deleteProduct/' + id, {responseType: 'text'});
@@ -50,7 +50,7 @@ export class ProductService{
        for(let i = 0; i < files.length; i++){
            data.append('file', files[i]);
        }
-        return this.http.post(API_URL + 'products/pushImage', data);
+       return this.http.post(API_URL + 'products/pushImage', data);
 
     }
 
@@ -87,8 +87,8 @@ export class ProductService{
     detailsProduct(id: number): Observable<Product>{
         return this.http.get<Product>(API_URL + 'products/details/' + id);
     }
-    setGlobalDiscount(product: Product, percent: number){
-        return this.http.put(API_URL + 'products/setDiscountPrice/' + percent, product, {responseType: 'text'});
+    setGlobalDiscount(product: Product, percent: number, notify: boolean){
+        return this.http.put(API_URL + 'products/setDiscountPrice/' + percent + '/' + notify, product, {responseType: 'text'});
     }
     filterByCategory(categoryNamy: string): Observable<Product[]>{
         let paramsToSend = new HttpParams();

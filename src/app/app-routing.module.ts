@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
+import { AppComponent } from 'src/app/templates/app-component/app.component';
 import { MainComponent } from './main/main.component';
 import { CreateProductComponent } from './product/create-product/create-product.component';
 import { CategoryComponent } from './category/category.component';
@@ -9,7 +9,7 @@ import { BasketComponent } from './basket/basket.component';
 import { OrderComponent } from './order/order.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ProfileComponent } from './profile/profile.component';
-import { BoardAdminComponent } from './board-admin/board-admin.component';
+import { BoardAdminComponent } from '../app/templates/admin-component/board-admin.component';
 import { AuthGuard } from './guards/auth-guard.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RegistrationGuard } from './guards/registration-guard.service';
