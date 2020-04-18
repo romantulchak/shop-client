@@ -4,6 +4,7 @@ import { Brand } from './brand.model';
 import { Cpu } from './cpu.model';
 import { Gpu } from './gpu.model';
 import { PromotionalCode } from './promotionalCode.model';
+import { OpinionProduct } from './opinionProduct.model';
 
 export class Product{
 
@@ -21,4 +22,5 @@ export class Product{
     promotionalCodes?: PromotionalCode[];
     discountPrice: number;
     isGlobalDiscount: boolean;
+    opinionProducts?:OpinionProduct[];
 }

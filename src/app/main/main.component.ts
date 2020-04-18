@@ -276,7 +276,8 @@ export class MainComponent implements OnInit {
     this.productService.getLastTenProducts().subscribe(
       res=>{
         if(res != null){
-   
+            console.log('opinios');
+            console.log(res);
           this.childComp.checkInBasket(res);
           this.lastTenProducts = res;
           this.productService.lastProducts.next(true);

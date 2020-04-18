@@ -4,6 +4,7 @@ import { Product } from 'src/app/model/product.model';
 import { ProductService } from 'src/app/service/product.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { BoardAdminComponent } from '../../templates/admin-component/board-admin.component';
+import { BasketService } from 'src/app/service/basket.service';
 
 @Component({
   selector: 'app-edit-product-dialog',
@@ -26,7 +27,7 @@ export class EditProductDialogComponent implements OnInit {
 
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) public productId: number, private productService: ProductService, private notificationService: NotificationService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public productId: number, private productService: ProductService, private notificationService: NotificationService, private basketService: BasketService) { }
 
   ngOnInit(): void {
 
@@ -61,7 +62,7 @@ export class EditProductDialogComponent implements OnInit {
     this.productService.setGlobalDiscount(product, this.percent, this.notifyDiscount).subscribe(
       res=>{
 
-        this.getProduct();
+        this.getProduct();     
         this.notificationService.openSnackBar(res + ' data will save after dialog close');
       }
     );
