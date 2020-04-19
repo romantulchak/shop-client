@@ -39,7 +39,9 @@ export class ProductService{
 
     
 
-
+    getSimilarProducts(productId: number, categoryName: string):Observable<Product[]>{
+        return this.http.get<Product[]>(API_URL + 'products/similarProducts/' + productId + '/' + categoryName);
+    }
 
     getProductsByPrice(): Observable<Product[]>{
         return this.http.get<Product[]>(API_URL + 'products/filterByPrice');

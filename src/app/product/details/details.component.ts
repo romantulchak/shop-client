@@ -27,6 +27,7 @@ export class DetailsComponent implements OnInit {
   public opinionProduct: OpinionProduct = new OpinionProduct();
   public opinions: OpinionProduct[];
 
+  public simularProducts: Product[];
 
 
   constructor(private route: ActivatedRoute, private productService: ProductService, private userService: TokenStorageService, private opinionService: OpinionService, private notificationService: NotificationService) {
@@ -41,6 +42,7 @@ export class DetailsComponent implements OnInit {
       this.currentUser = this.userService.currentUser;
     }
     this.details();
+    
 
 
     this.opinionService.updateOpinion.subscribe(
@@ -59,8 +61,6 @@ export class DetailsComponent implements OnInit {
       }
 
     );
-  
-
 
   }
 
@@ -70,7 +70,7 @@ export class DetailsComponent implements OnInit {
         
         this.product = res;
         this.getOpinionForProduct();
-    
+        this.getSimilarProducts(res);
       },
       error=>{console.log(error);}
 
@@ -109,7 +109,6 @@ export class DetailsComponent implements OnInit {
   }
   getOpinionForProduct(){
     this.opinionService.getOpinionForProduct(this.id).subscribe(
-
       res=>{
         if(res != null){
           this.opinions = res;
@@ -117,6 +116,17 @@ export class DetailsComponent implements OnInit {
               this.getAverageRanking();
             }
         }
+      }
+
+    );
+  }
+
+  getSimilarProducts(res: Product){
+    this.productService.getSimilarProducts(this.id, res.category.categoryName).subscribe(
+      res=>{
+          if(res != null){
+            this.simularProducts = res;
+          }
       }
 
     );

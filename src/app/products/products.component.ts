@@ -271,7 +271,6 @@ export class ProductsComponent implements OnInit, OnChanges {
     this.loading = true;
     if(brandName != null){
       if(!this.brandsToSend.includes(brandName)){
-
         this.brandsToSend.push(brandName);
       }else{
         this.brandsToSend = this.brandsToSend.filter(e=>e != brandName);
