@@ -10,6 +10,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditProductDialogComponent } from '../dialogs/edit-product-dialog/edit-product-dialog.component';
 import { RemindMeDialogComponent } from '../dialogs/remind-me-dialog/remind-me-dialog.component';
 import { DialogService } from '../service/dialog.service';
+import { Brand } from '../model/brand.model';
+import { Cpu } from '../model/cpu.model';
+import { Gpu } from '../model/gpu.model';
+import { BrandService } from '../service/brand.service';
 
 @Component({
   selector: 'app-products',
@@ -37,10 +41,14 @@ import { DialogService } from '../service/dialog.service';
 })
 export class ProductsComponent implements OnInit, OnChanges {
 
-  constructor(private productService: ProductService, private tokenService: TokenStorageService, private basketService: BasketService, private notificationService: NotificationService, private dialogService: DialogService) { }
+  constructor(private productService: ProductService, private tokenService: TokenStorageService, private basketService: BasketService, private notificationService: NotificationService, private dialogService: DialogService, private brandService: BrandService) { }
 
-  
-
+  public brandsToSend: string[] = [];
+  public cpusToSend: string[] = [];
+  public gpusToSend: string[] = [];
+  public brands: Brand[];
+  public cpus: Cpu[];
+  public gpus: Gpu[];
 
   @Input() isCategory: boolean;
   @Input() categoryName: string;
@@ -78,53 +86,10 @@ export class ProductsComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.isAdmin = this.tokenService.showAdminBoard;
-   // this.productCheck =  this.basketService.sa;
       this.setProducts();
-
-
-   /*
-    setTimeout(() => {
-      
-     
-      if(this.pr === undefined || this.pr === null){
-        if(this.isCategory === true){
-            this.findByCategory(); 
-        }else{
-            this.findAllProducts();
-        }
-      }else{
- 
-        this.products = this.pr;
-      }
-
-    }, 500);
-    //TODO: пофіксити тут
-    this.basketService.updateProducts.subscribe(
-      res=>{
-        if(res === true){
-          this.basketService.productsAfterRemove.subscribe(
-            res=>{
-              if(res != null)
-              {
-                  this.productCheck = res;
-              }
-            }
-          );
-          if(this.pr === undefined){
-            if(this.isCategory === true){
-                this.findByCategory();
-            }else{
-                this.findAllProducts();
-            }
-          }
-          else{
-            this.checkInBasket(this.pr);
-            this.products = this.pr;
-          }
-        }
-      }
-    );
-    */
+      this.getAllGpus();
+      this.getAllCpus();
+      this.getAllBrands();
     this.gridStyle={
       'grid-template-columns': `repeat(${this.numberOfColumns}, 1fr)`
     }
@@ -294,24 +259,7 @@ export class ProductsComponent implements OnInit, OnChanges {
         this.findAllProducts();
       }
     );
-    /*
-    const dialog = this.dialog.open(EditProductDialogComponent, {
-      data: product.id
-    });
-  
-    dialog.afterClosed().subscribe(
-      res=>{
-        this.findAllProducts();
-      }
-    )
-      */
-    
-
   }
-
-
-
-
 
 
   remindMeDiaglog(product: Product){
@@ -319,7 +267,81 @@ export class ProductsComponent implements OnInit, OnChanges {
   }
 
 
+  filter(brandName?: string, cpuName?: string, gpuName?: string){
+    this.loading = true;
+    if(brandName != null){
+      if(!this.brandsToSend.includes(brandName)){
 
+        this.brandsToSend.push(brandName);
+      }else{
+        this.brandsToSend = this.brandsToSend.filter(e=>e != brandName);
+      }
+    }
+    if(cpuName != null){
+      if(!this.cpusToSend.includes(cpuName)){
+        this.cpusToSend.push(cpuName);
+      }else{
+        this.cpusToSend = this.cpusToSend.filter(e=>e != cpuName);
+      }
+    }
+    if(gpuName != null){
+      if(!this.gpusToSend.includes(gpuName)){
+        this.gpusToSend.push(gpuName);
+      }else{
+        this.gpusToSend = this.gpusToSend.filter(e=>e != gpuName);
+      }
+    }
+    this.productService.filter(this.brandsToSend, this.cpusToSend, this.gpusToSend).subscribe(
+      res=>{
+        if(res !=null){
+          this.filterCategory(res);
+          setTimeout(() => {
+            this.loading = false;
+          }, 500);
+        }
+      },
+      error=>{
+        console.log('error');
+      }
+    );
+  }
   
+  getAllGpus(){
+    this.productService.getAllGpus().subscribe(
+      res=>{
+        if(res != null)
+          this.gpus = res;
+      },
+      error=>{
+        console.log(error);
+      }
+    );
+  }
 
+  getAllCpus(){
+    this.productService.getAllCpus().subscribe(
+
+      res=>{
+        if(res != null)
+          this.cpus = res;
+      },
+      error=>{
+        console.log(error);
+      }
+
+    );
+  }
+
+  getAllBrands(){
+    this.brandService.getAllBrands().subscribe(
+
+      res=>{
+        if (res != null) {
+          this.brands = res;
+        }
+
+      }
+
+    );
+  }
 }

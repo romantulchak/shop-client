@@ -26,9 +26,33 @@ export class AppComponent {
     let stompClient = this.webSocketService.connect();
     stompClient.connect({},frame=>{
       stompClient.subscribe('/topic/update', res => {
-        
+              let parseToJson = JSON.parse(res.body);
+
+              switch(parseToJson.title){
+                case 'updateProducts':
+                  this.productService.updateProducts.next(true);
+                  this.basketService.updateBasket.next(true);
+                  this.basketService.updatePrice.next(true);  
+                  break;
+                case 'updateCategory':
+                  this.categoryService.updateCategories.next(true);
+                  break;  
+                case 'updateOpinion':
+                  this.opinionService.updateOpinion.next(true);
+                  this.opinionService.productId.next(parseToJson.productId);
+                  break;
+              }
 
 
+              /*
+              if(parseToJson.title === 'updateProducts'){
+                this.productService.updateProducts.next(true);
+                this.basketService.updateBasket.next(true);
+                this.basketService.updatePrice.next(true);   
+              }
+              */
+
+              /*
               if(res.body === 'updateProducts'){
                this.productService.updateProducts.next(true);
                this.basketService.updateBasket.next(true);
@@ -40,7 +64,7 @@ export class AppComponent {
                 this.opinionService.updateOpinion.next(true);
                 this.opinionService.productId.next(productId);
               }
-              
+              */
         })
     });
 

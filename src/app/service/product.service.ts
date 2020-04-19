@@ -36,6 +36,11 @@ export class ProductService{
 
        return this.http.get<Product[]>(API_URL + 'products');
     }
+
+    
+
+
+
     getProductsByPrice(): Observable<Product[]>{
         return this.http.get<Product[]>(API_URL + 'products/filterByPrice');
     }

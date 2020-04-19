@@ -2,6 +2,29 @@
     <mat-spinner></mat-spinner>
 </div>
 
+<ng-container *ngIf="categoryName === 'all'">
+    <div  class="filters">
+        <div *ngFor="let brand of brands">
+            <input type="checkbox" (change)="filter(brand.name, null)" value="{{brand.name}}">{{brand.name }}({{brand.products.length}})
+        </div>
+        <hr>
+        <div *ngFor="let cpu of cpus">
+            <input type="checkbox" (change)="filter(null, cpu.name, null)" value="{{cpu.name}}">{{cpu.name}}
+        </div>
+        <hr>
+        <div *ngFor="let gpu of gpus">
+            <input type="checkbox" (change)="filter(null, null, gpu.name)" value="{{gpu.name}}">{{gpu.name}}
+        </div>
+    </div>
+
+</ng-container>
+
+
+
+
+
+
+
 <ng-container *ngIf="usualLook">
 <div class="products">
     <div *ngIf="products?.length != 0;else message">

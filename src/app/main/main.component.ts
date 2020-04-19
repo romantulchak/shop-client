@@ -48,18 +48,18 @@ export class MainComponent implements OnInit {
   public mainLoading = true;
   public productToCompare: Product;
   public productsToComponent: Product[];
-  public brandsToSend: string[] = [];
-  public cpusToSend: string[] = [];
-  public gpusToSend: string[] = [];
+ // public brandsToSend: string[] = [];
+ // public cpusToSend: string[] = [];
+  //public gpusToSend: string[] = [];
   public category: Category = {
     id: null,
     categoryName: '',
     product: null
   };
   public categories: Category[];
-  public brands: Brand[];
-  public cpus: Cpu[];
-  public gpus: Gpu[];
+//  public brands: Brand[];
+ // public cpus: Cpu[];
+  // public gpus: Gpu[];
   constructor(private brandService: BrandService,  private notificationService: NotificationService, private toketnSerivce: TokenStorageService, private productService: ProductService,private orderService: OrderService, private basketService: BasketService, private categoryService: CategoryService, private subscriptionService: SubscriptionService) { }
 
   public isAdmin = false;
@@ -78,9 +78,9 @@ export class MainComponent implements OnInit {
     this.isAdmin = this.toketnSerivce.showAdminBoard;
     setTimeout(() => {
       this.getCategories();
-      this.getAllBrands();
-      this.getAllCpus();
-      this.getAllGpus();
+      //this.getAllBrands();
+      //this.getAllCpus();
+      //this.getAllGpus();
    
    }, 500);
    this.categoryService.updateCategories.subscribe(
@@ -115,6 +115,7 @@ export class MainComponent implements OnInit {
    );
   }
 
+  /*
   getAllGpus(){
     this.productService.getAllGpus().subscribe(
       res=>{
@@ -152,7 +153,7 @@ export class MainComponent implements OnInit {
       }
 
     );
-  }
+  }*/
   mouseEnter(onStyle: boolean, product: Product){
     this.currentProduct = product;
     this.styleOn = onStyle;
@@ -163,7 +164,7 @@ export class MainComponent implements OnInit {
 
   }
 
-
+/*
   filter(brandName?: string, cpuName?: string, gpuName?: string){
     this.mainLoading = true;
 
@@ -209,7 +210,7 @@ export class MainComponent implements OnInit {
 
     );
 
-  }
+  }*/
 
  
   
