@@ -21,6 +21,10 @@ export class CreateProductComponent implements OnInit {
   public notify: boolean = false;
   public selectedFiles: File[];
 
+  public dictionary: Map<string, string> = new Map();
+
+  public categoryFields: any[];
+
 
   public product: Product = {
     id:null,
@@ -38,7 +42,7 @@ export class CreateProductComponent implements OnInit {
     cpu: new Cpu(),
     gpu: new Gpu(),
     discountPrice: 0,
-    isGlobalDiscount: false
+    isGlobalDiscount: false,
   };
 
   public category: Category[];
@@ -109,7 +113,13 @@ export class CreateProductComponent implements OnInit {
       error=>{console.log(error);}
 
     );
-    console.log(this.notify);
+    const convMap = new Map<string, string>();
+    this.dictionary.forEach((val: string, key: string) => {
+      convMap[key] = val;
+    });
+
+    this.product.properties = convMap;
+    console.log(this.product);
     this.productService.createProduct(this.product, this.notify).subscribe(
           res=>{
             this.notificationService.openSnackBar(res);
@@ -134,6 +144,13 @@ export class CreateProductComponent implements OnInit {
       }
     });
   }
+  showFields(){
+    this.category.forEach(e=>{
+      if(e.id == this.product.category.id){
+        this.categoryFields = e.fields;
+      }
+    });
+  }
   handleImages(event){
     this.selectedFiles = event.target.files;
   }
@@ -145,6 +162,11 @@ export class CreateProductComponent implements OnInit {
         }
       }
     );
+  }
+
+
+  setValue(fieldName:string ,value: string){
+    this.dictionary.set(fieldName, value);
   }
 
 }

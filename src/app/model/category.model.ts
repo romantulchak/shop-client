@@ -5,6 +5,7 @@ export class Category{
     categoryName: string;
     imagePath?: string;
     product: Product[];
+    fields?: [];
 
     constructor(id:number, categoryName: string, product:Product[], imagePath: string){
         this.id = id;

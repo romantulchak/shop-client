@@ -30,17 +30,41 @@
     </form>
 </ng-template>
 
-<form (ngSubmit)="createCategory()" enctype="multipart/form-data">
 
+<h1>Create category</h1>
+<form [formGroup]="categoryForm" (ngSubmit)="createCategory()" enctype="multipart/form-data">
+ <!--
     <div>
         <h1>Name</h1>
-        <input type="text" name="categoryName" [(ngModel)]="category.categoryName">
+       <input type="text" name="categoryName" [(ngModel)]="category.categoryName">
     </div>
     <div>
         <h2>File</h2>
         <input type="file" name="image" (change)="handleImages($event)">
     </div>
+-->
 
+    <div>
+        Categor name
+        <input type="text" name="categoryName" formControlName="categoryName">
+    </div>
+    <div>
+        <h2>File</h2>
+        <input type="file" name="image" (change)="handleImages($event)">
+    </div>
+    <div formArrayName="fields">
+        <h1 (click)="addField()">Add Field</h1>
+
+        <div *ngFor="let field of fields.controls; let i = index">
+
+            <input type="text" [formControlName]="i">
+        </div>
+    </div>
     <button type="submit">Create</button>
 
+
+
+    <code>
+        {{categoryForm.value| json}}
+    </code>
 </form>

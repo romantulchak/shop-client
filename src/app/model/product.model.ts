@@ -23,4 +23,5 @@ export class Product{
     discountPrice: number;
     isGlobalDiscount: boolean;
     opinionProducts?:OpinionProduct[];
+    properties?: Map<string, string>;
 }

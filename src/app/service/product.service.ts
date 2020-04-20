@@ -47,6 +47,7 @@ export class ProductService{
         return this.http.get<Product[]>(API_URL + 'products/filterByPrice');
     }
     createProduct(product: Product, notify: boolean){
+        
         return this.http.post(API_URL + 'products/createProduct/' + notify, product, {responseType:'text'});
     }
     deleteProduct(id: number){

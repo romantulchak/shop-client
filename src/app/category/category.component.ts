@@ -4,12 +4,36 @@ import { CategoryService } from '../service/category.service';
 import { error } from 'protractor';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import { NotificationService } from '../service/notification.service';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
+
+
+  public categoryForm = this.fb.group({
+    categoryName: ['', Validators.required],
+    fields: this.fb.array([
+      this.fb.control('')
+    ])
+  })
+
+
+  get fields(){
+    return this.categoryForm.get('fields') as FormArray;
+  }
+
+
+  addField(){
+    this.fields.push(this.fb.control(''));
+  }
+
+
+
+
+
 
   private durationInSeconds = 5;
   @ViewChild('editTemplate', {static:false}) editTemplate: TemplateRef<any>;
@@ -26,7 +50,7 @@ export class CategoryComponent implements OnInit {
   
 
 
-  constructor(private categoryService: CategoryService, private notificationService: NotificationService) { }
+  constructor(private categoryService: CategoryService, private notificationService: NotificationService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
   
@@ -35,14 +59,13 @@ export class CategoryComponent implements OnInit {
   }
   createCategory(){
     this.categoryService.pushCategoryImage(this.selectedFile).subscribe(
-
       res=>{
         console.log(res);
       }
-
     );
 
-    this.categoryService.createCategory(this.category).subscribe(
+    this.category.categoryName = this.categoryForm.get('categoryName').value;
+    this.categoryService.createCategory(this.category, this.categoryForm.get('fields').value).subscribe(
 
       res=>{
         this.notificationService.openSnackBar(res);

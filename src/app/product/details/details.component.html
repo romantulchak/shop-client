@@ -2,6 +2,16 @@
 <h1>{{product.productName}}</h1>
 <div [innerHtml]="product.description"></div>
 
+
+<h4>Характеристки</h4>
+
+<div *ngFor="let item of product.category.fields">
+   <h2>{{item.fieldName}} ---------> {{product.properties[item.fieldName]}}</h2>
+</div>
+   
+
+
+
 <h1>Average rating: {{averageRanking}}</h1>
 
 
