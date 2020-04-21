@@ -32,8 +32,9 @@
 
 
 <h1>Create category</h1>
-<form [formGroup]="categoryForm" (ngSubmit)="createCategory()" enctype="multipart/form-data">
  <!--
+<form [formGroup]="categoryForm" (ngSubmit)="createCategory()" enctype="multipart/form-data">
+
     <div>
         <h1>Name</h1>
        <input type="text" name="categoryName" [(ngModel)]="category.categoryName">
@@ -42,7 +43,7 @@
         <h2>File</h2>
         <input type="file" name="image" (change)="handleImages($event)">
     </div>
--->
+
 
     <div>
         Categor name
@@ -52,19 +53,99 @@
         <h2>File</h2>
         <input type="file" name="image" (change)="handleImages($event)">
     </div>
-    <div formArrayName="fields">
-        <h1 (click)="addField()">Add Field</h1>
+    <div>
+      
+        <h2 style="color: green;" (click)="addSection()">Add section</h2>
+
+        <div style="    margin-bottom: 1em;
+        padding: 1em;" 
+        *ngFor="let item of sers; let n = index" [formGroup]="section"> 
+
+        <code>{{item | json}}</code>
+
+
+                <h4>Title: {{item.title}}</h4>
+                <input type="text" formControlName="title">
+        
+                <div formArrayName="field">
+                        <h1 (click)="addField(item.id)">Add Field</h1>
+                        <code>Fields for property</code>
+                        <div *ngFor="let f of field.controls; let j = index" >
+                            <h1>{{f.value}}</h1>
+                            <input type="text" [formControlName]="j">
+                        <hr>
+                    </div>
+    
+                </div>
+
+    
+            
+          
+
+        
+        </div>
+
+       
+
 
         <div *ngFor="let field of fields.controls; let i = index">
 
             <input type="text" [formControlName]="i">
         </div>
+
     </div>
     <button type="submit">Create</button>
 
 
-
-    <code>
+   
+    <h4>
         {{categoryForm.value| json}}
-    </code>
+    </h4>
 </form>
+-->
+
+<form [formGroup]="categoryForm" (ngSubmit)="createCategory(categoryName.value)" enctype="multipart/form-data">
+
+    <div>
+        <h2>Category Name</h2>
+        <input type="text" #categoryName>
+    </div>
+
+    <div>
+        <h2>File</h2>
+        <input type="file" name="image" (change)="handleImages($event)">
+    </div>
+
+    <a (click)="addSection()">Add section</a>
+    <div formArrayName="sections">
+        <div *ngFor="let section of getSection(categoryForm); let i = index">
+           
+            <button *ngIf="getSection(categoryForm).length > 1" (click)="removeSection(i)">Remove section</button>
+           
+            <div [formGroupName]="i">
+                <div>
+                    <h3>Title</h3>
+                    <input type="text" formControlName="title">
+                </div>
+
+                <div formArrayName="fields">
+                    <h3 (click)="addField(i)">Add field</h3>
+                    <div [formGroupName]="j" *ngFor="let field of getFieldsForShow(section); let j = index">
+                        <a (click)="remove(i,j)">Remove whole options</a>
+                        <input type="text" formControlName="name" name="" id="">
+                    </div>
+                </div>
+
+            </div>
+
+           
+
+
+        </div>
+
+    </div>
+    <button type="submit">Create </button>
+
+</form>
+
+<pre>{{categoryForm.value | json}}</pre>

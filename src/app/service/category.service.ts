@@ -23,13 +23,13 @@ export class CategoryService {
   getCategories(): Observable<Category[]>{
     return this.http.get<Category[]>(API_URL + 'categories');
   }
-  createCategory(category: Category, fields: string[]){
+  createCategory(category: Category){
 
-    let paramsToSend = new HttpParams();
-    fields.forEach(el=>{
-      paramsToSend = paramsToSend.append('field', el);
-    });
-    return this.http.post(API_URL + 'categories/createCategory', category, {responseType:'text', params: paramsToSend});
+    //let paramsToSend = new HttpParams();
+    //fields.forEach(el=>{
+    //  paramsToSend = paramsToSend.append('field', el);
+    //});
+    return this.http.post(API_URL + 'categories/createCategory', category, {responseType:'text' });
   }
   pushCategoryImage(file: File){
     console.log(file);

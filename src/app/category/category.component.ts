@@ -4,7 +4,7 @@ import { CategoryService } from '../service/category.service';
 import { error } from 'protractor';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import { NotificationService } from '../service/notification.service';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, Form, AbstractControl, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -13,29 +13,56 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 export class CategoryComponent implements OnInit {
 
 
-  public categoryForm = this.fb.group({
-    categoryName: ['', Validators.required],
-    fields: this.fb.array([
-      this.fb.control('')
-    ])
-  })
+  public sers:any[] = [];
+
+  public counter:number = 0;
 
 
+  public id: number;
+
+  public categoryForm: FormGroup;
+
+
+
+
+
+/*
   get fields(){
-    return this.categoryForm.get('fields') as FormArray;
+    return this.categoryForm.get('fields') as FormGroup;
+  }
+
+  get field(){
+    return this.categoryForm.get('fields').get('section-'+ '2' ).get('field') as FormArray;
+  }
+  get section(){
+    return this.categoryForm.get('fields').get('section-'+this.counter) as FormArray;
+  }
+  */
+
+//  addField(id:number){
+ //  let s = this.categoryForm.get('fields').get('section-'+id).get('field') as FormArray;
+  // s.push(this.fb.control(''));
+   // this.field.push(this.fb.control(''));
+  //}
+/*
+  addSection(){
+    ++this.counter;
+    let ks = this.fb.group({
+      id: [this.counter],
+      title:[this.counter],
+      field: this.fb.array([
+          this.fb.control(''),
+      ])
+    });
+
+    
+    this.fields.addControl('section-'+this.counter, ks);
+    this.sers.push(ks.value);
+    console.log(this.sers);
   }
 
 
-  addField(){
-    this.fields.push(this.fb.control(''));
-  }
-
-
-
-
-
-
-  private durationInSeconds = 5;
+*/
   @ViewChild('editTemplate', {static:false}) editTemplate: TemplateRef<any>;
 
   editCategory: Category;
@@ -48,24 +75,104 @@ export class CategoryComponent implements OnInit {
   categories: Category[];
 
   
-
+  myFormValueChanges$;
 
   constructor(private categoryService: CategoryService, private notificationService: NotificationService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-  
+
+
+    this.categoryForm = this.fb.group({
+      sections: this.fb.array([
+        this.getSections()
+      ])
+    });
+    
+    this.myFormValueChanges$ = this.categoryForm.controls['sections'].valueChanges;
+   setTimeout(() => {
+      console.log((this.categoryForm.controls['sections'] as FormArray).controls[0].value);
+   }, 500);
+
     this.getAllCategories();
     
   }
-  createCategory(){
+  private getSections(){
+    return this.fb.group({
+      title: [''],
+      fields: this.fb.array([
+        this.getFields()
+      ])
+    })
+  }
+  getFields(){
+    return this.fb.group({
+      name: this.fb.control('')
+    });
+  }
+
+
+  addSection(){
+    const control = this.categoryForm.get('sections') as FormArray;
+    control.push(this.getSections());
+  }
+  addFields(j){
+    const control = this.sections.controls[j].get('fields') as FormArray;
+    control.push(this.getFields());
+  }
+
+
+  addField(j){
+    const control = this.sections.controls[j].get('fields') as FormArray;
+    control.push(this.getFields());
+  }
+
+  getSection(form){
+    return form.controls.sections.controls;
+  }
+
+
+  get sections(){
+    return this.categoryForm.get('sections') as FormArray;
+  
+  }
+
+  get fields(){
+    return this.categoryForm.get('sections').get('fields') as FormArray;
+  }
+  getFieldsForShow(form) {
+
+    return form.controls.fields.controls as FormArray;
+  }
+//  getFieldsFor(){
+  //  console.log((this.categoryForm.get('sections') as FormArray).controls);
+//    return (this.categoryForm.get('sections').get('fields') as FormArray).controls;
+ // }
+
+ removeSection(i){
+   const control = this.categoryForm.get('sections') as FormArray;
+   control.removeAt(i);
+ }
+
+ //TODO: FIX it
+ remove(i, j){
+  const control =  <FormArray>this.categoryForm.get(['sections',i, 'fields', j, '']);
+  control.removeAt(0);
+  control.controls = [];
+
+ }
+
+
+
+  createCategory(categoryName: string){
     this.categoryService.pushCategoryImage(this.selectedFile).subscribe(
       res=>{
         console.log(res);
       }
     );
 
-    this.category.categoryName = this.categoryForm.get('categoryName').value;
-    this.categoryService.createCategory(this.category, this.categoryForm.get('fields').value).subscribe(
+    this.category.fields = this.categoryForm.value;
+    this.category.categoryName = categoryName; 
+    this.categoryService.createCategory(this.category).subscribe(
 
       res=>{
         this.notificationService.openSnackBar(res);
