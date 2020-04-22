@@ -170,9 +170,10 @@ export class CategoryComponent implements OnInit {
       }
     );
 
-    this.category.fields = this.categoryForm.value;
+    
     this.category.categoryName = categoryName; 
-    this.categoryService.createCategory(this.category).subscribe(
+    console.log(this.categoryForm.get('sections').value);
+    this.categoryService.createCategory(this.category, this.categoryForm.get('sections').value).subscribe(
 
       res=>{
         this.notificationService.openSnackBar(res);

@@ -8,6 +8,7 @@ import { Brand } from 'src/app/model/brand.model';
 import { BrandService } from 'src/app/service/brand.service';
 import { Cpu } from 'src/app/model/cpu.model';
 import { Gpu } from 'src/app/model/gpu.model';
+import { Sections } from 'src/app/model/sections.model';
 
 @Component({
   selector: 'app-create-product',
@@ -23,7 +24,7 @@ export class CreateProductComponent implements OnInit {
 
   public dictionary: Map<string, string> = new Map();
 
-  public categoryFields: any[];
+  public categoryFields: Sections[];
 
 
   public product: Product = {
@@ -144,13 +145,7 @@ export class CreateProductComponent implements OnInit {
       }
     });
   }
-  showFields(){
-    this.category.forEach(e=>{
-      if(e.id == this.product.category.id){
-        this.categoryFields = e.fields;
-      }
-    });
-  }
+ 
   handleImages(event){
     this.selectedFiles = event.target.files;
   }
@@ -163,7 +158,14 @@ export class CreateProductComponent implements OnInit {
       }
     );
   }
-
+  showFields(){
+    this.category.forEach(e=>{
+      if(e.id == this.product.category.id){
+        this.categoryFields = e.sectionsInDb;
+        console.log(this.categoryFields);
+      }
+    });
+  }
 
   setValue(fieldName:string ,value: string){
     this.dictionary.set(fieldName, value);

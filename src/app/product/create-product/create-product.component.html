@@ -36,10 +36,23 @@ apiKey = "oafydqqtkaeecsa5sztqiauvrrawxqlyhrjhy0lx29dtr56r"
 
     <h1>Category fields</h1>
     <div *ngFor="let item of categoryFields; let i = index">
-        <h2>{{item.fieldName}}</h2>
-        <input type="text" name="{{item.fieldName}}" (change)="setValue(item.fieldName, value.value)" #value >
+        <div>
+            <h1 style="color: green;">TITLE: {{item.title}}</h1>
+        </div>
+
+        <div>
+           
+            <div *ngFor="let field of item.fields">
+                <h4>Field name: {{field.name}}</h4>
+                <input type="text">
+            </div>
+        </div>
+
+
+        <!--<input type="text" name="{{item.fieldName}}" (change)="setValue(item.fieldName, value.value)" #value >-->
     </div>
 
+    <hr>
     <code>
         {{dictionary | json}}
     </code>
