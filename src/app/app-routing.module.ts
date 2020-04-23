@@ -17,6 +17,9 @@ import { BrandComponent } from './brand/brand.component';
 import { CpuComponent } from './cpu/cpu.component';
 import { GpuComponent } from './gpu/gpu.component';
 import { ProductComponent } from './product/product.component';
+import { OpinionsComponent } from './product/details/opinions/opinions.component';
+import { AllAboutProductComponent } from './product/details/all-about-product/all-about-product.component';
+import { ProductFeaturesComponent } from './product/details/product-features/product-features.component';
 
 
 const routes: Routes = [
@@ -28,7 +31,33 @@ const routes: Routes = [
   {path: 'createCategory', component: CategoryComponent, 
               canActivate: [AuthGuard], 
               data:{role: 'ROLE_ADMIN'}},
-  {path: 'detailsProduct/:id', component: DetailsComponent},
+
+  //TODO: CHECK IF ID IS INVALID
+  
+   {path: 'detailsProduct/:id', component: DetailsComponent, children:[
+  
+    {
+      path: '',
+      redirectTo: 'all',
+      pathMatch:'full'
+    },
+    {
+      path: 'opinions',
+      component: OpinionsComponent
+    },
+    {
+      path:'all',
+      component: AllAboutProductComponent
+    },
+    {
+      path: 'features',
+      component: ProductFeaturesComponent
+    },
+    {
+      path: 'detailsProduct/**',
+      component: NotFoundComponent
+    }
+  ]},
   {path: 'basket', component: BasketComponent},
   {path: 'orders', component: OrderComponent,
               canActivate: [AuthGuard], 

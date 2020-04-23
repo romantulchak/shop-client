@@ -9,6 +9,9 @@ import { BrandService } from 'src/app/service/brand.service';
 import { Cpu } from 'src/app/model/cpu.model';
 import { Gpu } from 'src/app/model/gpu.model';
 import { Sections } from 'src/app/model/sections.model';
+import { Field } from 'src/app/model/field.model';
+import { stringify } from 'querystring';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-create-product',
@@ -22,9 +25,16 @@ export class CreateProductComponent implements OnInit {
   public notify: boolean = false;
   public selectedFiles: File[];
 
-  public dictionary: Map<string, string> = new Map();
+  public dictionary: Map<string, Map<string, string>>= new Map();
+
+  private valueMap = new Map<string, string>()
 
   public categoryFields: Sections[];
+
+  public mapToSend: Map<string, Map<string, string>> = new Map();
+
+
+
 
 
   public product: Product = {
@@ -52,7 +62,7 @@ export class CreateProductComponent implements OnInit {
   public currentCpu: Cpu = new Cpu();
   public gpus: Gpu[];
   public currentGpu: Gpu = new Gpu();
-  constructor(private brandService: BrandService,private notificationService: NotificationService, private categoryService: CategoryService, private productService: ProductService) { }
+  constructor(private brandService: BrandService,private notificationService: NotificationService, private categoryService: CategoryService, private productService: ProductService, public fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.getCategories();
@@ -114,11 +124,33 @@ export class CreateProductComponent implements OnInit {
       error=>{console.log(error);}
 
     );
-    const convMap = new Map<string, string>();
-    this.dictionary.forEach((val: string, key: string) => {
-      convMap[key] = val;
-    });
+    
+    const convMap = this.mapToSend;
+    const s = new Map<string, string>();
+    //this.dictionary.forEach((val: string, key: string) => {
+     // convMap[key] = val;
+    //});
 
+    //this.product.properties = convMap;
+    console.log('asdsad');
+    this.dictionary.forEach((value, key)=>{
+      let s = new Map<string, string>();
+      //value.forEach((v)=>{
+       let map = new Map();
+        value.forEach((v, k) =>{
+          s[k]= v;
+                    
+        });
+        console.log('lox');
+        console.log(s);
+        
+
+        convMap[key] = s;
+
+      //});
+    });
+    console.log(convMap);
+    //this.product.properties.set(this.dictionary) this.dictionary;
     this.product.properties = convMap;
     console.log(this.product);
     this.productService.createProduct(this.product, this.notify).subscribe(
@@ -167,8 +199,19 @@ export class CreateProductComponent implements OnInit {
     });
   }
 
-  setValue(fieldName:string ,value: string){
-    this.dictionary.set(fieldName, value);
-  }
+  setValue(fieldName:string ,fieldFromClient: any, value:string){
 
+  
+
+    let field = new Field();
+    field.fieldName = fieldFromClient.name;
+    field.fieldValue = value;
+
+    this.valueMap.set(fieldFromClient.name, value);
+    this.dictionary.set(fieldName, this.valueMap);
+    console.log(this.dictionary);
+  }
+  saveValues(){
+    this.valueMap = new Map<string, string>();
+  }
 }

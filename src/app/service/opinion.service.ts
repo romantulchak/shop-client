@@ -14,9 +14,11 @@ export class OpinionService{
 
     public updateOpinion: BehaviorSubject<boolean>;
     public productId: BehaviorSubject<number>;
+    public opinionCounter: BehaviorSubject<number>;
     constructor(private http: HttpClient){
         this.updateOpinion = new BehaviorSubject<boolean>(false);
         this.productId = new BehaviorSubject<number>(null);
+        this.opinionCounter = new BehaviorSubject<number>(0);
     }
 
     createOpinion(opinionProducts: OpinionProduct, userId: number){

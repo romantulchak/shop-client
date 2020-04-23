@@ -1,75 +1,29 @@
-<p>details works!</p>
-<h1>{{product.productName}}</h1>
-<div [innerHtml]="product.description"></div>
-
+<h1>Average rating: {{averageRanking}}</h1>
 
 <h4>Характеристки</h4>
 
-<div *ngFor="let item of product.category.sections">
-   <h2>{{item.fieldName}} ---------> {{product.properties[item.fieldName]}}</h2>
-</div>
+
+<nav class="details__nav">
+   <ul class="details__ul">
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a routerLink="all">All about product</a></li>
+      <li routerLinkActive="active"><a routerLink="features">Product features</a></li>
+      <li routerLinkActive="active"><a routerLink="opinions">Opinions <span class="opinion__counter">{{product?.opinionProducts.length}}</span></a></li>
+   </ul>
+</nav>
+
+
+<router-outlet></router-outlet>
+
    
 
 
 
-<h1>Average rating: {{averageRanking}}</h1>
 
 
 
-<h1>
-   Opinions 
-</h1>
-<div class="set__opinion" *ngIf="isLoggedIn">
-   <form action="" method="POST" (ngSubmit)="setOpinion(text.value)">
-    <div>
-        <h3>1</h3> 
-        <input type="radio" value="1" (change)="ranking = 1" name="rating">
-     </div>
-     <div>
-         <h3>2</h3> 
-         <input type="radio" value="2"  (change)="ranking = 2" name="rating">
-      </div><div>
-         <h3>3</h3> 
-         <input type="radio" value="3"  (change)="ranking = 3" name="rating">
-      </div><div>
-         <h3>4</h3> 
-         <input type="radio" value="4" (change)="ranking = 4" name="rating">
-      </div><div>
-         <h3>5</h3> 
-         <input type="radio" value="5" (change)="ranking = 5" name="rating">
-      </div>
- 
-      <div>
-          <h3>First name</h3>
-         <input type="text" [disabled]="true" [value]="currentUser.firstName">
-      </div>
-      <div>
-         <h3>Last name</h3>
-        <input type="text" [disabled]="true" [value]="currentUser.lastName">
-     </div>
- 
-     <div>
-         <h3>Text</h3>
-         <textarea id="" cols="30" #text rows="10"></textarea>
-     </div>
-
-        <button type="submit">Send</button>
-    </form>
-
-</div>
-
-
-
-<div *ngFor="let item of opinions">
-    <h1>{{item.text}}</h1>
-    <h3>User name: {{item.user.firstName}} {{item.user.lastName}}</h3>
-    <h4>Rating {{item.rating}}</h4>
-</div>
 
 
 <h1>You may also be interested in</h1>
 <div *ngFor="let product of simularProducts; let i = index;">
    <h2>{{i}}) {{product.productName}}</h2>
 </div>
-
-

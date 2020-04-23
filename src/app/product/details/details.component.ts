@@ -20,14 +20,18 @@ export class DetailsComponent implements OnInit {
 
   private id: number;
   public product:Product;
-  public isLoggedIn: boolean = false;
-  public currentUser: User;
-  public ranking: number = 5;
-  public averageRanking:number;
+  //public isLoggedIn: boolean = false;
+  // public currentUser: User;
+  //public ranking: number = 5;
+  public averageRanking:number = 0;
   public opinionProduct: OpinionProduct = new OpinionProduct();
   public opinions: OpinionProduct[];
-
   public simularProducts: Product[];
+
+  keepOrder = (a, b) => {
+    return a;
+
+  }
 
 
   constructor(private route: ActivatedRoute, private productService: ProductService, private userService: TokenStorageService, private opinionService: OpinionService, private notificationService: NotificationService) {
@@ -37,20 +41,37 @@ export class DetailsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.isLoggedIn = this.userService.isLoggedIn;
+  /*  this.isLoggedIn = this.userService.isLoggedIn;
     if(this.isLoggedIn){
       this.currentUser = this.userService.currentUser;
-    }
-    this.details();
+    }*/
+
+ 
     
+    this.details();
+  
+    this.productService.updateAverageRanking.subscribe(
+      
+      res=>{
+        if(res === true){
+          this.opinionService.productId.subscribe(
+            id=>{
+              if(this.id === id){
+                this.getAverageRanking();
+              }
+            }
+          )
+        }
+      }
+    );
 
 
+/*
     this.opinionService.updateOpinion.subscribe(
       res=>{
         if(res === true){
           this.opinionService.productId.subscribe(
             id=>{
-
               if(id === this.id){
                 this.getOpinionForProduct();
               }
@@ -59,24 +80,27 @@ export class DetailsComponent implements OnInit {
           );
         }
       }
-
     );
-
+*/
   }
 
   details(){
     this.productService.detailsProduct(this.id).subscribe(
       res=>{
-        
+        console.log('reload');
         this.product = res;
-        this.getOpinionForProduct();
+        this.productService.product.next(res);
+        this.productService.updateProductAfterReload.next(true);
+        this.getAverageRanking();
+   
+        //this.getOpinionForProduct();
         this.getSimilarProducts(res);
       },
       error=>{console.log(error);}
 
     );
   }
-  setOpinion(text: string ){
+/*  setOpinion(text: string ){
     this.opinionProduct = {
       id: null,
       text: text,
@@ -96,18 +120,20 @@ export class DetailsComponent implements OnInit {
 
 
     );
-  }
+  }*/
   getAverageRanking(){
     this.opinionService.getAverageRanking(this.id).subscribe(
       res=>{
         if(res != null){
+          console.log(res);
+          
           this.averageRanking = res;
         }
       }
 
     );
   }
-  getOpinionForProduct(){
+  /*getOpinionForProduct(){
     this.opinionService.getOpinionForProduct(this.id).subscribe(
       res=>{
         if(res != null){
@@ -119,7 +145,7 @@ export class DetailsComponent implements OnInit {
       }
 
     );
-  }
+  }*/
 
   getSimilarProducts(res: Product){
     this.productService.getSimilarProducts(this.id, res.category.categoryName).subscribe(

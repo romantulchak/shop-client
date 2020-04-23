@@ -1,0 +1,110 @@
+@font-face{
+    font-family: DetailsRegular;
+    src: url("../../../../assets/fonts/details-web-regular.woff2");
+}
+.sections{
+    padding: 2em;
+    background: white;
+  /*  display: grid;
+    grid-template-columns: 1.5em .7fr;
+    */
+}
+.sections__grid{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    
+}
+
+.features{
+    font-family: DetailsRegular;
+    margin-bottom: 1em;
+}
+.section__title{
+    border-bottom: 1px solid #ddd;
+    color: #4d4b4b;
+}
+.section__values{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: .8em 0 .8em 0;
+}
+
+.section__key{
+    color: #797878;
+    font-weight: 400;
+}
+.section__value{
+    color: #3e77aa;
+    font-weight: 400;
+}
+.product__title{
+    font-family: DetailsRegular;
+    margin-bottom: 1.25em;
+    letter-spacing: 1px;
+    font-weight: 400;
+    color: #221f1f;
+}
+.product__title span{
+    color: #b2b2b2;
+}
+.product__card_details{
+    padding: 1em;
+    width: 20em;
+    background: #f7f7f7;
+}
+.card{
+    background: #fff;
+    padding: 1em;
+}
+.product__header{
+    border-bottom: 4px solid #00a046;
+    text-align: center;
+    margin-bottom: .8em;
+    padding: 4px;
+    font-weight: 400;
+    font-family: DetailsRegular;
+}
+.product__name_image{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+.product__name_image > h4{
+    font-weight: 400;
+    font-family: DetailsRegular;
+}
+.product__name_image > img{
+    justify-self: center;
+}
+.grid__columns{
+    margin-right: 3em;
+}
+.product__position{
+    justify-self: center;
+}
+.product__price_button{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 1em 1em 1em 1em;
+}
+.product__price_button > h3{
+    padding: 15px;
+    background: #fef2b8;
+    color: #4d4b4b;
+    font-weight: 400;
+    text-align: center;
+    font-family: DetailsRegular;
+    margin-right: 1em;
+}
+.product__price_button > button{
+    background: #00a046;
+    border: none;
+    border-radius: 4px;
+}
+.product__price_button > button > span{
+    color: #fff;
+    font-weight: 900;
+    font-size: 20px;
+    font-family: DetailsRegular;
+}

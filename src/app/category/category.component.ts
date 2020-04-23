@@ -198,7 +198,7 @@ export class CategoryComponent implements OnInit {
   delete(id:number){
     this.categoryService.deleteCategory(id).subscribe(
         res=>{
-
+          this.getAllCategories();
           this.notificationService.openSnackBar(res);
 
 

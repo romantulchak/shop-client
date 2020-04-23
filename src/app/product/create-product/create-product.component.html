@@ -44,18 +44,17 @@ apiKey = "oafydqqtkaeecsa5sztqiauvrrawxqlyhrjhy0lx29dtr56r"
            
             <div *ngFor="let field of item.fields">
                 <h4>Field name: {{field.name}}</h4>
-                <input type="text">
+                <input type="text" #value (change)="setValue(item.title, field, value.value)">
+               
             </div>
+            <a style="display: block; padding: 1em; background: green; border: none;" (click)="saveValues()">Save changes</a>
         </div>
 
 
         <!--<input type="text" name="{{item.fieldName}}" (change)="setValue(item.fieldName, value.value)" #value >-->
     </div>
-
     <hr>
-    <code>
-        {{dictionary | json}}
-    </code>
+  
 
     
 

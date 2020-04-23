@@ -40,6 +40,7 @@ export class AppComponent {
                 case 'updateOpinion':
                   this.opinionService.updateOpinion.next(true);
                   this.opinionService.productId.next(parseToJson.productId);
+                  this.productService.updateAverageRanking.next(true);
                   break;
               }
 

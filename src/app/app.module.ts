@@ -55,6 +55,9 @@ import { RemindMeDialogComponent } from './dialogs/remind-me-dialog/remind-me-di
 import { WebSocketService } from './service/webSocket.service';
 import { FooterComponent } from './footer/footer.component';
 import { BoardAdminComponent } from './templates/admin-component/board-admin.component';
+import { OpinionsComponent } from './product/details/opinions/opinions.component';
+import { AllAboutProductComponent } from './product/details/all-about-product/all-about-product.component';
+import { ProductFeaturesComponent } from './product/details/product-features/product-features.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +88,10 @@ import { BoardAdminComponent } from './templates/admin-component/board-admin.com
     RemindMeDialogComponent,
     FooterComponent,
     BoardAdminComponent,
-    ProductsComponent
+    ProductsComponent,
+    OpinionsComponent,
+    AllAboutProductComponent,
+    ProductFeaturesComponent
   ],
   imports: [
     BrowserModule,

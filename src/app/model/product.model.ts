@@ -5,6 +5,7 @@ import { Cpu } from './cpu.model';
 import { Gpu } from './gpu.model';
 import { PromotionalCode } from './promotionalCode.model';
 import { OpinionProduct } from './opinionProduct.model';
+import { ProductProperties } from './productProperties.model';
 
 export class Product{
 
@@ -23,5 +24,7 @@ export class Product{
     discountPrice: number;
     isGlobalDiscount: boolean;
     opinionProducts?:OpinionProduct[];
-    properties?: Map<string, string>;
+    properties?: Map<string, Map<string, string>>;
+    productSection?: ProductProperties[];
+    
 }
