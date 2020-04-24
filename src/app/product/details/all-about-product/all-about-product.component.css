@@ -1,0 +1,36 @@
+.about__product_all{
+    padding: 2em;
+}
+.images__preview{
+    display: grid;
+    grid-template-columns: 6em 1fr 2fr;
+}
+.product__images_icons{
+    justify-self: center;
+}
+.icons{
+    max-width: 32px;
+    display: block;
+}
+.icons > img{
+    width: 100%;
+    height: 64px;
+}
+.icon__card{
+    padding: 1em 1.5em 1em 1.5em;
+    border: 1px solid #fff; 
+    margin-bottom: .5em;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.active__icon{
+    border: 1px solid green; 
+}
+.image__container{
+    max-width: 500px;
+    max-height: 600px;
+}
+.image__container > img{
+    height: 510px;
+    margin-left: 8em;
+}

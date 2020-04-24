@@ -24,15 +24,11 @@ export class DetailsComponent implements OnInit {
   // public currentUser: User;
   //public ranking: number = 5;
   public averageRanking:number = 0;
+
   public opinionProduct: OpinionProduct = new OpinionProduct();
-  public opinions: OpinionProduct[];
   public simularProducts: Product[];
 
-  keepOrder = (a, b) => {
-    return a;
-
-  }
-
+  public opinionCounter: number = 0;
 
   constructor(private route: ActivatedRoute, private productService: ProductService, private userService: TokenStorageService, private opinionService: OpinionService, private notificationService: NotificationService) {
 
@@ -45,13 +41,40 @@ export class DetailsComponent implements OnInit {
     if(this.isLoggedIn){
       this.currentUser = this.userService.currentUser;
     }*/
-
+    
  
     
     this.details();
-  
+
+
+
+
+    this.opinionService.updateOpinion.subscribe(
+      res=>{
+        if(res === true){
+            this.opinionService.productId.subscribe(
+              id=>{
+                if(id === this.id){
+                  
+                  this.opinionService.opinionCounter.subscribe(
+                    res=>{
+                        this.opinionCounter = res;
+                        console.log(this.opinionCounter);
+                    }
+                  );
+                }
+              }
+            );
+          }
+      }
+
+    );
+
+
+
+
+
     this.productService.updateAverageRanking.subscribe(
-      
       res=>{
         if(res === true){
           this.opinionService.productId.subscribe(
@@ -64,24 +87,6 @@ export class DetailsComponent implements OnInit {
         }
       }
     );
-
-
-/*
-    this.opinionService.updateOpinion.subscribe(
-      res=>{
-        if(res === true){
-          this.opinionService.productId.subscribe(
-            id=>{
-              if(id === this.id){
-                this.getOpinionForProduct();
-              }
-            }
-
-          );
-        }
-      }
-    );
-*/
   }
 
   details(){
@@ -91,7 +96,10 @@ export class DetailsComponent implements OnInit {
         this.product = res;
         this.productService.product.next(res);
         this.productService.updateProductAfterReload.next(true);
-        this.getAverageRanking();
+        if(res.opinionProducts.length > 0){
+          this.getAverageRanking();
+        }
+        this.opinionCounter = res.opinionProducts.length;
    
         //this.getOpinionForProduct();
         this.getSimilarProducts(res);
@@ -100,27 +108,7 @@ export class DetailsComponent implements OnInit {
 
     );
   }
-/*  setOpinion(text: string ){
-    this.opinionProduct = {
-      id: null,
-      text: text,
-      rating:this.ranking,
-      commentToProduct: this.product,
-      user: null
-    };
 
-    this.opinionService.createOpinion(this.opinionProduct, this.currentUser.id).subscribe(
-
-        res=>{
-          if(res != null){
-            this.details();
-            this.notificationService.openSnackBar(res);
-          }
-        }
-
-
-    );
-  }*/
   getAverageRanking(){
     this.opinionService.getAverageRanking(this.id).subscribe(
       res=>{
@@ -133,19 +121,7 @@ export class DetailsComponent implements OnInit {
 
     );
   }
-  /*getOpinionForProduct(){
-    this.opinionService.getOpinionForProduct(this.id).subscribe(
-      res=>{
-        if(res != null){
-          this.opinions = res;
-            if(res.length != 0){
-              this.getAverageRanking();
-            }
-        }
-      }
 
-    );
-  }*/
 
   getSimilarProducts(res: Product){
     this.productService.getSimilarProducts(this.id, res.category.categoryName).subscribe(

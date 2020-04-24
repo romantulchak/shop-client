@@ -7,6 +7,7 @@ import { User } from 'src/app/model/user.model';
 import { NotificationService } from 'src/app/service/notification.service';
 import { Product } from 'src/app/model/product.model';
 import { ProductService } from 'src/app/service/product.service';
+import { Opinions } from 'src/app/model/opinions.model';
 
 @Component({
   selector: 'app-opinions',
@@ -15,7 +16,7 @@ import { ProductService } from 'src/app/service/product.service';
 })
 export class OpinionsComponent implements OnInit {
 
-  public opinions: OpinionProduct[];
+  public opinions: Opinions;
   public isLoggedIn: boolean = false;
   public currentUser: User;
   public ranking: number = 5;
@@ -24,6 +25,11 @@ export class OpinionsComponent implements OnInit {
   constructor(private productService: ProductService, private opinionService: OpinionService, private userService: TokenStorageService, private notificationService: NotificationService) {
    
    }
+
+
+   public totalPages: Array<any>;
+   public page:number = 0;
+
 
   private id: number;
 
@@ -71,14 +77,13 @@ export class OpinionsComponent implements OnInit {
     );
   }
   getOpinionForProduct(){
-    this.opinionService.getOpinionForProduct(this.id).subscribe(
+    this.opinionService.getOpinionForProduct(this.id, this.page).subscribe(
       res=>{
         if(res != null){
-      
           this.opinions = res;
-            if(res.length != 0){
-              //this.getAverageRanking();
-            }
+           this.totalPages = new Array(res.totalPages);
+           this.opinionService.opinionCounter.next(res.commentsCounter);
+        
         }
       }
     );
@@ -99,12 +104,15 @@ export class OpinionsComponent implements OnInit {
         res=>{
           if(res != null){
             this.getOpinionForProduct();
-            this.notificationService.openSnackBar(res);
+            this.notificationService.success(res);
           }
         }
-
-
     );
   }
 
+  setPage(page: number, $event){
+    event.preventDefault();
+    this.page = page;
+    this.getOpinionForProduct();
+  }
 }

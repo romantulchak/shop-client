@@ -224,7 +224,7 @@ export class ProductsComponent implements OnInit, OnChanges {
         }else{
           this.findAllProducts();
         }
-        this.notificationService.openSnackBar(res);
+        this.notificationService.success(res);
         this.basketService.getProductsFromDb();
         
       },
@@ -236,7 +236,7 @@ export class ProductsComponent implements OnInit, OnChanges {
     product.showButton = true;
     this.basketService.addToBasket(product);
     this.basketService.updateOrder.next(true);
-    this.notificationService.openSnackBar("Added to your card " + product.productName);
+    this.notificationService.success("Added to your card " + product.productName);
   }
 
   filterCategory(res: any){

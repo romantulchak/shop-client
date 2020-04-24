@@ -109,17 +109,17 @@ export class BasketDialogComponent implements OnInit {
                 this.updateItem(product);
         
                 this.basketLoad();
-                this.notificationService.openSnackBar('Ok');
+                this.notificationService.success('Ok');
             
               }else{
-                this.notificationService.openSnackBar('Code is determined');
+                this.notificationService.error('Code is determined');
               }
             }else{
-              this.notificationService.openSnackBar('The code isn\'t correct for this product');
+              this.notificationService.error('The code isn\'t correct for this product');
             }
           }else{
             console.log(res);
-            this.notificationService.openSnackBar(`Code: ${code} doesn't exist`);
+            this.notificationService.error(`Code: ${code} doesn't exist`);
           }
           setTimeout(() => {
             this.loading = false;
@@ -154,7 +154,7 @@ export class BasketDialogComponent implements OnInit {
 
       this.updateItem(product);
     }else{
-      this.notificationService.openSnackBar("Minimum 1 item");
+      this.notificationService.error("Minimum 1 item");
     }
     this.basketService.totalPrice.next(this.totalPrice);
   }
@@ -190,7 +190,7 @@ export class BasketDialogComponent implements OnInit {
             }else{
               product.totalProducPrice = sum;
             }
-            this.notificationService.openSnackBar("Maximum in the stock");
+            this.notificationService.error("Maximum in the stock");
             this.updateItem(product);
           } 
           
@@ -202,7 +202,7 @@ export class BasketDialogComponent implements OnInit {
           this.updateItem(product);
           this.price();
           this.basketService.totalPrice.next(this.totalPrice);
-          this.notificationService.openSnackBar("Maximum 99 items");
+          this.notificationService.error("Maximum 99 items");
         }
         }
       );
@@ -228,14 +228,14 @@ export class BasketDialogComponent implements OnInit {
             this.updateItem(product);
           }else{
             product.amount = res;
-            this.notificationService.openSnackBar("Maximum in the stock");
+            this.notificationService.error("Maximum in the stock");
           }
          
 
         }
       );
     }else{
-      this.notificationService.openSnackBar("Maximum 99 items");
+      this.notificationService.error("Maximum 99 items");
     }
 
    

@@ -3,10 +3,18 @@
     margin: 0;
     padding: 0;
 }
+ul {
+    list-style-type: none;
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #fafafa; }
-.success{
+.successMessage{
     background-color: green;
+    color: white;
+    font-weight: 900;
+}
+.errorMessage{
+    background-color: red;
     color: white;
     font-weight: 900;
 }

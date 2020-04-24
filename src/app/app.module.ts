@@ -58,6 +58,7 @@ import { BoardAdminComponent } from './templates/admin-component/board-admin.com
 import { OpinionsComponent } from './product/details/opinions/opinions.component';
 import { AllAboutProductComponent } from './product/details/all-about-product/all-about-product.component';
 import { ProductFeaturesComponent } from './product/details/product-features/product-features.component';
+import { StarRatingModule, StarRatingConfigService } from 'angular-star-rating';
 
 @NgModule({
   declarations: [
@@ -116,6 +117,7 @@ import { ProductFeaturesComponent } from './product/details/product-features/pro
     MatBadgeModule,
     MatTabsModule,
     MatExpansionModule,
+    StarRatingModule.forRoot()
   
   ],
   providers: [ProductService,authInterceptorProviders, AuthGuard, RegistrationGuard, WebSocketService],

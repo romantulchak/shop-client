@@ -1,0 +1,19 @@
+.pagination{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.pagination li{
+    border: 1px solid #4976ca;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+.pagination li a{
+    padding: .5em;
+    display: block;
+}
+.active__page{
+    color: white;
+    background: #4976ca;
+    font-weight: 900;
+}

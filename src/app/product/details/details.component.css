@@ -1,21 +1,29 @@
+@import '../../../assets/ranking.css';
+@import '../../../assets/details.fonts.css';
+
+:root{
+    --link-color: #3e77aa;
+}
+
 .details__nav{
     border-bottom: 1px solid silver;
     margin-bottom: 1em;
-    width: 95vw;
     display: -webkit-box;
-    margin-left: 2em;
-    /* padding: 2em; */
-    margin-top: 2em;
+    margin-top: 1em;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background: #fff;
     display: flex;
     flex-wrap: wrap;
     -webkit-box-pack: start;
     justify-content: flex-start;
 }
-.active{
+.active-detais {
 
     border-bottom: 4px solid #00a046;
 }
-.active > a {
+.active-detais > a {
     color: #000 !important;
 }
 
@@ -28,15 +36,40 @@
 }
 .details__ul li a{
     padding: 1em;
-    color: #3e77aa;
+    color: var(--link-color);
     text-decoration: none;
     font-family: sans-serif;
 }
-.details__ul li:hover{
+.details__ul li a:hover{
     color: #ff7878;
-    border-bottom: 2px solid #ff7878;
 }
 
 .opinion__counter{
     color: #8c8484;
+}
+.title__product_name{
+    font-family: DetailsRegular;
+    color: #333;
+    font-size: 36px;
+}
+.title__ranking{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    justify-content: start;
+    padding: 2em;
+}
+.ranking_section{
+    justify-self: start;
+    margin-top: .5em;
+}
+.ranking__opinions{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+.ranking__opinions > a{
+    color: var(--link-color);
+    font-size: 14px;
+    text-decoration: none;
 }

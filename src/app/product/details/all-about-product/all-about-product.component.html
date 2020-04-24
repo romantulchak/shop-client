@@ -1,4 +1,21 @@
-<div>
-    {{product?.productName}}
-</div>
+
+<section class="about__product_all">
+
+    <div class="images__preview"> 
+        <ul class="product__images_icons">
+            <li class="icon__card" (mouseenter)="changePhoto(img)" [class.active__icon]="currentImage === img" *ngFor="let img of product?.image">
+                <span class="icons">
+                    <img [src]="img?.imagePath" alt="">
+                </span> 
+            </li>
+        </ul>
+    
+        <div>
+            <div class="image__container">
+                <img [src]="imagePath" alt="">
+            </div>
+        </div>
+    </div>
+
+</section>
 

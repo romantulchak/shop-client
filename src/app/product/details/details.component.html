@@ -1,15 +1,25 @@
-<h1>Average rating: {{averageRanking}}</h1>
+<section>
 
-<h4>Характеристки</h4>
-
+<div class="title__ranking">
+   <div>
+      <h1 class="title__product_name">{{product?.productName}}</h1>
+   </div>
+   <div class="ranking_section">
+     <div class="ranking__opinions">
+         <star-rating [starType]="'svg'" [rating]="averageRanking" size="large" labelPosition="right" [numOfStars]="5" [showHalfStars]="true" [readOnly]="true"></star-rating>
+         <a routerLink="opinions">Opinions {{opinionCounter}}</a>
+     </div>
+   </div>
+</div>
 
 <nav class="details__nav">
    <ul class="details__ul">
-      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a routerLink="all">All about product</a></li>
-      <li routerLinkActive="active"><a routerLink="features">Product features</a></li>
-      <li routerLinkActive="active"><a routerLink="opinions">Opinions <span class="opinion__counter">{{product?.opinionProducts.length}}</span></a></li>
+      <li routerLinkActive="active-detais " [routerLinkActiveOptions]="{exact:true}"><a routerLink="all">All about product</a></li>
+      <li routerLinkActive="active-detais "><a routerLink="features">Product features</a></li>
+      <li routerLinkActive="active-detais "><a routerLink="opinions">Opinions <span class="opinion__counter">{{opinionCounter}}</span></a></li>
    </ul>
 </nav>
+
 
 
 <router-outlet></router-outlet>
@@ -27,3 +37,5 @@
 <div *ngFor="let product of simularProducts; let i = index;">
    <h2>{{i}}) {{product.productName}}</h2>
 </div>
+
+</section>

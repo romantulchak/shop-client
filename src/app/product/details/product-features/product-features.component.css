@@ -1,7 +1,5 @@
-@font-face{
-    font-family: DetailsRegular;
-    src: url("../../../../assets/fonts/details-web-regular.woff2");
-}
+@import '../../../../assets/details.fonts.css';
+
 .sections{
     padding: 2em;
     background: white;
@@ -82,6 +80,7 @@
 }
 .product__position{
     justify-self: center;
+    
 }
 .product__price_button{
     display: grid;

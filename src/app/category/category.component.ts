@@ -176,7 +176,7 @@ export class CategoryComponent implements OnInit {
     this.categoryService.createCategory(this.category, this.categoryForm.get('sections').value).subscribe(
 
       res=>{
-        this.notificationService.openSnackBar(res);
+        this.notificationService.success(res);
         this.getAllCategories();
       },
       error=>{console.log(error);}
@@ -199,7 +199,7 @@ export class CategoryComponent implements OnInit {
     this.categoryService.deleteCategory(id).subscribe(
         res=>{
           this.getAllCategories();
-          this.notificationService.openSnackBar(res);
+          this.notificationService.success(res);
 
 
         },
@@ -224,7 +224,7 @@ export class CategoryComponent implements OnInit {
 
       
 
-        this.notificationService.openSnackBar(res);
+        this.notificationService.success(res);
         this.getAllCategories();
         console.log(res);
       },

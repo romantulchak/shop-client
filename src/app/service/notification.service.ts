@@ -8,13 +8,20 @@ export class NotificationService {
 
   constructor(private snackBar: MatSnackBar) { }
   
-  openSnackBar(message: string){
+  openSnackBar(message: string, className: string){
     let config = new MatSnackBarConfig();
     config.verticalPosition = "top";
     config.horizontalPosition = "right";
     config.duration = 5000;
-    config.panelClass = ['success']; 
+    config.panelClass = [className]; 
     this.snackBar.open(message, "Ok", config);
+  }
+
+  success(message: string){
+    this.openSnackBar(message, 'successMessage');
+  }
+  error(message: string){
+    this.openSnackBar(message, 'errorMessage');
   }
 
 }

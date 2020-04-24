@@ -42,10 +42,20 @@
  
  
  
- <div *ngFor="let item of opinions">
+ <div *ngFor="let item of opinions?.comments">
      <h1>{{item.text}}</h1>
      <h3>User name: {{item.user.firstName}} {{item.user.lastName}}</h3>
      <h4>Rating {{item.rating}}</h4>
+ </div>
+
+
+ <div>
+    Pagination
+    <ul class="pagination">
+       <li *ngFor="let item of totalPages; let i = index">
+          <a [class.active__page]="i=== page" (click)="setPage(i, $event)">{{i}}</a>
+       </li>
+    </ul>
  </div>
  
  

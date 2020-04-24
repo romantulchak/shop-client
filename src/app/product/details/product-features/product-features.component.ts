@@ -20,7 +20,6 @@ export class ProductFeaturesComponent implements OnInit {
         if(res===true){
           this.productService.product.subscribe(
             product=>{
-              console.log('ERRRRRRRRRORRRRRRRRRRRRrrr');
               this.product = product;
             }
           );
