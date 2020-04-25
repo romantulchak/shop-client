@@ -9,6 +9,11 @@ import { Product } from 'src/app/model/product.model';
 import { ProductService } from 'src/app/service/product.service';
 import { Opinions } from 'src/app/model/opinions.model';
 
+
+import {
+  RatingChangeEvent
+} from 'angular-star-rating/src/interfaces/rating-change-event.interface';
+
 @Component({
   selector: 'app-opinions',
   templateUrl: './opinions.component.html',
@@ -19,9 +24,11 @@ export class OpinionsComponent implements OnInit {
   public opinions: Opinions;
   public isLoggedIn: boolean = false;
   public currentUser: User;
-  public ranking: number = 5;
   public product: Product;
-  public opinionProduct: OpinionProduct = new OpinionProduct()
+  public opinionProduct: OpinionProduct = new OpinionProduct();
+
+  onRatingChangeResult: RatingChangeEvent;
+
   constructor(private productService: ProductService, private opinionService: OpinionService, private userService: TokenStorageService, private notificationService: NotificationService) {
    
    }
@@ -77,26 +84,28 @@ export class OpinionsComponent implements OnInit {
     );
   }
   getOpinionForProduct(){
-    this.opinionService.getOpinionForProduct(this.id, this.page).subscribe(
+
+    this.opinionService.getOpinionForProduct(this.id, this.page, this.currentUser).subscribe(
       res=>{
         if(res != null){
           this.opinions = res;
+           console.log(res);
            this.totalPages = new Array(res.totalPages);
            this.opinionService.opinionCounter.next(res.commentsCounter);
-        
         }
       }
     );
   }
 
 
-  setOpinion(text: string ){
+  setOpinion(text: string, advantages: string, disadvantages:string ){
+    
     this.opinionProduct = {
-      id: null,
       text: text,
-      rating:this.ranking,
+      rating:this.onRatingChangeResult.rating,
       commentToProduct: this.product,
-      user: null
+      advantages: advantages,
+      disadvantages: disadvantages
     };
 
     this.opinionService.createOpinion(this.opinionProduct, this.currentUser.id).subscribe(
@@ -115,4 +124,18 @@ export class OpinionsComponent implements OnInit {
     this.page = page;
     this.getOpinionForProduct();
   }
+  onRatingChange = ($event: RatingChangeEvent) => {
+    console.log('onRatingUpdated $event: ', $event);
+    this.onRatingChangeResult = $event;
+  };
+
+  setLike(user: User, opinionProduct: OpinionProduct){
+     this.opinionService.setLike(user, opinionProduct).subscribe(
+       res=>{
+         this.getOpinionForProduct();
+         this.notificationService.success(res);
+       }
+     );
+  }
+
 }

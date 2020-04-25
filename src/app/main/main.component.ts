@@ -300,7 +300,7 @@ export class MainComponent implements OnInit {
     this.subscriptionService.follow(this.subscribtion, userId).subscribe(
 
       res=>{
-        this.notificationService.openSnackBar(res);
+        this.notificationService.success(res);
       }
 
     );

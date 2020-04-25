@@ -36,7 +36,7 @@ export class BoardAdminComponent implements OnInit {
     this.productService.addPromo(product,  Number.parseInt(percent),Number.parseInt(numberOfDays),  Number.parseInt(numberOfUses)).subscribe(
 
       res=>{
-        this.notificiationService.openSnackBar(res);
+        this.notificiationService.success(res);
         this.getProducts();
       }
 

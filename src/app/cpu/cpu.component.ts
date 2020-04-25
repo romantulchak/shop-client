@@ -39,7 +39,7 @@ export class CpuComponent implements OnInit {
     this.productService.createCpu(this.cpu).subscribe(
 
       res=>{
-        this.notificationService.openSnackBar(res);
+        this.notificationService.success(res);
       },
       error=>{
         console.log(error);

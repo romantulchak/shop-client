@@ -54,11 +54,9 @@ export class ProductsComponent implements OnInit, OnChanges {
   @Input() categoryName: string;
   @Input() numberOfColumns:number = 4;
   @Input() showButtons = true;
-
   @Input() usualLook: boolean = false;
   @Input() topFiveLook: boolean = false;
   @Input() adminLook: boolean = false;
-
   @Input() productsFromComponent: Product[];
 
 
@@ -75,7 +73,7 @@ export class ProductsComponent implements OnInit, OnChanges {
   public styleOn = false;
   public currentProduct: Product;
   public isAdmin = false;
-  public loading: boolean;
+  public loading: boolean = false;
 
 
   @Input() pr: Product[];

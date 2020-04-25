@@ -22,7 +22,7 @@ export class EditUserComponent implements OnInit {
 
       res=>{
         this.tokenStorage.saveUser(this.user);
-        this.notificationService.openSnackBar(res);
+        this.notificationService.success(res);
         this.dialogRef.close();
       }
 

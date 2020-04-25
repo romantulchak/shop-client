@@ -155,7 +155,7 @@ export class CreateProductComponent implements OnInit {
     console.log(this.product);
     this.productService.createProduct(this.product, this.notify).subscribe(
           res=>{
-            this.notificationService.openSnackBar(res);
+            this.notificationService.success(res);
           },
           error=>{
             console.log(error);

@@ -70,7 +70,7 @@ export class OrderComponent implements OnInit {
     this.orderService.deleteCustom(id).subscribe(
 
       res=>{
-        this.notificationSerivce.openSnackBar(res);
+        this.notificationSerivce.success(res);
         this.getAllOrders(); 
       },
       error=>{
@@ -83,7 +83,7 @@ export class OrderComponent implements OnInit {
     console.log(order);
     this.orderService.setStatus(order, code).subscribe(
       res=>{
-        this.notificationSerivce.openSnackBar(res);
+        this.notificationSerivce.success(res);
         this.getAllOrders();
       },
       error=>{

@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { OpinionProduct } from '../model/opinionProduct.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Opinions } from '../model/opinions.model';
+import { User } from '../model/user.model';
 
 
 const API_URL = environment.apiUrl;
@@ -29,10 +30,13 @@ export class OpinionService{
     getAverageRanking(productId: number): Observable<number>{
         return this.http.get<number>(API_URL + 'opinion/getAverageRanking/' + productId);
     }
-    getOpinionForProduct(productId: number, page: number): Observable<Opinions>{
+    getOpinionForProduct(productId: number, page: number, user: User): Observable<Opinions>{
         let paramsToSend = new HttpParams();
         paramsToSend = paramsToSend.append('page', page.toString());
-        return this.http.get<Opinions>(API_URL + 'opinion/getOpinionForProduct/' + productId, {params: paramsToSend});
+        return this.http.get<Opinions>(API_URL + 'opinion/getOpinionForProduct/' + productId + '/' + user.id, {params: paramsToSend});
     }
 
+    setLike(user: User, opinionProduct: OpinionProduct){
+        return this.http.get(API_URL + 'opinion/setLike/' + user.id + '/' + opinionProduct.id,{responseType: 'text'});
+    }
 }

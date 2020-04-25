@@ -35,7 +35,7 @@ export class RemindMeDialogComponent implements OnInit {
   createRemindMe(){
     this.remindMeService.createRemindMe(this.remindMe).subscribe(
       res=>{
-        this.notificiationService.openSnackBar(res);
+        this.notificiationService.success(res);
       }
 
     );

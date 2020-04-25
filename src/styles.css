@@ -12,11 +12,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background:
     background-color: green;
     color: white;
     font-weight: 900;
+
+    z-index: 999999;
 }
 .errorMessage{
     background-color: red;
     color: white;
     font-weight: 900;
+    z-index: 999999;
 }
 .dialog__basket >  mat-dialog-container {
     height: 35em;
@@ -26,4 +29,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background:
     display: flex;
 }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #fff; }

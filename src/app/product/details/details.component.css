@@ -17,6 +17,7 @@
     display: flex;
     flex-wrap: wrap;
     -webkit-box-pack: start;
+    z-index: 50;
     justify-content: flex-start;
 }
 .active-detais {

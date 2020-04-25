@@ -1,42 +1,4 @@
-@import '../../../../assets/details.fonts.css';
 
-.sections{
-    padding: 2em;
-    background: white;
-  /*  display: grid;
-    grid-template-columns: 1.5em .7fr;
-    */
-}
-.sections__grid{
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    
-}
-
-.features{
-    font-family: DetailsRegular;
-    margin-bottom: 1em;
-}
-.section__title{
-    border-bottom: 1px solid #ddd;
-    color: #4d4b4b;
-}
-.section__values{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    padding: .8em 0 .8em 0;
-}
-
-.section__key{
-    color: #797878;
-    font-weight: 400;
-}
-.section__value{
-    color: #3e77aa;
-    font-weight: 400;
-}
-/*
 .product__title{
     font-family: DetailsRegular;
     margin-bottom: 1.25em;
@@ -108,4 +70,3 @@
     font-size: 20px;
     font-family: DetailsRegular;
 }
-*/

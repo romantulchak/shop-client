@@ -63,7 +63,7 @@ export class EditProductDialogComponent implements OnInit {
       res=>{
 
         this.getProduct();     
-        this.notificationService.openSnackBar(res + ' data will save after dialog close');
+        this.notificationService.success(res + ' data will save after dialog close');
       }
     );
   }
@@ -72,7 +72,7 @@ export class EditProductDialogComponent implements OnInit {
 
       res=>{
         this.getProduct();
-        this.notificationService.openSnackBar(res);
+        this.notificationService.success(res);
       }
 
     );
@@ -83,7 +83,7 @@ export class EditProductDialogComponent implements OnInit {
     this.productService.updateProduct(this.product).subscribe(
 
       res=>{
-        this.notificationService.openSnackBar(res);
+        this.notificationService.success(res);
       }
 
     );

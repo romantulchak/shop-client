@@ -2,9 +2,14 @@ import { Product } from './product.model';
 import { User } from './user.model';
 
 export class OpinionProduct{
-    id: number;
+    id?: number;
     commentToProduct: Product;
-    user: User;
+    user?: User;
     text: string;
+    advantages: string;
+    dateTime?: string;
+    disadvantages: string;
     rating:number;
+    likes?: number;
+    meLiked?: boolean;
 }

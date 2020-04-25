@@ -407,6 +407,7 @@ Rating Component
     -moz-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    outline: none;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
     -moz-box-pack: center;

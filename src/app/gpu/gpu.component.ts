@@ -37,7 +37,7 @@ export class GpuComponent implements OnInit {
     this.productService.createGpu(this.gpu).subscribe(
 
       res=>{
-        this.notifciationService.openSnackBar(res);
+        this.notifciationService.success(res);
       },
       error=>{
         console.log(error);
