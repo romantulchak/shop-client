@@ -33,10 +33,15 @@ export class OpinionService{
     getOpinionForProduct(productId: number, page: number, user: User): Observable<Opinions>{
         let paramsToSend = new HttpParams();
         paramsToSend = paramsToSend.append('page', page.toString());
-        return this.http.get<Opinions>(API_URL + 'opinion/getOpinionForProduct/' + productId + '/' + user.id, {params: paramsToSend});
+        if(user != undefined){
+            paramsToSend = paramsToSend.append('user', user.id.toString());
+        }
+        return this.http.get<Opinions>(API_URL + 'opinion/getOpinionForProduct/' + productId, {params: paramsToSend});
     }
-
     setLike(user: User, opinionProduct: OpinionProduct){
         return this.http.get(API_URL + 'opinion/setLike/' + user.id + '/' + opinionProduct.id,{responseType: 'text'});
+    }
+    setDislike(user: User, opinionProduct: OpinionProduct){
+        return this.http.get(API_URL + 'opinion/setDislike/' + user.id + '/' + opinionProduct.id,{responseType: 'text'});
     }
 }

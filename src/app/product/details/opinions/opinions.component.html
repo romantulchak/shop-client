@@ -10,27 +10,39 @@
             </h1>
             <div *ngFor="let item of opinions?.comments">
               <h1>{{item?.text}}</h1>
-              <h4>89% користувачів вважають цей відгук корисним</h4>
+              <h4 *ngIf="item.likes != 0">{{getPercent(item.likes, item.dislikes).toFixed(0)}} користувачів вважають цей відгук корисним</h4>
               <h3>User name: {{item?.user?.firstName}} {{item?.user?.lastName}}</h3>
               <h4>Rating {{item?.rating}}</h4>
               <h4>Переваги: {{item?.advantages}}</h4>
               <h4>Недоліки: {{item?.disadvantages}}</h4>
                <h4>Likes: {{item?.likes}}</h4>
-               <div *ngIf="!item.meLiked; else liked">
-                  <button class="btn__like non__liked" (click)="setLike(currentUser, item)">
-                     <span style="color: red;" class="material-icons">
-                        favorite_border
+               <h4>Dislikes: {{item.dislikes}}</h4>
+               
+
+               <button [disabled]="currentUser === null" class="btn__like non__liked" (click)="setDislike(item)">
+                  <span style="color: yellow;" *ngIf="item.meDisliked" class="material-icons">
+                     thumb_down_alt
+                  </span>
+                  <span *ngIf="!item.meDisliked">
+                     <span style="color: silver;" class="material-icons">
+                        thumb_down_alt
+                        </span>
+                  </span>
+               </button>
+               
+               
+               
+               <div>
+                  <button [disabled]="currentUser === null" class="btn__like non__liked" (click)="setLike(item)">
+                     <span *ngIf="item.meLiked" style="color: blue;" class="material-icons">
+                        thumb_up_alt
+                        </span>
+                        <span *ngIf="!item.meLiked" style="color: silver;" class="material-icons">
+                           thumb_up_alt
                         </span>
                   </button>
                </div>
-               <ng-template #liked>
-                  <button class="btn__like liked" (click)="setLike(currentUser, item)">
-                     <span style="color:red;" class="material-icons">
-                        favorite
-                        </span>
-                  </button>
-               </ng-template>
-
+               
               <star-rating [starType]="'svg'" [rating]="item.rating" [numOfStars]="5" [showHalfStars]="false" [readOnly]="true"></star-rating>
            </div>
            <div>

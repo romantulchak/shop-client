@@ -56,6 +56,12 @@ export class OpinionsComponent implements OnInit {
               this.product = product;
               this.id = this.product.id;
               this.getOpinionForProduct();
+
+
+              //TODO: якщо сокети не працюють
+              this.productService.updateProductAfterReload.next(false);
+
+
             }
           );
         }
@@ -84,17 +90,16 @@ export class OpinionsComponent implements OnInit {
     );
   }
   getOpinionForProduct(){
-
-    this.opinionService.getOpinionForProduct(this.id, this.page, this.currentUser).subscribe(
-      res=>{
-        if(res != null){
-          this.opinions = res;
-           console.log(res);
-           this.totalPages = new Array(res.totalPages);
-           this.opinionService.opinionCounter.next(res.commentsCounter);
+      this.opinionService.getOpinionForProduct(this.id, this.page, this.currentUser).subscribe(
+        res=>{
+          if(res != null){
+            this.opinions = res;
+            console.log(res);
+             this.totalPages = new Array(res.totalPages);
+             this.opinionService.opinionCounter.next(res.commentsCounter);
+          }
         }
-      }
-    );
+      );
   }
 
 
@@ -129,13 +134,32 @@ export class OpinionsComponent implements OnInit {
     this.onRatingChangeResult = $event;
   };
 
-  setLike(user: User, opinionProduct: OpinionProduct){
-     this.opinionService.setLike(user, opinionProduct).subscribe(
+  setLike(opinionProduct: OpinionProduct){
+     this.opinionService.setLike(this.currentUser, opinionProduct).subscribe(
        res=>{
          this.getOpinionForProduct();
          this.notificationService.success(res);
        }
      );
   }
+  setDislike(opinionProduct: OpinionProduct){
+    this.opinionService.setDislike(this.currentUser, opinionProduct).subscribe(
+      res=>{
+        this.getOpinionForProduct();
+        this.notificationService.success(res);
+      }
+    );
+  }
+  getPercent(likes: number, dislikes: number): number{
 
+    let all = ((likes + dislikes ) * 100);
+    let likesInPercent = (likes * 100) / all;
+    let dislikesInPercent = (dislikes * 100) / all;
+    
+    console.log('LIKES: ' + likesInPercent);
+    
+    console.log('DISLIKES: ' + dislikesInPercent);
+    //console.log('DISLIKES: ' + dislikesInPercent);
+    return likesInPercent * 100;
+  }
 }

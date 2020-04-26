@@ -12,4 +12,6 @@ export class OpinionProduct{
     rating:number;
     likes?: number;
     meLiked?: boolean;
+    meDisliked?:boolean;
+    dislikes?: number;
 }
