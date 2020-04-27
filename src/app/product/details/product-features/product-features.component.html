@@ -4,7 +4,7 @@
 
  <div class="grid__columns">
     <h2 class="product__title">Технічні характеристики <span>{{product?.productName}}</span></h2>
-    <div *ngFor="let item of product.productSection" class="features">
+    <div *ngFor="let item of product?.productSection" class="features">
         <h4 class="section__title">{{item.title}}</h4>
         <div *ngFor="let val of item.sections| keyvalue" class="section__values">
            <div>

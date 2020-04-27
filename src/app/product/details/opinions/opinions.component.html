@@ -8,15 +8,32 @@
             <h1>
                Opinions 
             </h1>
-            <div *ngFor="let item of opinions?.comments">
-              <h1>{{item?.text}}</h1>
-              <h4 *ngIf="item.likes != 0">{{getPercent(item.likes, item.dislikes).toFixed(0)}} користувачів вважають цей відгук корисним</h4>
-              <h3>User name: {{item?.user?.firstName}} {{item?.user?.lastName}}</h3>
-              <h4>Rating {{item?.rating}}</h4>
-              <h4>Переваги: {{item?.advantages}}</h4>
-              <h4>Недоліки: {{item?.disadvantages}}</h4>
-               <h4>Likes: {{item?.likes}}</h4>
-               <h4>Dislikes: {{item.dislikes}}</h4>
+        
+            <div class="opinion__card" *ngFor="let item of opinions?.comments">
+               <div class="user__opinions">
+                  <h3 class="opinion__user_name">{{item?.user?.firstName}} {{item?.user?.lastName}}</h3>
+                  <star-rating staticColor="ok"  class="opinion__user_stars" [starType]="'svg'" size="small" [rating]="item.rating" [numOfStars]="5" [showHalfStars]="false" [readOnly]="true"></star-rating>
+                  <h4 class="opinion__useful_percent"> <span *ngIf="item.likes.length != 0">{{getPercent(item.likes.length, item.dislikes.length).toFixed(0)}}% of users found this review helpful</span></h4>
+                  <h4 class="opinion__user_date">{{item?.dateTime| date}}</h4> 
+               </div>
+              <p class="comment__text">{{item?.text}}</p>
+              <div class="opinion__advantages_disadvantages">
+               <h4 class="advantages">Advantages: {{item?.advantages}}</h4>
+               <h4>Disadvantages: {{item?.disadvantages}}</h4>
+             
+              </div>
+                <h4>Likes: {{item?.likes.length}}</h4>
+               <h4>Dislikes: {{item.dislikes.length}}</h4>
+               <div>
+                  <button [disabled]="currentUser === null" class="btn__like non__liked" (click)="setLike(item)">
+                     <span *ngIf="item.meLiked" style="color: blue;" class="material-icons">
+                        thumb_up_alt
+                        </span>
+                        <span *ngIf="!item.meLiked" style="color: silver;" class="material-icons">
+                           thumb_up_alt
+                        </span>
+                  </button>
+               </div>
                
 
                <button [disabled]="currentUser === null" class="btn__like non__liked" (click)="setDislike(item)">
@@ -32,19 +49,8 @@
                
                
                
-               <div>
-                  <button [disabled]="currentUser === null" class="btn__like non__liked" (click)="setLike(item)">
-                     <span *ngIf="item.meLiked" style="color: blue;" class="material-icons">
-                        thumb_up_alt
-                        </span>
-                        <span *ngIf="!item.meLiked" style="color: silver;" class="material-icons">
-                           thumb_up_alt
-                        </span>
-                  </button>
-               </div>
                
-              <star-rating [starType]="'svg'" [rating]="item.rating" [numOfStars]="5" [showHalfStars]="false" [readOnly]="true"></star-rating>
-           </div>
+          </div>
            <div>
              <ul class="pagination">
                 <li *ngFor="let item of totalPages; let i = index">

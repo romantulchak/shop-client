@@ -1,3 +1,7 @@
+@font-face{
+    font-family: ArialRegular;
+    src: url("../../../../assets/fonts/Arial.ttf");
+}
 .pagination{
     display: flex;
     justify-content: center;
@@ -112,4 +116,55 @@
 .btn__like{
     background: none;
     border: none;
+}
+.user__opinions{
+    display: grid;
+    grid-template-columns: 11em 6em 2fr 1fr;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 1em;
+}
+.comment__text{
+    word-break: break-all;
+    color: #4d4b4b;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    line-height: 1.6;
+}
+
+.opinion__card{
+    font-family: ArialRegular;
+    width: 850px;
+    margin: 0 auto;
+    padding: 2em;
+    border-bottom: 1px solid #eaeaea;
+}
+.opinion__user_name{
+    font-size: 1.2em;
+    justify-self: center;
+    color: #4d4b4b;
+}
+.opinion__user_star{
+    justify-self: self-start;
+}
+.opinion__user_date{
+    justify-self: end;
+    color: #999;
+    font-weight: 400;
+    font-size: 0.8em;
+}
+
+.opinion__useful_percent{
+    font-weight: 400;
+    color: #4d4b4b;
+    font-size: .8em;
+}
+
+.opinion__advantages_disadvantages{
+    color: #4d4b4b;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.advantages{
+    margin-bottom: .5em;
 }

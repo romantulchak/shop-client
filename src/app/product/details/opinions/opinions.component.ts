@@ -47,6 +47,7 @@ export class OpinionsComponent implements OnInit {
       this.currentUser = this.userService.currentUser;
     }
 
+
     this.productService.updateProductAfterReload.subscribe(
 
       res=>{
@@ -80,7 +81,7 @@ export class OpinionsComponent implements OnInit {
             id=>{
               if(id === this.id){
                 this.getOpinionForProduct();
-                
+                this.opinionService.updateOpinion.next(false);
               }
             }
 
@@ -97,6 +98,7 @@ export class OpinionsComponent implements OnInit {
             console.log(res);
              this.totalPages = new Array(res.totalPages);
              this.opinionService.opinionCounter.next(res.commentsCounter);
+             this.productService.updateProductAfterReload.next(false);
           }
         }
       );
@@ -152,14 +154,8 @@ export class OpinionsComponent implements OnInit {
   }
   getPercent(likes: number, dislikes: number): number{
 
-    let all = ((likes + dislikes ) * 100);
-    let likesInPercent = (likes * 100) / all;
-    let dislikesInPercent = (dislikes * 100) / all;
-    
-    console.log('LIKES: ' + likesInPercent);
-    
-    console.log('DISLIKES: ' + dislikesInPercent);
-    //console.log('DISLIKES: ' + dislikesInPercent);
-    return likesInPercent * 100;
+    return ((likes * 100) / ((likes + dislikes ) * 100))*100;
   }
+
+
 }

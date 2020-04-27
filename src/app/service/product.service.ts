@@ -27,6 +27,7 @@ export class ProductService{
 
     public updateProductAfterReload: BehaviorSubject<boolean>;
 
+    public updateProductFeatures: BehaviorSubject<boolean>;
 
     constructor(private http: HttpClient){
         this.lastProducts =  new BehaviorSubject<boolean>(false);
@@ -34,6 +35,7 @@ export class ProductService{
         this.updateAverageRanking = new BehaviorSubject<boolean>(false);
         this.product = new BehaviorSubject<Product>(null);
         this.updateProductAfterReload = new BehaviorSubject<boolean>(false);
+        this.updateProductFeatures = new BehaviorSubject<boolean>(false);
     }
 
 

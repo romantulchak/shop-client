@@ -15,11 +15,12 @@ export class ProductFeaturesComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.productService.updateProductAfterReload.subscribe(
+    this.productService.updateProductFeatures.subscribe(
       res=>{
         if(res===true){
           this.productService.product.subscribe(
             product=>{
+              console.log('TEST 222');
               this.product = product;
             }
           );

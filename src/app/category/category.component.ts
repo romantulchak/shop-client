@@ -143,10 +143,7 @@ export class CategoryComponent implements OnInit {
 
     return form.controls.fields.controls as FormArray;
   }
-//  getFieldsFor(){
-  //  console.log((this.categoryForm.get('sections') as FormArray).controls);
-//    return (this.categoryForm.get('sections').get('fields') as FormArray).controls;
- // }
+
 
  removeSection(i){
    const control = this.categoryForm.get('sections') as FormArray;
@@ -155,9 +152,13 @@ export class CategoryComponent implements OnInit {
 
  //TODO: FIX it
  remove(i, j){
-  const control =  <FormArray>this.categoryForm.get(['sections',i, 'fields', j, '']);
-  control.removeAt(0);
-  control.controls = [];
+   console.log(i);
+   console.log(j);
+  const control = this.sections.controls[i].get('fields') as FormArray; 
+  console.log(control);
+  //<FormArray>this.categoryForm.get(['sections',i, 'fields', j, '']);
+  control.removeAt(j);
+  //control.controls = [];
 
  }
 
@@ -172,7 +173,7 @@ export class CategoryComponent implements OnInit {
 
     
     this.category.categoryName = categoryName; 
-    console.log(this.categoryForm.get('sections').value);
+    
     this.categoryService.createCategory(this.category, this.categoryForm.get('sections').value).subscribe(
 
       res=>{

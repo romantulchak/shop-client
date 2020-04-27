@@ -10,8 +10,8 @@ export class OpinionProduct{
     dateTime?: string;
     disadvantages: string;
     rating:number;
-    likes?: number;
+    likes?: any[];
     meLiked?: boolean;
     meDisliked?:boolean;
-    dislikes?: number;
+    dislikes?: any[];
 }

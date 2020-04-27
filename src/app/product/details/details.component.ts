@@ -59,6 +59,7 @@ export class DetailsComponent implements OnInit {
                   this.opinionService.opinionCounter.subscribe(
                     res=>{
                         this.opinionCounter = res;
+                        this.opinionService.updateOpinion.next(false);
                         console.log(this.opinionCounter);
                     }
                   );
@@ -96,6 +97,7 @@ export class DetailsComponent implements OnInit {
         this.product = res;
         this.productService.product.next(res);
         this.productService.updateProductAfterReload.next(true);
+        this.productService.updateProductFeatures.next(true);
         if(res.opinionProducts.length > 0){
           this.getAverageRanking();
         }
