@@ -135,4 +135,8 @@ export class DetailsComponent implements OnInit {
 
     );
   }
+  getOpinions(){
+    this.opinionService.updateOpinion.next(true);
+    this.opinionService.productId.next(this.id);
+  }
 }

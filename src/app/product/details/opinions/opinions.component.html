@@ -22,32 +22,51 @@
                <h4>Disadvantages: {{item?.disadvantages}}</h4>
              
               </div>
-                <h4>Likes: {{item?.likes.length}}</h4>
-               <h4>Dislikes: {{item.dislikes.length}}</h4>
-               <div>
-                  <button [disabled]="currentUser === null" class="btn__like non__liked" (click)="setLike(item)">
-                     <span *ngIf="item.meLiked" style="color: blue;" class="material-icons">
-                        thumb_up_alt
-                        </span>
-                        <span *ngIf="!item.meLiked" style="color: silver;" class="material-icons">
-                           thumb_up_alt
-                        </span>
-                  </button>
-               </div>
-               
+    
+            
+              
+               <div class="replay__like_dislkie">
+                  <button>Reply</button>
+                     <div class="btn__like_dislike">
+                        <div>
+                           <button [disabled]="currentUser === null" class="btn__like non__liked" (click)="setLike(item)">
+                           
+                              <div class="btn__like_counter">
+                                 <span *ngIf="item.meLiked" style="color: blue;" class="material-icons">
+                                    thumb_up_alt
+                                    </span>
+                                    <span *ngIf="!item.meLiked" style="color: silver;" class="material-icons">
+                                       thumb_up_alt
+                                    </span>
+                                    <h4>{{item?.likes.length}}</h4>
+                              </div>
+                           </button>
+         
+                        </div>
+                        
+                           <div>
+                              <button [disabled]="currentUser === null" class="btn__like non__liked" (click)="setDislike(item)">
+                                 <div class="btn__like_counter">
+                                 <span style="color: yellow;" *ngIf="item.meDisliked" class="material-icons">
+                                    thumb_down_alt
+                                 </span>
+                                 <span *ngIf="!item.meDisliked">
+                                    <span style="color: silver;" class="material-icons">
+                                       thumb_down_alt
+                                       </span>
+                                 </span>
 
-               <button [disabled]="currentUser === null" class="btn__like non__liked" (click)="setDislike(item)">
-                  <span style="color: yellow;" *ngIf="item.meDisliked" class="material-icons">
-                     thumb_down_alt
-                  </span>
-                  <span *ngIf="!item.meDisliked">
-                     <span style="color: silver;" class="material-icons">
-                        thumb_down_alt
-                        </span>
-                  </span>
-               </button>
+                                 <h4>{{item.dislikes.length}}</h4>
+                              </div>
+                              </button>
+                           </div>
+                     </div>
+               </div>
+                  
+  
                
                
+            
                
                
           </div>

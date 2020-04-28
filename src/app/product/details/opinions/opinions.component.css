@@ -168,3 +168,18 @@
 .advantages{
     margin-bottom: .5em;
 }
+.replay__like_dislkie{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+.btn__like_counter{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+.btn__like_dislike{
+    display: flex;
+    justify-self: end;
+    align-items: center;
+}

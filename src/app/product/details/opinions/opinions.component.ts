@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OpinionService } from 'src/app/service/opinion.service';
 import { OpinionProduct } from 'src/app/model/opinionProduct.model';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
@@ -26,11 +26,12 @@ export class OpinionsComponent implements OnInit {
   public currentUser: User;
   public product: Product;
   public opinionProduct: OpinionProduct = new OpinionProduct();
-
+  public isFirstLoad: boolean = true;
   onRatingChangeResult: RatingChangeEvent;
 
-  constructor(private productService: ProductService, private opinionService: OpinionService, private userService: TokenStorageService, private notificationService: NotificationService) {
-   
+  constructor(private router: ActivatedRoute, private productService: ProductService, private opinionService: OpinionService, private userService: TokenStorageService, private notificationService: NotificationService) {
+      this.id = Number.parseInt(router.snapshot.parent.paramMap.get('id'));
+    
    }
 
 
@@ -46,51 +47,44 @@ export class OpinionsComponent implements OnInit {
     if(this.isLoggedIn){
       this.currentUser = this.userService.currentUser;
     }
-
-
+    if(this.isFirstLoad){
+    this.getOpinionForProduct();
+    }
     this.productService.updateProductAfterReload.subscribe(
-
       res=>{
         if(res === true){
           this.productService.product.subscribe(
             product=>{
               this.product = product;
-              this.id = this.product.id;
+              
               this.getOpinionForProduct();
-
-
               //TODO: якщо сокети не працюють
-              this.productService.updateProductAfterReload.next(false);
-
-
+              //this.productService.updateProductAfterReload.next(false);
             }
           );
         }
       }
-
     );
-    
-
-
-    
-    
     this.opinionService.updateOpinion.subscribe(
       res=>{
+        
         if(res === true){
           this.opinionService.productId.subscribe(
             id=>{
+        
               if(id === this.id){
                 this.getOpinionForProduct();
                 this.opinionService.updateOpinion.next(false);
               }
             }
-
           );
         }
       }
     );
   }
   getOpinionForProduct(){
+    console.log('TEST333');
+    
       this.opinionService.getOpinionForProduct(this.id, this.page, this.currentUser).subscribe(
         res=>{
           if(res != null){
@@ -99,6 +93,7 @@ export class OpinionsComponent implements OnInit {
              this.totalPages = new Array(res.totalPages);
              this.opinionService.opinionCounter.next(res.commentsCounter);
              this.productService.updateProductAfterReload.next(false);
+             this.isFirstLoad = false;
           }
         }
       );
