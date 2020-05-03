@@ -1,5 +1,6 @@
 import { Product } from './product.model';
 import { User } from './user.model';
+import { Replay } from './replay.model';
 
 export class OpinionProduct{
     id?: number;
@@ -14,4 +15,5 @@ export class OpinionProduct{
     meLiked?: boolean;
     meDisliked?:boolean;
     dislikes?: any[];
+    replays?: Replay[];
 }

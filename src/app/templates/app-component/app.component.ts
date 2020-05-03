@@ -42,30 +42,15 @@ export class AppComponent {
                   this.opinionService.productId.next(parseToJson.productId);
                   this.productService.updateAverageRanking.next(true);
                   break;
+                case 'updateAnswer':
+                  console.log(parseToJson);
+                  this.opinionService.updateReplayToOption.next(true);
+                  this.opinionService.replayOpinion.next(parseToJson.opinionProductId);
+                  break;
               }
 
 
-              /*
-              if(parseToJson.title === 'updateProducts'){
-                this.productService.updateProducts.next(true);
-                this.basketService.updateBasket.next(true);
-                this.basketService.updatePrice.next(true);   
-              }
-              */
-
-              /*
-              if(res.body === 'updateProducts'){
-               this.productService.updateProducts.next(true);
-               this.basketService.updateBasket.next(true);
-               this.basketService.updatePrice.next(true);   
-              }else if(res.body === 'updateCategory'){
-                this.categoryService.updateCategories.next(true);
-              }else if(JSON.parse(res.body).title === 'updateOpinion'){
-                let productId =  JSON.parse(res.body).productId;
-                this.opinionService.updateOpinion.next(true);
-                this.opinionService.productId.next(productId);
-              }
-              */
+            
         })
     });
 

@@ -38,6 +38,7 @@ export class NavbarComponent implements OnInit {
           this.getBasketCount();
 
           this.getTotalPrice();
+          console.log('sss');
          }
        }
      );

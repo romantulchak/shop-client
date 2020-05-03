@@ -9,7 +9,7 @@
                Opinions 
             </h1>
         
-            <div class="opinion__card" *ngFor="let item of opinions?.comments">
+            <div class="opinion__card" *ngFor="let item of opinions?.comments" [class.usefut__opinion]="getPercent(item.likes.length, item.dislikes.length) > 80">
                <div class="user__opinions">
                   <h3 class="opinion__user_name">{{item?.user?.firstName}} {{item?.user?.lastName}}</h3>
                   <star-rating staticColor="ok"  class="opinion__user_stars" [starType]="'svg'" size="small" [rating]="item.rating" [numOfStars]="5" [showHalfStars]="false" [readOnly]="true"></star-rating>
@@ -20,19 +20,43 @@
               <div class="opinion__advantages_disadvantages">
                <h4 class="advantages">Advantages: {{item?.advantages}}</h4>
                <h4>Disadvantages: {{item?.disadvantages}}</h4>
-             
               </div>
-    
-            
-              
+
+      
+              <ng-container *ngIf="this.showReplayForm && this.currentOpinion === item">
+                  <form action="" (ngSubmit)="setAnswer(item)">
+                     <div class="form__input_lable">
+                        <h4>Text</h4>
+                        <textarea [(ngModel)]="replay.message" name="message" id="" maxlength="3500" cols="25" #text rows="10"></textarea>
+                    </div>
+                      <div class="form__input_lable">
+                          <h4>First name</h4>
+                         <input type="text" [value]="currentUser.firstName">
+                      </div>
+                      <div class="form__input_lable">
+                         <h4>Last name</h4>
+                        <input type="text" [value]="currentUser.lastName">
+                     </div>
+                     <button type="submit">Replay</button>
+                  </form>
+              </ng-container>
+
                <div class="replay__like_dislkie">
-                  <button>Reply</button>
+                  <button (click)="setReplay(item)" class="btn__replay">
+                     <span class="material-icons">
+                        message
+                        </span>
+                        <h3 class="btn__replay_text">Reply</h3>
+                  </button>
+                  <button (click)="showReplays(item)" class="btn__replay">
+                        <h3 [class.isActive]="item === currentOpinion && showAnswers"  class="btn__replay_text">Answenrs</h3>
+                  </button>
                      <div class="btn__like_dislike">
                         <div>
                            <button [disabled]="currentUser === null" class="btn__like non__liked" (click)="setLike(item)">
                            
                               <div class="btn__like_counter">
-                                 <span *ngIf="item.meLiked" style="color: blue;" class="material-icons">
+                                 <span *ngIf="item.meLiked" style="color: #7171e2;" class="material-icons">
                                     thumb_up_alt
                                     </span>
                                     <span *ngIf="!item.meLiked" style="color: silver;" class="material-icons">
@@ -43,26 +67,34 @@
                            </button>
          
                         </div>
-                        
-                           <div>
-                              <button [disabled]="currentUser === null" class="btn__like non__liked" (click)="setDislike(item)">
-                                 <div class="btn__like_counter">
-                                 <span style="color: yellow;" *ngIf="item.meDisliked" class="material-icons">
-                                    thumb_down_alt
-                                 </span>
-                                 <span *ngIf="!item.meDisliked">
-                                    <span style="color: silver;" class="material-icons">
-                                       thumb_down_alt
-                                       </span>
-                                 </span>
 
-                                 <h4>{{item.dislikes.length}}</h4>
+
+                        <div>
+                           <button [disabled]="currentUser === null" class="btn__like non__liked" (click)="setDislike(item)">
+                           
+                              <div class="btn__like_counter">
+                                 <span *ngIf="item.meDisliked" style="color: #f32e2ec9;" class="material-icons">
+                                    thumb_down_alt
+                                    </span>
+                                    <span *ngIf="!item.meDisliked" style="color: silver;" class="material-icons">
+                                       thumb_down_alt
+                                    </span>
+                                    <h4>{{item?.dislikes.length}}</h4>
                               </div>
-                              </button>
-                           </div>
+                           </button>
+                        </div>
                      </div>
+                   
                </div>
-                  
+               <ng-container *ngIf="showAnswers && item.replays.length != 0 && currentOpinion == item" class="replays">
+                  <div class="opinion__answer_card" *ngFor="let replay of replays">
+                       <div class="user__details_date">
+                         <h2 class="user__detials_answer">{{replay.user.firstName | titlecase}} {{replay.user.lastName |titlecase}}</h2>
+                         <h4 class="opinion__user_date">{{replay?.dateTime| date}}</h4> 
+                        </div>
+                        <h3>{{replay.message}}</h3>
+                  </div>
+                </ng-container>
   
                
                

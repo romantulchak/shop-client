@@ -49,6 +49,7 @@ export class ProductsComponent implements OnInit, OnChanges {
   public brands: Brand[];
   public cpus: Cpu[];
   public gpus: Gpu[];
+  public visitedProductsArray: Product[] = [];
 
   @Input() isCategory: boolean;
   @Input() categoryName: string;
@@ -259,6 +260,21 @@ export class ProductsComponent implements OnInit, OnChanges {
     );
   }
 
+  addToVisited(product: Product){
+    if(localStorage.getItem('visited') != null){
+
+      this.visitedProductsArray = JSON.parse(localStorage.getItem('visited'));
+      
+      if((this.visitedProductsArray.filter(x=>x.id === product.id).length == 0)){
+       
+        this.visitedProductsArray.push(product);
+        localStorage.setItem('visited', JSON.stringify(this.visitedProductsArray));
+      }
+    }else{
+      this.visitedProductsArray.push(product);
+      localStorage.setItem('visited', JSON.stringify(this.visitedProductsArray));
+    }
+  }
 
   remindMeDiaglog(product: Product){
     this.dialogService.remindMeDiaglog(product);

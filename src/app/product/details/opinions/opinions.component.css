@@ -135,7 +135,7 @@
 .opinion__card{
     font-family: ArialRegular;
     width: 850px;
-    margin: 0 auto;
+    margin: 1em auto;
     padding: 2em;
     border-bottom: 1px solid #eaeaea;
 }
@@ -170,8 +170,9 @@
 }
 .replay__like_dislkie{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 5em 1fr 1fr;
     align-items: center;
+    margin-top: 2em;
 }
 .btn__like_counter{
     display: grid;
@@ -182,4 +183,57 @@
     display: flex;
     justify-self: end;
     align-items: center;
+}
+.usefut__opinion{
+    border: 1px solid orange;
+}
+.btn__replay{
+    border: none;
+    background: none;
+    display: flex;
+    outline: none;
+    align-items: center;
+    cursor: pointer;
+}
+.btn__replay > span{
+    color: #494a45;
+}
+.btn__replay_text{
+    margin-left: .8em;
+    color: #3e77aa;
+    font-weight: 400;
+}
+
+.btn__replay_text:hover{
+    color: #ff7878;
+}
+.opinion__answer_card{
+    padding: 2em 2em 0 2em;
+}
+
+.user__detials_answer{
+    color: #4d4b4b;
+    font-size: 1.2em;
+}
+.opinion__answer_card > h3{
+    font-size: 1.07692em;
+    line-height: 1.43em;
+    word-break: break-word;
+    color: #4d4b4b;
+    margin-bottom: .3em;
+    font-weight: 900;
+    font-family: sans-serif;
+}
+
+.user__details_date{
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+}
+.user__detials_answer > h4{
+    justify-self: end;
+}
+.isActive{
+    color: green;
+    font-weight: 900;
 }

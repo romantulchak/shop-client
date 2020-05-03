@@ -29,6 +29,7 @@ export class ProductService{
 
     public updateProductFeatures: BehaviorSubject<boolean>;
 
+    
     constructor(private http: HttpClient){
         this.lastProducts =  new BehaviorSubject<boolean>(false);
         this.updateProducts = new BehaviorSubject<boolean>(false);

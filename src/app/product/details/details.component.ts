@@ -20,10 +20,10 @@ export class DetailsComponent implements OnInit {
 
   private id: number;
   public product:Product;
-  //public isLoggedIn: boolean = false;
-  // public currentUser: User;
-  //public ranking: number = 5;
   public averageRanking:number = 0;
+
+
+  public visitedProducts: Product[];
 
   public opinionProduct: OpinionProduct = new OpinionProduct();
   public simularProducts: Product[];
@@ -37,18 +37,9 @@ export class DetailsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-  /*  this.isLoggedIn = this.userService.isLoggedIn;
-    if(this.isLoggedIn){
-      this.currentUser = this.userService.currentUser;
-    }*/
-    
- 
-    
+
     this.details();
-
-
-
-
+    this.getVisitedProducts();
     this.opinionService.updateOpinion.subscribe(
       res=>{
         if(res === true){
@@ -60,7 +51,6 @@ export class DetailsComponent implements OnInit {
                     res=>{
                         this.opinionCounter = res;
                         this.opinionService.updateOpinion.next(false);
-                        console.log(this.opinionCounter);
                     }
                   );
                 }
@@ -115,8 +105,6 @@ export class DetailsComponent implements OnInit {
     this.opinionService.getAverageRanking(this.id).subscribe(
       res=>{
         if(res != null){
-          console.log(res);
-          
           this.averageRanking = res;
         }
       }
@@ -135,8 +123,12 @@ export class DetailsComponent implements OnInit {
 
     );
   }
-  getOpinions(){
-    this.opinionService.updateOpinion.next(true);
-    this.opinionService.productId.next(this.id);
+ 
+  getVisitedProducts(){
+    if(localStorage.getItem('visited') != null){
+      this.visitedProducts = JSON.parse(localStorage.getItem('visited'));
+      this.visitedProducts = this.visitedProducts.filter(x=>x.id != this.id);
+    }
   }
+
 }
