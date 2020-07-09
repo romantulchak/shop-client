@@ -60,6 +60,7 @@ import { AllAboutProductComponent } from './product/details/all-about-product/al
 import { ProductFeaturesComponent } from './product/details/product-features/product-features.component';
 import { StarRatingModule, StarRatingConfigService } from 'angular-star-rating';
 import { SingleLookProductComponent } from './single-look-product/single-look-product.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { SingleLookProductComponent } from './single-look-product/single-look-pr
     OpinionsComponent,
     AllAboutProductComponent,
     ProductFeaturesComponent,
-    SingleLookProductComponent
+    SingleLookProductComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

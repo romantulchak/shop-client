@@ -1,0 +1,39 @@
+<header class="store__header">
+ <div class="store__header_panel_border">
+  <div class="store__hedder_width">
+    <div class="store__header_top_panel">
+      <ul class="store__header_ul">
+        <li><a href="">super deals</a></li>
+        <li><a href="">featured brands</a></li>
+        <li><a href="">trending styles</a></li>
+        <li><a href="">gift cards</a></li>
+      </ul>
+      <ul class="store__header_ul" id="right__ul">
+        <li><a class="description-location store__location" href="">store locator</a></li>
+        <li><a class="description-track store__track_order" href=""> track your order</a></li>
+        <li *ngIf="currentUser == null"><a class="description-account store__my_account" (click)="loginDialog()">my account</a></li>
+        <li *ngIf="currentUser != null"><a routerLink="/profile">{{currentUser.firstName | titlecase}} {{currentUser.lastName | titlecase}}</a></li>
+        <li *ngIf="currentUser != null" (click)="logout()"><a>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+ </div>
+ <div class="store__header_bottom_panel store__hedder_width">
+  <div>
+      <h2>Logo</h2>
+  </div>
+  <div class="store__search">
+    <input type="text" placeholder="Search for Product">
+    <button>
+      <i class="description-search store__search_icon"></i>
+    </button>
+  </div>
+  <div>
+    <ul class="store__tools">
+      <li><i class="description-compare store_bottom_panel_icon"></i></li>
+      <li><i class="description-favorite store_bottom_panel_icon"></i></li>
+      <li class="store__basket" (click)="openBasket()"><span class="store__basket_counter">{{basketLength}}</span><i class="description-basket store_bottom_panel_icon"></i><span>{{totalPrice}} грн.</span></li>
+    </ul>
+  </div>
+</div>
+</header>

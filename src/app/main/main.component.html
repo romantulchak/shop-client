@@ -1,10 +1,6 @@
-<div class="">
-    
-  
+<section>
+  <div class="">
     <app-carousel [slides]="slides"></app-carousel>
-    <div>
-        <h3>Product of the day</h3>
-    </div>
 </div>
 <div class="categories" >
     <div class="category__card" style="background-image: url({{category.imagePath}});" *ngFor="let category of categories" [routerLink]="['category', category.categoryName]">
@@ -44,8 +40,8 @@
     <div class="section__title">
         <h1>Novelty</h1>
     </div>
-    
-    
+
+
     <!--
     <div  class="filters">
         <div *ngFor="let brand of brands">
@@ -65,7 +61,7 @@
 
 
     <div class="novely__products" *ngIf="!mainLoading; else lod">
-        <app-products  [numberOfColumns]="5" [pr]="lastTenProducts" [usualLook]="true" ></app-products>   
+        <app-products  [numberOfColumns]="5" [pr]="lastTenProducts" [usualLook]="true" ></app-products>
     </div>
 </section>
 <section>
@@ -74,7 +70,7 @@
     </div>
     <div class="novely__products">
         <app-products [numberOfColumns]="5" [productsFromComponent]="productsToComponent" [topFiveLook]="true"></app-products>
-    </div> 
+    </div>
 </section>
 
 
@@ -102,3 +98,4 @@
 <ng-template #lod>
     <mat-spinner></mat-spinner>
 </ng-template>
+</section>

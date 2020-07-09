@@ -15,16 +15,15 @@ import { DialogService } from '../service/dialog.service';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  
+
 
 })
 export class NavbarComponent implements OnInit {
 
-  public basketLength:number;
   public identificationNumberForSeach: string;
 
-  public totalPrice: number;
- 
+
+
 
 
   constructor(private dialogService: DialogService, public tokenStorageService: TokenStorageService ,private basketService: BasketService, private dialog: MatDialog, private orderService: OrderService) { }
@@ -32,66 +31,27 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.tokenStorageService.logged();
 
-     this.basketService.updatePrice.subscribe(
-       res=>{
-         if(res === true){
-          this.getBasketCount();
-
-          this.getTotalPrice();
-          console.log('sss');
-         }
-       }
-     );
-
-      
-
-
-
-
-    this.basketService.updateBasket.subscribe(
-      res=>{
-        if(res === true){
-          this.basketService.getProductsFromDb();
-          this.basketService.updatePrice.subscribe(
-            res=>{
-              if(res === true){
-                this.getTotalPrice();
-              }
-            }
-          );
-        }
-      }
-    );
-
-    this.basketService.updateOrder.subscribe(
-      res=>{
-         if(res === true){
-          this.getTotalPrice();
-          this.getBasketCount();
-      }
-    }
-    );
   }
 
 
-  
+
      //TODO: дублювання в OrderComponent
   search(){
     this.orderService.findByIdentificationNumber(this.identificationNumberForSeach).subscribe(
       res=>{
-       
+
           this.dialog.open(DialogSearchComponent,{
             data: {
               data: res
             }
           });
-        
+
       },
       error=>{
         console.log(error);
       }
     );
-      setTimeout(() => {
+      /*setTimeout(() => {
         this.basketService.count.subscribe(
           res=>{
               if(res != null){
@@ -99,41 +59,13 @@ export class NavbarComponent implements OnInit {
               }
           }
         );
-      }, 500);
-  }
-
-  getTotalPrice(){
-    this.basketService.totalPrice.subscribe(
-      res=>{
-        if(res != null)
-          this.totalPrice = res;
-      }
-   );
-  }
-  getBasketCount(){
-    this.basketService.count.subscribe(
-      res=>{
-        if(res !=null){
-          this.basketLength = res;
-        }
-      }
-
-  );
-  }
-  
-  public openBasket(){
-    
-      this.dialog.open(BasketDialogComponent, {
-        panelClass: 'dialog__basket'
-      });
+      }, 500);*/
   }
 
 
-  public loginDialog(){
-    this.dialogService.loginDialog();
-  }
-  logout() {
-    this.tokenStorageService.signOut();
-    window.location.reload();
-  }
+
+
+
+
+
 }

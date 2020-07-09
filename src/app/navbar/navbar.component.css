@@ -1,13 +1,78 @@
 @font-face{
-    font-family: MuliRegular;
-    src: url("../../assets/fonts/Muli-Regular.ttf");
+  font-family: Montserrat;
+  src: url('../../assets/fonts/Montserrat.woff2');
 }
+.store__navbar{
+  z-index: 9;
+    height: 65px;
+    border-top: 1px solid #e7e8ee;
+    border-bottom: 1px solid #e7e8ee;
+    margin-bottom: 1em;
+    position: sticky;
+    top: 0;
+    background: #fff;
+}
+.store__main_links{
+  display: flex;
+  -webkit-box-align: center;
+  height: 100%;
+  align-items: center;
+}
+.store__main_links ul{
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  font-family: Montserrat;
+  grid-template-columns: 1fr .8fr .8fr .8fr .8fr;
+}
+.store__categories{
+  background: var(--pramiry-color);
+  height: 100%;
+  align-items: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  display: flex;
+}
+.store__main_links ul .store__categories a{
+  font-size: 18px;
+  color: #fff;
+}
+.store__main_links ul .store__categories a:hover{
+  color: #fff;
+}
+.store__main_links ul li{
+  justify-self: center;
+}
+.store__phone li{
+  font-family: Montserrat;
+}
+.store__main_links ul li a {
+  color: var(--links-color);
+  font-size: 14px;
+  transition: .7s cubic-bezier(.53,.01,.18,1),visibility .25s ease-in-out,opacity .3s ease-in-out,height 0s .25s;
+}
+.store__main_links ul li a:hover {
+  color: var(--links-color-hover);
+}
+.store__navbar_width{
+  max-width: 1075px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center;
 
+}
+.store__phone{
+  display: flex;
+  align-items: center;
+}
+/*
 
 .navbar{
     display: -webkit-box;
     display: flex;
-    /* padding: .7em; */
     -webkit-box-pack: center;
     justify-content: center;
     background: #252525;
@@ -19,8 +84,6 @@
     list-style-type: none;
 }
 .navbar__nav li > a{
-        /* height: 100%; */
-    /* width: 100%; */
     align-content: center;
     padding: 1em 3em 1em 3em;
     color: #fff;
@@ -39,7 +102,7 @@
     background: orange;
 }
 
- 
+
 
 .search__panel{
     background: rgba(255, 251, 33, 0.34);
@@ -88,9 +151,6 @@
     background: #e7ab3c;
 }
 
-/*
-new
-*/
 
 .navbar__panel{
     display: grid;
@@ -201,3 +261,4 @@ new
     letter-spacing: 1px;
     font-family: MuliRegular;
 }
+*/

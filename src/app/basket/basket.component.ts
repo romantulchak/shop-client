@@ -24,14 +24,12 @@ export class BasketComponent implements OnInit {
   public orderNumber: string;
   public user: User;
   public isLoading = true;
-  
-  
+
+
 
   public order: Order = {
     id: null,
     items: [],
-    //productsId: [],
-    //amounts: [],
     email: null,
     statuses: null,
     costumerAddress: null,
@@ -42,37 +40,27 @@ export class BasketComponent implements OnInit {
     customerPostalCode: null,
     totalPrice: null,
     user: new User()
-    //isBeingProcessed: true,
-    //atTheDestination: false,
-    //inTransit: false,
-    //isCompleted: false,
-    //received: false
   }
 
   constructor(private dialogService: DialogService, private basketService: BasketService, private productService: ProductService, private orderService: OrderService, public tokenStorage: TokenStorageService) {}
 
   ngOnInit(): void {
-     
+
       this.basketUpdate();
-      
+
       this.basketService.updateOrder.subscribe(
 
         res=>{
           this.isLoading = true;
           if(res === true){
-            
+
             this.price();
             setTimeout(() => {
               this.isLoading = false;
             }, 500);
           }
-            
         }
-
       );
-
-
-    
   }
 
   basketUpdate(){
@@ -129,7 +117,7 @@ export class BasketComponent implements OnInit {
      this.products = this.productInBasket();
 
      this.basketService.currentCounter(this.products);
-     
+
     }
   }
 
@@ -145,11 +133,11 @@ export class BasketComponent implements OnInit {
       );
     }, 500);
   }
-  
 
 
 
-  
+
+
   showForm(){
     this.showOrderForm = !this.showOrderForm;
   }

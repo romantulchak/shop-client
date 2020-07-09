@@ -1,3 +1,23 @@
+<nav class="store__navbar">
+  <div class="store__navbar_width">
+    <div class="store__main_links">
+      <ul>
+          <li class="store__categories"><a href="">All categories</a></li>
+          <li><a routerLink="/">Home</a></li>
+          <li><a routerLink="/brands">Pages</a></li>
+          <li><a routerLink="/createCategory">Shop</a></li>
+          <li><a routerLink="/createProduct">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <ul class="store__phone">
+        <li>Call us toll free: (+1)866-540-3229</li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!--
 <header>
     <div class="navbar__panel">
         <div class="panel__element shop__email">
@@ -6,9 +26,9 @@
                     email
                 </span>
                 <h4>shop.a43@gmail.com</h4>
-            </div>    
+            </div>
         </div>
-        <!--<div class="search__panel">-->
+        <div class="search__panel">
             <div class="pannel__element shop__track">
                 <div class="track__items">
                     <input class="input__track_search input__track" placeholder="Have you bought any items already?" type="text" [(ngModel)]="identificationNumberForSeach" >
@@ -36,7 +56,7 @@
         </div>
     </div>
 
-    <div class="shop__basket_panel">  
+    <div class="shop__basket_panel">
         <div class="shop__logo">
             <h2>Logo.</h2>
         </div>
@@ -54,7 +74,7 @@
                     favorite_border
                     </span>
               </button>
-              <div class="navbar__auth"> 
+              <div class="navbar__auth">
                 <mat-icon (click)="openBasket()" class="basket__button" matBadge="{{basketLength}}" matBadgeColor="warn">shopping_cart</mat-icon>
             </div>
             <h4>{{totalPrice}} грн</h4>
@@ -71,8 +91,10 @@
         <li routerLinkActive="active"><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/cpus">Cpu</a></li>
         <li routerLinkActive="active"><a *ngIf="tokenStorageService.showAdminBoard" routerLink="/gpus">Gpus</a></li>
         <button *ngIf="tokenStorageService.isLoggedIn" class="nav-link" (click)="logout()">LogOut</button>
-    
+
     </ul>
 
 </nav>
-</header>
+</h
+eader>
+-->

@@ -1,0 +1,149 @@
+@font-face{
+  font-family: dripicons-v2;
+  src: url('../../assets/fonts/dripicons-v2.woff');
+}
+@font-face{
+  font-family: Montserrat;
+  src: url('../../assets/fonts/Montserrat.woff2');
+}
+
+.store__header_ul{
+  font-family: Montserrat;
+  display: flex;
+}
+.store__hedder_width{
+  max-width: 1075px;
+  margin: 0 auto;
+}
+.store__header_panel_border{
+  background-color: #fff;
+  border-bottom: 1px solid #e5e7f2;
+}
+.store__header_top_panel{
+  box-sizing: border-box;
+  display: flex;
+  height: 44px;
+  align-items: center;
+  justify-content: space-between;
+}
+.store__header_ul li a{
+  color: var(--links-color);
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+}
+.store__header_ul li a:hover{
+  color: var(--links-color-hover);
+}
+#right__ul li{
+  margin-right: 12px;
+}
+.store__header_ul li{
+  margin-right: 27px;
+  display: flex;
+  align-items: center;
+}
+.store__header_bottom_panel{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 124px;
+}
+.store__tools{
+  display: flex;
+  width: max-content;
+}
+.store__tools li{
+  display: flex;
+  font-family: Montserrat;
+  align-items: center;
+}
+.store__search{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.store__search>input{
+  width: 60%;
+    padding: 1em;
+    border: 1px solid #e5e7f2;
+    font-family: Montserrat;
+}
+.store__search>button{
+  background: var(--pramiry-color);
+  border-radius: 0px;
+  height: 100%;
+  width: 50px;
+  height: 52px;
+  box-sizing: border-box;
+  border: none;
+}
+.store__tools li{
+  margin-right: 27px;
+}
+.store__location::before{
+  content: "\e012";
+}
+.store__track_order::before{
+  content: "\e022";
+}
+.store__my_account::before{
+  content: "\e056";
+}
+.store__search_icon:before{
+  content: "\e041";
+  font-size: 23px !important;
+    color: #fff;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    margin-right: 0 !important;
+    align-items: center;
+}
+.store__basket{
+  position: relative;
+}
+.store__basket_counter{
+  top: -4px;
+  position: absolute;
+  left: 15px;
+  background: #5677fc;
+  border-radius: 22px;
+  font-size: 11px;
+  width: 15px;
+  height: 15px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.store_bottom_panel_icon::before{
+  font-size: 23px !important;
+  color: #494949;
+}
+.store_bottom_panel_icon:hover::before{
+  color: var(--links-color-hover);
+  cursor: pointer;
+}
+.description-compare::before{
+  content: "\e040";
+}
+.description-favorite::before{
+  content: "\e004";
+}
+.description-basket::before{
+  content: "\51";
+}
+[class*="description-"]::before{
+  font-family: "dripicons-v2" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  line-height: 1;
+  margin-right: 10px;
+  font-size: 12px;
+  -webkit-font-smoothing: antialiased;
+}

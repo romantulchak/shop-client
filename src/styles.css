@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'normalize.css';
 *{
     margin: 0;
     padding: 0;
@@ -6,8 +6,17 @@
 ul {
     list-style-type: none;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #fafafa; }
+a{
+  text-decoration: none;
+}
+body{
+  -webkit-font-smoothing: antialiased;
+}
+:root{
+  --links-color-hover: #5677fc;
+  --links-color:#494949;
+  --pramiry-color:#5677fc;
+}
 .successMessage{
     background-color: green;
     color: white;
@@ -28,5 +37,3 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background:
     justify-content: center;
     display: flex;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #fff; }

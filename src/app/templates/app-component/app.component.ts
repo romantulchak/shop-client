@@ -32,25 +32,24 @@ export class AppComponent {
                 case 'updateProducts':
                   this.productService.updateProducts.next(true);
                   this.basketService.updateBasket.next(true);
-                  this.basketService.updatePrice.next(true);  
+                  this.basketService.updatePrice.next(true);
                   break;
                 case 'updateCategory':
                   this.categoryService.updateCategories.next(true);
-                  break;  
+                  break;
                 case 'updateOpinion':
                   this.opinionService.updateOpinion.next(true);
                   this.opinionService.productId.next(parseToJson.productId);
                   this.productService.updateAverageRanking.next(true);
                   break;
                 case 'updateAnswer':
-                  console.log(parseToJson);
                   this.opinionService.updateReplayToOption.next(true);
                   this.opinionService.replayOpinion.next(parseToJson.opinionProductId);
                   break;
               }
 
 
-            
+
         })
     });
 
