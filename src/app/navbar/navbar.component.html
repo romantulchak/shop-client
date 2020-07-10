@@ -2,16 +2,24 @@
   <div class="store__navbar_width">
     <div class="store__main_links">
       <ul>
-          <li class="store__categories"><a href="">All categories</a></li>
-          <li><a routerLink="/">Home</a></li>
-          <li><a routerLink="/brands">Pages</a></li>
-          <li><a routerLink="/createCategory">Shop</a></li>
-          <li><a routerLink="/createProduct">Blog</a></li>
+          <li class="store__categories" (mouseenter)="showAllCategories = true" (mouseleave)="showAllCategories = false">
+            <a href="">All categories</a>
+            <div class="store__all_categories" [class.opacity__animation_up]="showAllCategories" [class.opacity__animation_down]="!showAllCategories" *ngIf="showAllCategories">
+              <li *ngFor="let category of categories; let i = index">
+                <i class="description-category-icons icon-{{i}}" attr.data-content="{{category.categoryIcon}}"></i>
+                <a routerLink="">{{category.categoryName}}</a>
+              </li>
+            </div>
+          </li>
+          <li><a class="links__to_center" routerLink="/">Home</a></li>
+          <li><a class="links__to_center" routerLink="/brands">Pages</a></li>
+          <li><a class="links__to_center"routerLink="/createCategory">Shop</a></li>
+          <li><a class="links__to_center" routerLink="/createProduct">Blog</a></li>
       </ul>
     </div>
     <div>
       <ul class="store__phone">
-        <li>Call us toll free: (+1)866-540-3229</li>
+        <li><span>Call us toll free: </span>(+1)866-540-3229</li>
       </ul>
     </div>
   </div>

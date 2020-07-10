@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../service/product.service';
@@ -14,7 +14,7 @@ export class ProductComponent implements OnInit {
   public categoryName: string;
   private subscription: Subscription;
   public products: Product[];
-
+  @Input() product: Product;
 
   constructor(private activeRoute: ActivatedRoute, private productService: ProductService) {
 
@@ -25,11 +25,11 @@ export class ProductComponent implements OnInit {
    }
 
   ngOnInit(): void {
-  
+
   }
 
-  
 
-  
+
+
 
 }

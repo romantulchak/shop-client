@@ -1,16 +1,16 @@
-<div class="carousel">
+<div class="carousel" [style.height.vh]="carouselHeight">
     <ng-container *ngFor="let sldie of slides; let i = index">
-        <img *ngIf="i === currentSlide" 
+        <img *ngIf="i === currentSlide"
         [src]="sldie.src" class="slide"
         [@slideAnimation]
         >
     </ng-container>
    <div class="controls">
     <button class="control prev" (click)="onPreviousClick()">
-        Previous
+        <i class="description-prev"></i>
     </button>
       <button class="control next" (click)="onNextClick()">
-        Next
+        <i class="description-next"></i>
       </button>
    </div>
 </div>

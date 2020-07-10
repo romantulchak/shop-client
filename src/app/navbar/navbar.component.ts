@@ -10,6 +10,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { LoginDialogComponent } from '../dialogs/login-dialog/login-dialog.component';
 import { TokenStorageService } from '../service/token-storage.service';
 import { DialogService } from '../service/dialog.service';
+import { Category } from '../model/category.model';
+import { CategoryService } from '../service/category.service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,15 +23,17 @@ import { DialogService } from '../service/dialog.service';
 export class NavbarComponent implements OnInit {
 
   public identificationNumberForSeach: string;
+  public showAllCategories: boolean = false;
+  public categories: Category[];
 
 
 
 
-
-  constructor(private dialogService: DialogService, public tokenStorageService: TokenStorageService ,private basketService: BasketService, private dialog: MatDialog, private orderService: OrderService) { }
+  constructor(public tokenStorageService: TokenStorageService ,private dialog: MatDialog, private orderService: OrderService, private categoryService: CategoryService) { }
 
   ngOnInit(): void {
     this.tokenStorageService.logged();
+    this.getCategories();
 
   }
 
@@ -64,6 +68,21 @@ export class NavbarComponent implements OnInit {
 
 
 
+  getCategories(){
+
+    this.categoryService.getCategories().subscribe(
+      res=>{
+        if(res != null){
+          this.categories = res;
+          console.log(res);
+
+        }
+      },
+      error=>{
+        console.log(error);
+      }
+    );
+  }
 
 
 

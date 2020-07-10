@@ -22,59 +22,19 @@ export class CategoryComponent implements OnInit {
 
   public categoryForm: FormGroup;
 
-
-
-
-
-/*
-  get fields(){
-    return this.categoryForm.get('fields') as FormGroup;
-  }
-
-  get field(){
-    return this.categoryForm.get('fields').get('section-'+ '2' ).get('field') as FormArray;
-  }
-  get section(){
-    return this.categoryForm.get('fields').get('section-'+this.counter) as FormArray;
-  }
-  */
-
-//  addField(id:number){
- //  let s = this.categoryForm.get('fields').get('section-'+id).get('field') as FormArray;
-  // s.push(this.fb.control(''));
-   // this.field.push(this.fb.control(''));
-  //}
-/*
-  addSection(){
-    ++this.counter;
-    let ks = this.fb.group({
-      id: [this.counter],
-      title:[this.counter],
-      field: this.fb.array([
-          this.fb.control(''),
-      ])
-    });
-
-    
-    this.fields.addControl('section-'+this.counter, ks);
-    this.sers.push(ks.value);
-    console.log(this.sers);
-  }
-
-
-*/
   @ViewChild('editTemplate', {static:false}) editTemplate: TemplateRef<any>;
 
   editCategory: Category;
   category: Category = {
     id: null,
     categoryName: '',
-    product: null
+    product: null,
+    categoryIcon: null
   };
   public selectedFile: File;
   categories: Category[];
 
-  
+
   myFormValueChanges$;
 
   constructor(private categoryService: CategoryService, private notificationService: NotificationService, private fb: FormBuilder) { }
@@ -87,14 +47,14 @@ export class CategoryComponent implements OnInit {
         this.getSections()
       ])
     });
-    
+
     this.myFormValueChanges$ = this.categoryForm.controls['sections'].valueChanges;
    setTimeout(() => {
       console.log((this.categoryForm.controls['sections'] as FormArray).controls[0].value);
    }, 500);
 
     this.getAllCategories();
-    
+
   }
   private getSections(){
     return this.fb.group({
@@ -133,7 +93,7 @@ export class CategoryComponent implements OnInit {
 
   get sections(){
     return this.categoryForm.get('sections') as FormArray;
-  
+
   }
 
   get fields(){
@@ -154,7 +114,7 @@ export class CategoryComponent implements OnInit {
  remove(i, j){
    console.log(i);
    console.log(j);
-  const control = this.sections.controls[i].get('fields') as FormArray; 
+  const control = this.sections.controls[i].get('fields') as FormArray;
   console.log(control);
   //<FormArray>this.categoryForm.get(['sections',i, 'fields', j, '']);
   control.removeAt(j);
@@ -164,16 +124,16 @@ export class CategoryComponent implements OnInit {
 
 
 
-  createCategory(categoryName: string){
+  createCategory(categoryName: string, categoryIcon:string){
     this.categoryService.pushCategoryImage(this.selectedFile).subscribe(
       res=>{
         console.log(res);
       }
     );
 
-    
-    this.category.categoryName = categoryName; 
-    
+
+    this.category.categoryName = categoryName;
+      this.category.categoryIcon = categoryIcon;
     this.categoryService.createCategory(this.category, this.categoryForm.get('sections').value).subscribe(
 
       res=>{
@@ -188,7 +148,7 @@ export class CategoryComponent implements OnInit {
     this.categoryService.getCategories().subscribe(
 
       res=>{
-        
+
         this.categories = res;
         console.log(res);
       },
@@ -223,7 +183,7 @@ export class CategoryComponent implements OnInit {
     this.categoryService.editCategory(category).subscribe(
       res=>{
 
-      
+
 
         this.notificationService.success(res);
         this.getAllCategories();
@@ -238,4 +198,4 @@ export class CategoryComponent implements OnInit {
     this.selectedFile = event.target.files[0];
   }
 
-} 
+}

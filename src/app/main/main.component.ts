@@ -15,7 +15,6 @@ import { NotificationService } from '../service/notification.service';
 import { BrandService } from '../service/brand.service';
 import { Brand } from '../model/brand.model';
 import { Cpu } from '../model/cpu.model';
-import { Gpu } from '../model/gpu.model';
 import { ProductsComponent } from '../products/products.component';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { SubscriptionService } from '../service/subscription.service';
@@ -33,12 +32,17 @@ export class MainComponent implements OnInit {
   @ViewChild(ProductsComponent) childComp: ProductsComponent;
 
   public slides = [
-    { src: 'http://localhost:8080/categoryImages/556d8101-4e6a-49c4-bf2d-16e0c8197ee3.GettyImages-811268074.jpg' },
-    { src: 'http://localhost:8080/categoryImages/5501ddcf-8dd9-4476-b6f5-8a9be2cb83e9.razer-render-computer-mouse-computer-mice-wallpaper-preview.jpg' },
-    { src: 'http://localhost:8080/categoryImages/f2399fef-605b-426b-8420-f26cdc730225.2458797.jpg' }
+    { src: '../../assets/img/slider-1.jpg' },
+    { src: '../../assets/img/slider-2.jpg' },
+    { src: '../../assets/img/slider-3.jpg' }
+  ];
+  public slidesMin = [
+    { src: '../../assets/img/slider-min-1.jpg' },
+    { src: '../../assets/img/slider-min-2.jpg' },
+    { src: '../../assets/img/slider-min-3.jpg' }
   ]
 
-  
+
   public subscribtion: Subscription = new Subscription();
 
 
@@ -67,10 +71,10 @@ export class MainComponent implements OnInit {
   productCheck: any[] = [];
   ngOnInit(): void {
     this.productCheck =  this.basketService.sa;
-    
-     
-    
-    
+
+
+
+
 
 
     this.getLastTenProducts();
@@ -81,7 +85,7 @@ export class MainComponent implements OnInit {
       //this.getAllBrands();
       //this.getAllCpus();
       //this.getAllGpus();
-   
+
    }, 500);
    this.categoryService.updateCategories.subscribe(
 
@@ -184,7 +188,7 @@ export class MainComponent implements OnInit {
         this.cpusToSend = this.cpusToSend.filter(e=>e != cpuName);
       }
     }
-    
+
     if(gpuName != null){
       console.log('3');
       if(!this.gpusToSend.includes(gpuName)){
@@ -212,8 +216,8 @@ export class MainComponent implements OnInit {
 
   }*/
 
- 
-  
+
+
   getCategories(){
     this.mainLoading = true;
     this.categoryService.getCategories().subscribe(
@@ -228,8 +232,6 @@ export class MainComponent implements OnInit {
       error=>{
         console.log(error);
       }
-
-
     );
   }
 
@@ -277,7 +279,6 @@ export class MainComponent implements OnInit {
     this.productService.getLastTenProducts().subscribe(
       res=>{
         if(res != null){
-            console.log('opinios');
             console.log(res);
           this.childComp.checkInBasket(res);
           this.lastTenProducts = res;

@@ -1,6 +1,6 @@
 <section>
   <div class="">
-    <app-carousel [slides]="slides"></app-carousel>
+    <app-carousel [carouselHeight]="100" [slides]="slides"></app-carousel>
 </div>
 <div class="categories" >
     <div class="category__card" style="background-image: url({{category.imagePath}});" *ngFor="let category of categories" [routerLink]="['category', category.categoryName]">
@@ -64,6 +64,23 @@
         <app-products  [numberOfColumns]="5" [pr]="lastTenProducts" [usualLook]="true" ></app-products>
     </div>
 </section>
+
+
+<section class="store__ad">
+    <div class="store__ad_grid">
+      <div class="store__ad_text">
+          <h1>This is Our Store! Together We Shine.</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqu enim ad minim veniam, quis nostrud exercitation ullamco</p>
+          <button>Shop Now</button>
+        </div>
+      <div class="store__min_slider">
+        <app-carousel [carouselHeight]="70" [slides]="slidesMin"></app-carousel>
+      </div>
+
+    </div>
+</section>
+
+
 <section>
     <div class="section__title">
         <h1>MOST Most Purchased</h1>

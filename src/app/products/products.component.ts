@@ -22,13 +22,10 @@ import { BrandService } from '../service/brand.service';
   animations: [
     trigger('fullWidth',[
       state('max', style({
-        width:'7em',
-        color: '#fff',
-        background: 'orange'
-
+        color: '#5677fc',
       })),
       state('min', style({
-        width: '2em'
+        color: '#000'
       })),
       transition('max => min', [
         animate('0.5s')
@@ -80,7 +77,7 @@ export class ProductsComponent implements OnInit, OnChanges {
   @Input() pr: Product[];
 
   @Input() products: Product[];
-  
+
 
 
   ngOnInit(): void {
@@ -98,7 +95,7 @@ export class ProductsComponent implements OnInit, OnChanges {
 
 
   setProducts(){
-    
+
     this.productService.lastProducts.subscribe(
       res=>{
         if(res === true){
@@ -109,14 +106,14 @@ export class ProductsComponent implements OnInit, OnChanges {
 
     if(this.pr === undefined || this.pr===null){
       if(this.isCategory === true){
-        this.findByCategory(); 
+        this.findByCategory();
       }else{
         this.findAllProducts();
       }
     }
-    
-    
-    
+
+
+
     this.basketService.updateProducts.subscribe(
       res=>{
         if(res === true){
@@ -225,7 +222,7 @@ export class ProductsComponent implements OnInit, OnChanges {
         }
         this.notificationService.success(res);
         this.basketService.getProductsFromDb();
-        
+
       },
       error=>{console.log(error);}
     );
@@ -251,7 +248,7 @@ export class ProductsComponent implements OnInit, OnChanges {
   }
 
   edit(product: Product){
-    
+
     const dialog = this.dialogService.editProductDialog(product);
     dialog.afterClosed().subscribe(
       res=>{
@@ -264,9 +261,9 @@ export class ProductsComponent implements OnInit, OnChanges {
     if(localStorage.getItem('visited') != null){
 
       this.visitedProductsArray = JSON.parse(localStorage.getItem('visited'));
-      
+
       if((this.visitedProductsArray.filter(x=>x.id === product.id).length == 0)){
-       
+
         this.visitedProductsArray.push(product);
         localStorage.setItem('visited', JSON.stringify(this.visitedProductsArray));
       }
@@ -318,7 +315,7 @@ export class ProductsComponent implements OnInit, OnChanges {
       }
     );
   }
-  
+
   getAllGpus(){
     this.productService.getAllGpus().subscribe(
       res=>{

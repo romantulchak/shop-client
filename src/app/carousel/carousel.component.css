@@ -1,10 +1,17 @@
 
-.carousel{
+/*.carousel{
     position: relative;
     height: 30em;
     width: 90vw;
     overflow: hidden;
     margin: 0 auto;
+}*/
+.carousel{
+
+  position: relative;
+  /* width: 90vw; */
+  overflow: hidden;
+  margin: 0 auto;
 }
 .slide{
     position: absolute;
@@ -15,6 +22,52 @@
 }
 .controls{
     position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+}
+.controls button:first-child{
+  margin-left: 2em;
+}
+.controls button:nth-child(2){
+  margin-right: 2em;
+}
+.controls button{
+  width: 55px;
+  height: 55px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #dcdeed;
+  outline: none;
+}
+.prev i::before, .next i::before{
+    font-size: 36px;
+    color: rgb(193, 192, 192);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    transition: .5s;
+}
+.prev i::before{
+  content: "U";
+  margin-left: 5px;
+}
+.next i::before{
+  content: "V";
+  margin-right: -1px;
+}
+.prev i, .next i{
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+}
+.prev i:hover::before, .next i:hover::before{
+  color: var(--pramiry-color);
 }
 img{
     pointer-events: none;

@@ -17,7 +17,7 @@ export class CarouselComponent implements OnInit {
 
 
   @Input() slides: any;
-
+  @Input() carouselHeight: number;
   public currentSlide = 0;
 
   constructor() { }

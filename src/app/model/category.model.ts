@@ -7,7 +7,7 @@ export class Category{
     product: Product[];
     sections?: any;
     sectionsInDb?: any[];
-
+    categoryIcon?: string;
     constructor(id:number, categoryName: string, product:Product[], imagePath: string){
         this.id = id;
         this.categoryName = categoryName;

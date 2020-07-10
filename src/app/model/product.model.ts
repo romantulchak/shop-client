@@ -13,7 +13,7 @@ export class Product{
     productName: string;
     productPrice: number;
     description: string;
-    image: Image[]; 
+    image: Image[];
     category: Category;
     showButton?: boolean;
     brand: Brand;
@@ -26,5 +26,5 @@ export class Product{
     opinionProducts?:OpinionProduct[];
     properties?: Map<string, Map<string, string>>;
     productSection?: ProductProperties[];
-    
+    averageRanking?: number;
 }
