@@ -1,0 +1,56 @@
+.buy__icon::before{
+  content: "Q";
+  font-size: 18px;
+  color: #8e8e8e;
+  pointer-events: none;
+  margin: 0 auto;
+  transition: .3s ease-in;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.buy__icon:hover::before{
+  color: #fff;
+}
+.buy__button{
+  font-size: 0;
+  border-radius: 50%;
+  padding: 0;
+  width: 43px;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border:none;
+  background-color: #f9f9f9;
+  transition: .3s ease-in;
+  outline: none;
+}
+.buy__button:hover{
+  background: var(--links-color-hover);
+}
+.buy__icon{
+  width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.remind__button{
+  border: none;
+  background: var(--pramiry-color);
+  height: 2em;
+  box-sizing: border-box;
+  width: 7em;
+  font-size: 15px;
+  color: #fff;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  transition: .3s ease-in;
+}
+.remind__button:hover{
+  background: #00bcd4;
+}

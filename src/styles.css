@@ -36,10 +36,11 @@ body{
     z-index: 999999;
 }
 .dialog__basket >  mat-dialog-container {
-    height: 35em;
+    height: 37em;
     width: 55em;
-
+    position: relative;
     justify-content: center;
+    overflow: hidden;
     display: flex;
 }
 [class*="description-"]::before{
@@ -52,4 +53,7 @@ body{
   margin-right: 10px;
   font-size: 12px;
   -webkit-font-smoothing: antialiased;
+}
+app-basket-dialog{
+  width: 100%;
 }

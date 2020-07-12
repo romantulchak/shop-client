@@ -61,6 +61,7 @@ import { ProductFeaturesComponent } from './product/details/product-features/pro
 import { StarRatingModule, StarRatingConfigService } from 'angular-star-rating';
 import { SingleLookProductComponent } from './single-look-product/single-look-product.component';
 import { HeaderComponent } from './header/header.component';
+import { BuyButtonComponent } from './buy-button/buy-button.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { HeaderComponent } from './header/header.component';
     AllAboutProductComponent,
     ProductFeaturesComponent,
     SingleLookProductComponent,
-    HeaderComponent
+    HeaderComponent,
+    BuyButtonComponent
   ],
   imports: [
     BrowserModule,

@@ -32,13 +32,17 @@ export class DetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private productService: ProductService, private userService: TokenStorageService, private opinionService: OpinionService, private notificationService: NotificationService) {
 
-      this.id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
+      this.route.params.subscribe(
+        res=>{
+          this.id = Number.parseInt(res.id);
+          this.details();
+
+        }
+      );
 
    }
 
   ngOnInit(): void {
-
-    this.details();
     this.getVisitedProducts();
     this.opinionService.updateOpinion.subscribe(
       res=>{
@@ -46,7 +50,7 @@ export class DetailsComponent implements OnInit {
             this.opinionService.productId.subscribe(
               id=>{
                 if(id === this.id){
-                  
+
                   this.opinionService.opinionCounter.subscribe(
                     res=>{
                         this.opinionCounter = res;
@@ -83,7 +87,6 @@ export class DetailsComponent implements OnInit {
   details(){
     this.productService.detailsProduct(this.id).subscribe(
       res=>{
-        console.log('reload');
         this.product = res;
         this.productService.product.next(res);
         this.productService.updateProductAfterReload.next(true);
@@ -92,7 +95,7 @@ export class DetailsComponent implements OnInit {
           this.getAverageRanking();
         }
         this.opinionCounter = res.opinionProducts.length;
-   
+
         //this.getOpinionForProduct();
         this.getSimilarProducts(res);
       },
@@ -123,7 +126,7 @@ export class DetailsComponent implements OnInit {
 
     );
   }
- 
+
   getVisitedProducts(){
     if(localStorage.getItem('visited') != null){
       this.visitedProducts = JSON.parse(localStorage.getItem('visited'));

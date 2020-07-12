@@ -1,0 +1,8 @@
+<ng-container *ngIf="currentProduct?.amountInStock != 0">
+  <button class="buy__button" *ngIf="!currentProduct?.showButton;else inBasket" (click)="addToCart(currentProduct)"><i class="description-buy buy__icon"></i></button>
+</ng-container>
+<button  class="remind__button" *ngIf="currentProduct?.amountInStock === 0;" (click)="remindMeDiaglog(currentProduct)">Remind me</button>
+
+<ng-template #inBasket>
+  <h6>In basket</h6>
+</ng-template>

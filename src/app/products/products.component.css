@@ -22,7 +22,7 @@
   box-sizing: border-box;
   font-family: Montserrat;
 }
-.product:not(:last-child){
+.product:not(:nth-child(4n)){
   border-right: 1px solid #e5e7f2;
 }
 .product__image >img{
@@ -55,6 +55,9 @@
   display: grid;
   justify-content: left;
 }
+.product__ranking_name > star-rating{
+  display: flex;
+}
 .product__ranking_name > h5{
   margin: 7px 0 4px 5px;
   min-height: 2.6em;
@@ -79,49 +82,11 @@
   align-items: center;
   min-height: 2.5em;
 }
-.buy__icon{
-  width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-.null:hover{
-  background: red !important;
-}
-.buy__icon::before{
-  content: "Q";
-  font-size: 18px;
-  color: #8e8e8e;
-  pointer-events: none;
-  margin: 0 auto;
-  transition: .3s ease-in;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.buy__icon:hover::before{
-  color: #fff;
-}
-.product__price_button>button{
-  font-size: 0;
-    border-radius: 50%;
-    padding: 0;
-    width: 43px;
-    height: 43px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border:none;
-    background-color: #f9f9f9;
-    transition: .3s ease-in;
-    outline: none;
-  }
-.product__price_button > button:hover{
-  background: var(--links-color-hover);
-}
+
+
+
+
+
 /*.grid__products{
     display: grid;
     grid-gap: 1em;*/

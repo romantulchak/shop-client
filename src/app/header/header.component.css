@@ -101,11 +101,15 @@
 .store__basket{
   position: relative;
 }
+.store__basket:hover, .store_bottom_panel_icon:hover::before{
+  color: var(--links-color-hover);
+  cursor: pointer;
+}
 .store__basket_counter{
   top: -4px;
   position: absolute;
   left: 15px;
-  background: #5677fc;
+  background: var(--pramiry-color);
   border-radius: 22px;
   font-size: 11px;
   width: 15px;
@@ -119,10 +123,7 @@
   font-size: 23px !important;
   color: #494949;
 }
-.store_bottom_panel_icon:hover::before{
-  color: var(--links-color-hover);
-  cursor: pointer;
-}
+
 .description-compare::before{
   content: "\e040";
 }

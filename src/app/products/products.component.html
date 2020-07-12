@@ -22,9 +22,9 @@
               </h5>
           </div>
           <div class="product__bottom_panel">
-              <div class="product__price_button">
+              <div class="product__price_button" *ngIf="!topFiveLook">
                   <h5>{{product.productPrice}}₴</h5>
-                  <button [disabled]="product.amountInStock === 0" [class.null]="product.amountInStock === 0" *ngIf="!product.showButton;else inBasket" (click)="addToCart(product)"><i class="description-buy buy__icon"></i></button>
+                  <app-buy-button [currentProduct]="product"></app-buy-button>
               </div>
           </div>
         </div>
@@ -167,6 +167,4 @@
 <ng-template #message>
     <h1>Nothing</h1>
 </ng-template>
-<ng-template #inBasket>
-    <h6>In basket</h6>
-</ng-template>
+

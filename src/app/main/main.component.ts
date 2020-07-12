@@ -72,11 +72,6 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     this.productCheck =  this.basketService.sa;
 
-
-
-
-
-
     this.getLastTenProducts();
     this.mostPurchased();
     this.isAdmin = this.toketnSerivce.showAdminBoard;
@@ -158,15 +153,7 @@ export class MainComponent implements OnInit {
 
     );
   }*/
-  mouseEnter(onStyle: boolean, product: Product){
-    this.currentProduct = product;
-    this.styleOn = onStyle;
 
-  }
-  mouseLeave(onStyle: boolean, product: Product){
-    this.styleOn = onStyle;
-
-  }
 
 /*
   filter(brandName?: string, cpuName?: string, gpuName?: string){
@@ -269,6 +256,7 @@ export class MainComponent implements OnInit {
       res=>{
         if(res != null){
           this.productsToComponent = res;
+
         }
       }
 

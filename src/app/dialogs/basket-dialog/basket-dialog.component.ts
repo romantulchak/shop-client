@@ -48,10 +48,10 @@ export class BasketDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.basketLoad();
-   
+
   }
 
-  //TODO: FIX IT 
+  //TODO: FIX IT
   basketLoad(){
     setTimeout(() => {
 
@@ -59,7 +59,7 @@ export class BasketDialogComponent implements OnInit {
      // this.sa = this.basketService.sa;
      this.basketService.productsAfterRemove.subscribe(
       res=>{
-        if(res != null){    
+        if(res != null){
           this.sa = res;
           //this.totalPrice =  this.basketService.price(res);
         }
@@ -67,7 +67,9 @@ export class BasketDialogComponent implements OnInit {
       }
      );
       if(this.sa != null){
+       setTimeout(() => {
         this.loading = false;
+       }, 1000);
       }
       this.basketService.totalPrice.subscribe(
         res=>{
@@ -105,12 +107,12 @@ export class BasketDialogComponent implements OnInit {
                 product.discount = res;
                 product.discountPrice = Math.round(product.price - (product.price * (product.discount / 100)));
                 product.promo = code;
-                product.totalProducPrice = Math.round(product.discountPrice * product.amount);        
+                product.totalProducPrice = Math.round(product.discountPrice * product.amount);
                 this.updateItem(product);
-        
+
                 this.basketLoad();
                 this.notificationService.success('Ok');
-            
+
               }else{
                 this.notificationService.error('Code is determined');
               }
@@ -125,24 +127,13 @@ export class BasketDialogComponent implements OnInit {
             this.loading = false;
           }, 500);
         }
-        
+
       );
   }
-/*
-  price(){
-    this.totalPrice = 0;
-    if(this.sa.length != 0 && this.sa != null){
-      this.sa.forEach(el=>{
-          this.totalPrice += el.totalProducPrice;
-      });
-      this.totalPrice = Math.round(this.totalPrice);
-    }
-  }
-  */
   minusAmount(product: any){
     if(!(product.amount <= 1)){
       product.amount -= 1;
-      
+
       if(product.discount > 0){
         product.totalProducPrice -= product.discountPrice;
         this.totalPrice -= product.discountPrice;
@@ -160,15 +151,12 @@ export class BasketDialogComponent implements OnInit {
   }
   //TODO: баг ціна коли макс
   updateAmount(product: any, amount: any){
-    
+      if(amount <= 0){
+        amount = 1;
+      }
       this.orderService.checkAmount(product.id, amount).subscribe(
         res=>{
-
           if(!(product.amount > 100)){
-
-
-
-
           let sum = Math.round(res * product.price);
           let discountSum = Math.round(res * product.discountPrice);
           if(res === Number.parseInt(amount)){
@@ -192,8 +180,8 @@ export class BasketDialogComponent implements OnInit {
             }
             this.notificationService.error("Maximum in the stock");
             this.updateItem(product);
-          } 
-          
+          }
+
           this.price();
           this.basketService.totalPrice.next(this.totalPrice);
         }else{
@@ -206,10 +194,10 @@ export class BasketDialogComponent implements OnInit {
         }
         }
       );
-    
+
 
   }
-  
+
   //TODO: придумати як обмежувати макс кількість.
   plusAmount(product: any){
     if(!(product.amount >= 99)){
@@ -220,7 +208,7 @@ export class BasketDialogComponent implements OnInit {
 
             if(product.discount > 0){
               product.totalProducPrice += product.discountPrice;
-              this.totalPrice += product.discountPrice;  
+              this.totalPrice += product.discountPrice;
             }else{
             product.totalProducPrice += product.price;
             this.totalPrice += product.price;
@@ -230,7 +218,7 @@ export class BasketDialogComponent implements OnInit {
             product.amount = res;
             this.notificationService.error("Maximum in the stock");
           }
-         
+
 
         }
       );
@@ -238,18 +226,18 @@ export class BasketDialogComponent implements OnInit {
       this.notificationService.error("Maximum 99 items");
     }
 
-   
+
   }
 
 
 
   updateItem(item: any){
-    localStorage.setItem('product', JSON.stringify(this.sa));   
+    localStorage.setItem('product', JSON.stringify(this.sa));
     this.basketService.sa = this.sa;
     this.basketService.totalPrice = new BehaviorSubject(this.basketService.price());
     this.basketService.updateOrder.next(true);
   }
-  
+
   showForm(){
     this.showOrderForm = !this.showOrderForm;
   }
@@ -279,15 +267,15 @@ export class BasketDialogComponent implements OnInit {
   /*
 
   productInBasket(): Product[]{
-    let prod = [];      
+    let prod = [];
             this.products.forEach(element => {
-                
+
                 this.productsFromDb.forEach(el=>{
                   if(element.id == el.id){
                     prod.push(element);
                   }
                 });
-             
+
             });
 
       return prod;

@@ -55,7 +55,6 @@ export class ProductsComponent implements OnInit, OnChanges {
   @Input() usualLook: boolean = false;
   @Input() topFiveLook: boolean = false;
   @Input() adminLook: boolean = false;
-  @Input() productsFromComponent: Product[];
 
 
  // @Input() productOfDayLook: boolean;
@@ -82,7 +81,9 @@ export class ProductsComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.isAdmin = this.tokenService.showAdminBoard;
-      this.setProducts();
+      setTimeout(() => {
+        this.setProducts();
+      }, 500);
       this.getAllGpus();
       this.getAllCpus();
       this.getAllBrands();
@@ -95,14 +96,8 @@ export class ProductsComponent implements OnInit, OnChanges {
 
 
   setProducts(){
-
-    this.productService.lastProducts.subscribe(
-      res=>{
-        if(res === true){
-          this.products = this.pr;
-        }
-      }
-    );
+    this.products = this.pr;
+    console.log(this.products);
 
     if(this.pr === undefined || this.pr===null){
       if(this.isCategory === true){
@@ -227,13 +222,6 @@ export class ProductsComponent implements OnInit, OnChanges {
       error=>{console.log(error);}
     );
   }
-  addToCart(product: Product){
-    this.currentProduct = product;
-    product.showButton = true;
-    this.basketService.addToBasket(product);
-    this.basketService.updateOrder.next(true);
-    this.notificationService.success("Added to your card " + product.productName);
-  }
 
   filterCategory(res: any){
     this.loading = true;
@@ -273,9 +261,6 @@ export class ProductsComponent implements OnInit, OnChanges {
     }
   }
 
-  remindMeDiaglog(product: Product){
-    this.dialogService.remindMeDiaglog(product);
-  }
 
 
   filter(brandName?: string, cpuName?: string, gpuName?: string){
