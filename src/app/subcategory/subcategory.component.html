@@ -1,0 +1,32 @@
+<h1>Create category</h1>
+<form [formGroup]="categoryForm" (ngSubmit)="createSubcategory(subcategoryName.value, categoryId.value)">
+    <div>
+      <h3>Name</h3>
+      <input type="text" name="subcategoryName" #subcategoryName >
+  </div>
+  <select name="category" #categoryId>
+    <option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</option>
+  </select>
+    <a (click)="addSection()">Add section</a>
+    <div formArrayName="sections">
+        <div *ngFor="let section of getSection(categoryForm); let i = index">
+            <button *ngIf="getSection(categoryForm).length > 1" (click)="removeSection(i)">Remove section</button>
+            <div [formGroupName]="i">
+                <div>
+                    <h3>Title</h3>
+                    <input type="text" formControlName="title">
+                </div>
+
+                <div formArrayName="fields">
+                    <h3 (click)="addField(i)">Add field</h3>
+                    <div [formGroupName]="j" *ngFor="let field of getFieldsForShow(section); let j = index">
+                        <a (click)="remove(i,j)">Remove whole options</a>
+                        <input type="text" formControlName="name" name="" id="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit">Create </button>
+</form>
+<pre>{{categoryForm.value | json}}</pre>

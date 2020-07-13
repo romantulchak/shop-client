@@ -49,7 +49,6 @@ export class HeaderComponent implements OnInit {
          this.getBasketCount();
 
          this.getTotalPrice();
-         console.log('sss');
         }
       }
     );

@@ -25,8 +25,8 @@ export class NavbarComponent implements OnInit {
   public identificationNumberForSeach: string;
   public showAllCategories: boolean = false;
   public categories: Category[];
-
-
+  public currentCategory: Category;
+  public showSubcategory:boolean = false;
 
 
   constructor(public tokenStorageService: TokenStorageService ,private dialog: MatDialog, private orderService: OrderService, private categoryService: CategoryService) { }
@@ -38,6 +38,20 @@ export class NavbarComponent implements OnInit {
   }
 
 
+  public showSubcategories(category:Category){
+    if(category.subcategories.length > 0){
+      this.currentCategory = category;
+      this.showSubcategory = true;
+    }else{
+      this.currentCategory = null;
+      this.showSubcategory = false;
+    }
+  }
+  public hideCategories(){
+    this.currentCategory = null;
+    this.showSubcategory = false;
+    this.showAllCategories = false;
+  }
 
      //TODO: дублювання в OrderComponent
   search(){

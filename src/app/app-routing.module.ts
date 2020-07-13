@@ -20,22 +20,23 @@ import { ProductComponent } from './product/product.component';
 import { OpinionsComponent } from './product/details/opinions/opinions.component';
 import { AllAboutProductComponent } from './product/details/all-about-product/all-about-product.component';
 import { ProductFeaturesComponent } from './product/details/product-features/product-features.component';
+import { SubcategoryComponent } from './subcategory/subcategory.component';
 
 
 const routes: Routes = [
 
   {path: '', component:MainComponent},
-  {path: 'createProduct', component: CreateProductComponent, 
-          canActivate: [AuthGuard], 
+  {path: 'createProduct', component: CreateProductComponent,
+          canActivate: [AuthGuard],
           data:{role: 'ROLE_ADMIN'}},
-  {path: 'createCategory', component: CategoryComponent, 
-              canActivate: [AuthGuard], 
+  {path: 'createCategory', component: CategoryComponent,
+              canActivate: [AuthGuard],
               data:{role: 'ROLE_ADMIN'}},
 
   //TODO: CHECK IF ID IS INVALID
-  
+
    {path: 'detailsProduct/:id', component: DetailsComponent, children:[
-  
+
     {
       path: '',
       redirectTo: 'all',
@@ -60,25 +61,26 @@ const routes: Routes = [
   ]},
   {path: 'basket', component: BasketComponent},
   {path: 'orders', component: OrderComponent,
-              canActivate: [AuthGuard], 
+              canActivate: [AuthGuard],
               data:{role: 'ROLE_ADMIN'}
   },
   {path: 'registration', component: RegistrationComponent, canActivate: [RegistrationGuard]},
   {path: 'profile', component: ProfileComponent,
-                    canActivate: [AuthGuard], 
+                    canActivate: [AuthGuard],
                     data:{role: 'ROLE_USER'},
   },
   {path: 'brands', component: BrandComponent, canActivate: [AuthGuard], data: {role: 'ROLE_ADMIN'}},
-  { path: 'admin', component: BoardAdminComponent, 
-              canActivate: [AuthGuard], 
+  { path: 'admin', component: BoardAdminComponent,
+              canActivate: [AuthGuard],
               data:{role: 'ROLE_ADMIN'}
   },
-  { path: 'cpus', component: CpuComponent, 
-  canActivate: [AuthGuard], 
+  {path:'subcategory', component:SubcategoryComponent},
+  { path: 'cpus', component: CpuComponent,
+  canActivate: [AuthGuard],
   data:{role: 'ROLE_ADMIN'}
   },
-  { path: 'gpus', component: GpuComponent, 
-  canActivate: [AuthGuard], 
+  { path: 'gpus', component: GpuComponent,
+  canActivate: [AuthGuard],
   data:{role: 'ROLE_ADMIN'}
   },
   {path: 'category/:categoryName', component: ProductComponent},

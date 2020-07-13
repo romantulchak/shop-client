@@ -29,7 +29,8 @@ export class CategoryComponent implements OnInit {
     id: null,
     categoryName: '',
     product: null,
-    categoryIcon: null
+    categoryIcon: null,
+    subcategories: null
   };
   public selectedFile: File;
   categories: Category[];
@@ -37,11 +38,9 @@ export class CategoryComponent implements OnInit {
 
   myFormValueChanges$;
 
-  constructor(private categoryService: CategoryService, private notificationService: NotificationService, private fb: FormBuilder) { }
+  constructor(private categoryService: CategoryService, private notificationService: NotificationService,private fb: FormBuilder) { }
 
   ngOnInit(): void {
-
-
     this.categoryForm = this.fb.group({
       sections: this.fb.array([
         this.getSections()
@@ -54,8 +53,8 @@ export class CategoryComponent implements OnInit {
    }, 500);
 
     this.getAllCategories();
-
   }
+
   private getSections(){
     return this.fb.group({
       title: [''],
@@ -144,16 +143,14 @@ export class CategoryComponent implements OnInit {
 
     );
   }
+
   getAllCategories(){
     this.categoryService.getCategories().subscribe(
-
       res=>{
-
         this.categories = res;
         console.log(res);
       },
       error=>{console.log(error);}
-
     );
   }
   delete(id:number){
@@ -161,8 +158,6 @@ export class CategoryComponent implements OnInit {
         res=>{
           this.getAllCategories();
           this.notificationService.success(res);
-
-
         },
         error=>{console.log(error);}
     );
@@ -171,31 +166,22 @@ export class CategoryComponent implements OnInit {
   edit(category: Category){
     this.editCategory = new Category(category.id, category.categoryName, category.product, category.imagePath);
   }
-
   loadTemplate(category: Category){
       if(this.editCategory && this.editCategory.id === category.id){
         return this.editTemplate;
       }
   }
-
-
   updateCategory(category: Category){
     this.categoryService.editCategory(category).subscribe(
       res=>{
-
-
-
         this.notificationService.success(res);
         this.getAllCategories();
-        console.log(res);
       },
       error=>{console.log(error);}
-
     );
   }
 
   handleImages(event){
     this.selectedFile = event.target.files[0];
   }
-
 }

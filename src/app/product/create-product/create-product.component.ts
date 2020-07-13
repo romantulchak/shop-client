@@ -12,6 +12,8 @@ import { Sections } from 'src/app/model/sections.model';
 import { Field } from 'src/app/model/field.model';
 import { stringify } from 'querystring';
 import { FormBuilder } from '@angular/forms';
+import { Subcategory } from 'src/app/model/subcategory.model';
+import { SubcategoryService } from 'src/app/service/subcategory.service';
 
 @Component({
   selector: 'app-create-product',
@@ -33,7 +35,7 @@ export class CreateProductComponent implements OnInit {
 
   public mapToSend: Map<string, Map<string, string>> = new Map();
 
-
+  public subcategories: Subcategory[];
 
 
 
@@ -43,7 +45,7 @@ export class CreateProductComponent implements OnInit {
     category: {
       id:1,
       categoryName: '',
-      product: null
+      product: null,
     },
     description: '',
     image: null,
@@ -54,29 +56,61 @@ export class CreateProductComponent implements OnInit {
     gpu: new Gpu(),
     discountPrice: 0,
     isGlobalDiscount: false,
+    subcategory: new Subcategory()
   };
 
-  public category: Category[];
+  public category: Subcategory[];
   public brands: Brand[];
   public cpus: Cpu[];
   public currentCpu: Cpu = new Cpu();
   public gpus: Gpu[];
   public currentGpu: Gpu = new Gpu();
-  constructor(private brandService: BrandService,private notificationService: NotificationService, private categoryService: CategoryService, private productService: ProductService, public fb: FormBuilder) { }
+  constructor(private brandService: BrandService,private subcategoryService: SubcategoryService, private notificationService: NotificationService, private categoryService: CategoryService, private productService: ProductService, public fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.getCategories();
+    //this.getCategories();
+    this.getSubcategories();
     this.getBrands();
     this.getAllCpus();
     this.getAllGpus();
+    this.getSubcategoriesToShow();
   }
+  private getSubcategories(){
+    this.subcategoryService.getSubcategories().subscribe(
+      res=>{
+        if(res != null){
+          this.subcategories = res;
+        }
+      }
+    );
+  }
+
+  private getSubcategoriesToShow(){
+    this.subcategoryService.getSubcategories().subscribe(
+      res=>{
+        if(res != null){
+          console.log(res);
+
+          this.category = res;
+          if(res.length == 0){
+
+            this.showButton = false;
+          }else{
+            this.showButton = true;
+          }
+        }
+      }
+    );
+  }
+  /*
+
   public getCategories(){
     this.categoryService.getCategories().subscribe(
 
       res=>{
           this.category = res;
           if(res.length == 0){
-          
+
             this.showButton = false;
           }else{
             this.showButton = true;
@@ -85,9 +119,8 @@ export class CreateProductComponent implements OnInit {
       error=>{
         console.log(error);
       }
-
     );
-  }
+  }*/
   public getAllCpus(){
     this.productService.getAllCpus().subscribe(
       res=>{
@@ -124,7 +157,7 @@ export class CreateProductComponent implements OnInit {
       error=>{console.log(error);}
 
     );
-    
+
     const convMap = this.mapToSend;
     const s = new Map<string, string>();
     //this.dictionary.forEach((val: string, key: string) => {
@@ -132,24 +165,20 @@ export class CreateProductComponent implements OnInit {
     //});
 
     //this.product.properties = convMap;
-    console.log('asdsad');
     this.dictionary.forEach((value, key)=>{
       let s = new Map<string, string>();
       //value.forEach((v)=>{
        let map = new Map();
         value.forEach((v, k) =>{
           s[k]= v;
-                    
+
         });
-        console.log('lox');
-        console.log(s);
-        
+
 
         convMap[key] = s;
 
       //});
     });
-    console.log(convMap);
     //this.product.properties.set(this.dictionary) this.dictionary;
     this.product.properties = convMap;
     console.log(this.product);
@@ -177,7 +206,7 @@ export class CreateProductComponent implements OnInit {
       }
     });
   }
- 
+
   handleImages(event){
     this.selectedFiles = event.target.files;
   }
@@ -191,8 +220,8 @@ export class CreateProductComponent implements OnInit {
     );
   }
   showFields(){
-    this.category.forEach(e=>{
-      if(e.id == this.product.category.id){
+    this.subcategories.forEach(e=>{
+      if(e.id == this.product.subcategory.id){
         this.categoryFields = e.sectionsInDb;
         console.log(this.categoryFields);
       }
@@ -201,7 +230,7 @@ export class CreateProductComponent implements OnInit {
 
   setValue(fieldName:string ,fieldFromClient: any, value:string){
 
-  
+
 
     let field = new Field();
     field.fieldName = fieldFromClient.name;

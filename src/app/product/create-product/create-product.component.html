@@ -5,7 +5,7 @@
         <h2>Product name</h2>
         <input  type="text" name="productName" [(ngModel)]="product.productName">
     </div>
-    
+
 <editor
 [(ngModel)]="product.description"
 name="description"
@@ -24,12 +24,12 @@ apiKey = "oafydqqtkaeecsa5sztqiauvrrawxqlyhrjhy0lx29dtr56r"
     bullist numlist outdent indent | removeformat | help'
 }"
 ></editor>
-  
+
 <div *ngIf="showButton;else message">
     <div>
         <h2>Category</h2>
-        <select name="category"required (change)="showFields()" [(ngModel)]="product.category.id">
-            <option *ngFor="let item of category" value="{{item.id}}" >{{item.categoryName}}</option>
+        <select name="category"required (change)="showFields()" [(ngModel)]="product.subcategory.id">
+            <option *ngFor="let item of category" value="{{item.id}}" >{{item.subcategoryName}}</option>
         </select>
     </div>
 <div>
@@ -41,11 +41,11 @@ apiKey = "oafydqqtkaeecsa5sztqiauvrrawxqlyhrjhy0lx29dtr56r"
         </div>
 
         <div>
-           
+
             <div *ngFor="let field of item.fields">
                 <h4>Field name: {{field.name}}</h4>
                 <input type="text" #value (change)="setValue(item.title, field, value.value)">
-               
+
             </div>
             <a style="display: block; padding: 1em; background: green; border: none;" (click)="saveValues()">Save changes</a>
         </div>
@@ -54,9 +54,9 @@ apiKey = "oafydqqtkaeecsa5sztqiauvrrawxqlyhrjhy0lx29dtr56r"
         <!--<input type="text" name="{{item.fieldName}}" (change)="setValue(item.fieldName, value.value)" #value >-->
     </div>
     <hr>
-  
 
-    
+
+
 
 
     <h2>Product price</h2>
@@ -78,7 +78,7 @@ apiKey = "oafydqqtkaeecsa5sztqiauvrrawxqlyhrjhy0lx29dtr56r"
 
 <div>
     <h2>Amount In Stock</h2>
-    <input type="number" name="amountInStock" [(ngModel)]="product.amountInStock" > 
+    <input type="number" name="amountInStock" [(ngModel)]="product.amountInStock" >
 </div>
 
 <div>

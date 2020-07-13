@@ -6,6 +6,7 @@ import { Gpu } from './gpu.model';
 import { PromotionalCode } from './promotionalCode.model';
 import { OpinionProduct } from './opinionProduct.model';
 import { ProductProperties } from './productProperties.model';
+import { Subcategory } from './subcategory.model';
 
 export class Product{
 
@@ -27,4 +28,5 @@ export class Product{
     properties?: Map<string, Map<string, string>>;
     productSection?: ProductProperties[];
     averageRanking?: number;
+    subcategory?: Subcategory;
 }

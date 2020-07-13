@@ -97,8 +97,6 @@ export class ProductsComponent implements OnInit, OnChanges {
 
   setProducts(){
     this.products = this.pr;
-    console.log(this.products);
-
     if(this.pr === undefined || this.pr===null){
       if(this.isCategory === true){
         this.findByCategory();
@@ -140,15 +138,13 @@ export class ProductsComponent implements OnInit, OnChanges {
 
   ngOnChanges(){
     this.basketService.updateProducts.subscribe(
-
       res=>{
         if(res === true){
           this.products = this.pr;
         }
       }
-
-
     );
+    this.findByCategory();
   }
 
   findAllProducts(){

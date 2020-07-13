@@ -2,12 +2,20 @@
   <div class="store__navbar_width">
     <div class="store__main_links">
       <ul>
-          <li class="store__categories" (mouseenter)="showAllCategories = true" (mouseleave)="showAllCategories = false">
+          <li class="store__categories" (mouseenter)="showAllCategories = true" (mouseleave)="hideCategories()">
             <a href="">All categories</a>
             <div class="store__all_categories" [class.opacity__animation_up]="showAllCategories" [class.opacity__animation_down]="!showAllCategories" *ngIf="showAllCategories">
-              <li *ngFor="let category of categories; let i = index">
-                <i class="description-category-icons icon-{{i}}" attr.data-content="{{category.categoryIcon}}"></i>
-                <a routerLink="">{{category.categoryName}}</a>
+              <li *ngFor="let category of categories; let i = index" (mouseenter)="showSubcategories(category)">
+                <div class="icon__category_name">
+                  <i class="description-category-icons icon-{{i}}" attr.data-content="{{category.categoryIcon}}"></i>
+                  <a routerLink="">{{category.categoryName}}</a>
+                </div>
+                <i *ngIf="category.subcategories.length > 0" class="description-arrow-right icon__arrow"></i>
+                <div [class.subcategories__animation]="showSubcategory" class="store__category_subcategories" *ngIf="currentCategory === category && showSubcategory">
+                      <ng-container *ngFor="let subcategory of category.subcategories">
+                        <a routerLink="category/{{subcategory.subcategoryName}}">{{subcategory.subcategoryName}}</a>
+                      </ng-container>
+                </div>
               </li>
             </div>
           </li>

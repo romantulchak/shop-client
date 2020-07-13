@@ -62,6 +62,7 @@ import { StarRatingModule, StarRatingConfigService } from 'angular-star-rating';
 import { SingleLookProductComponent } from './single-look-product/single-look-product.component';
 import { HeaderComponent } from './header/header.component';
 import { BuyButtonComponent } from './buy-button/buy-button.component';
+import { SubcategoryComponent } from './subcategory/subcategory.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { BuyButtonComponent } from './buy-button/buy-button.component';
     ProductFeaturesComponent,
     SingleLookProductComponent,
     HeaderComponent,
-    BuyButtonComponent
+    BuyButtonComponent,
+    SubcategoryComponent
   ],
   imports: [
     BrowserModule,

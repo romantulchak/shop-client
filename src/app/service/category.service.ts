@@ -13,7 +13,7 @@ export class CategoryService {
 
 
   public updateCategories: BehaviorSubject<boolean>;
-  constructor(private http:HttpClient) { 
+  constructor(private http:HttpClient) {
 
     this.updateCategories = new BehaviorSubject<boolean>(false);
 
@@ -29,28 +29,13 @@ export class CategoryService {
     category.sections = sections;
 
     let paramsToSend = new HttpParams();
-
-    //paramsToSend = paramsToSend.append('sections', JSON.stringify(sections));
-    /*
-    sections.forEach(el=>{
-      paramsToSend = paramsToSend.append('title', el.title);
-      el.fields.forEach(element => {
-          paramsToSend = paramsToSend.append('fields', element.name);
-      });
-    });
-    */
-
-
-    //fields.forEach(el=>{
-    //  paramsToSend = paramsToSend.append('field', el);
-    //});
     return this.http.post(API_URL + 'categories/createCategory', category, {responseType:'text', params: paramsToSend });
   }
   pushCategoryImage(file: File){
     console.log(file);
     const data: FormData = new FormData();
     data.append('file', file);
-    return this.http.post(API_URL + 'categories/pushCategoryImage', data); 
+    return this.http.post(API_URL + 'categories/pushCategoryImage', data);
   }
   deleteCategory(id: number){
     return this.http.delete(API_URL + 'categories/deleteCategory/' + id, {responseType:'text'});

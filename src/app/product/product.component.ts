@@ -12,15 +12,16 @@ import { Product } from '../model/product.model';
 export class ProductComponent implements OnInit {
 
   public categoryName: string;
-  private subscription: Subscription;
   public products: Product[];
   @Input() product: Product;
 
   constructor(private activeRoute: ActivatedRoute, private productService: ProductService) {
+    activeRoute.params.subscribe(
+      res=>{
+        this.categoryName = res.categoryName;
 
-    this.categoryName = activeRoute.snapshot.params['categoryName'];
-    console.log(this.categoryName);
-    this.subscription = activeRoute.params.subscribe(params => this.categoryName = params['categoryName']);
+      }
+    )
 
    }
 
