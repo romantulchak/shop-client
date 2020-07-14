@@ -117,7 +117,7 @@ export class DetailsComponent implements OnInit {
 
 
   getSimilarProducts(res: Product){
-    this.productService.getSimilarProducts(this.id, res.subcategory.category.categoryName).subscribe(
+    this.productService.getSimilarProducts(this.id, res.category.categoryName).subscribe(
       res=>{
           if(res != null){
             this.simularProducts = res;

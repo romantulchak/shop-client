@@ -150,17 +150,28 @@
 .store__category_subcategories{
   position: absolute;
   background: #fff;
-  right: -277px;
+  right: -270px;
   min-height: 200px;
-  display: grid;
+  display: flex;
+  white-space: nowrap;
   overflow-y: auto;
-  top: -15px;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  top: 0px;
+  min-width: 270px;
+  max-width: 500px;
   max-height: 500px;
   word-break: break-word;
-  grid-template-rows: 3em;
   padding: 1em;
   box-sizing: border-box;
-  grid-template-columns: 1fr 1fr;
+}
+.store__main_links ul .store__category_subcategories a{
+  color: var(--links-color);
+    font-size: 14px;
+    text-align: center;
+}
+.store__main_links ul .store__category_subcategories a:hover{
+  color: var(--links-color-hover);
 }
 .subcategories__animation{
   animation: subcategory__animation 1s forwards;

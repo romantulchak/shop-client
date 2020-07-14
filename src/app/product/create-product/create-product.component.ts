@@ -27,16 +27,16 @@ export class CreateProductComponent implements OnInit {
   public notify: boolean = false;
   public selectedFiles: File[];
 
+
   public dictionary: Map<string, Map<string, string>>= new Map();
 
   private valueMap = new Map<string, string>()
 
-  public categoryFields: Sections[];
+  public categoryFields: Sections[] = [];
 
   public mapToSend: Map<string, Map<string, string>> = new Map();
-
-  public subcategories: Subcategory[];
-
+  public id:number;
+  public subcategoryId: number;
 
 
   public product: Product = {
@@ -59,7 +59,9 @@ export class CreateProductComponent implements OnInit {
     subcategory: new Subcategory()
   };
 
-  public category: Subcategory[];
+  public currentCategory: Category;
+  public currentSubcategory: Subcategory;
+  public category: Category[];
   public brands: Brand[];
   public cpus: Cpu[];
   public currentCpu: Cpu = new Cpu();
@@ -73,24 +75,11 @@ export class CreateProductComponent implements OnInit {
     this.getBrands();
     this.getAllCpus();
     this.getAllGpus();
-    this.getSubcategoriesToShow();
   }
   private getSubcategories(){
-    this.subcategoryService.getSubcategories().subscribe(
+    this.categoryService.getCategories().subscribe(
       res=>{
         if(res != null){
-          this.subcategories = res;
-        }
-      }
-    );
-  }
-
-  private getSubcategoriesToShow(){
-    this.subcategoryService.getSubcategories().subscribe(
-      res=>{
-        if(res != null){
-          console.log(res);
-
           this.category = res;
           if(res.length == 0){
 
@@ -102,6 +91,8 @@ export class CreateProductComponent implements OnInit {
       }
     );
   }
+
+
   /*
 
   public getCategories(){
@@ -159,28 +150,18 @@ export class CreateProductComponent implements OnInit {
     );
 
     const convMap = this.mapToSend;
-    const s = new Map<string, string>();
-    //this.dictionary.forEach((val: string, key: string) => {
-     // convMap[key] = val;
-    //});
-
-    //this.product.properties = convMap;
     this.dictionary.forEach((value, key)=>{
       let s = new Map<string, string>();
-      //value.forEach((v)=>{
        let map = new Map();
         value.forEach((v, k) =>{
           s[k]= v;
 
         });
-
-
         convMap[key] = s;
-
-      //});
     });
-    //this.product.properties.set(this.dictionary) this.dictionary;
     this.product.properties = convMap;
+    this.product.subcategory = this.currentSubcategory;
+    this.product.category = this.currentCategory;
     console.log(this.product);
     this.productService.createProduct(this.product, this.notify).subscribe(
           res=>{
@@ -219,19 +200,32 @@ export class CreateProductComponent implements OnInit {
       }
     );
   }
-  showFields(){
-    this.subcategories.forEach(e=>{
-      if(e.id == this.product.subcategory.id){
-        this.categoryFields = e.sectionsInDb;
-        console.log(this.categoryFields);
+
+  public showCategories(){
+    let c = this.category.filter(x=>x.id == this.id)[0];
+    this.subcategoryId = null;
+    this.currentSubcategory = null;
+    this.categoryFields = [];
+    if(c != null){
+      this.currentCategory = c;
+      if(c.sectionsInDb.length > 0){
+        this.categoryFields = c.sectionsInDb;
       }
-    });
+    }
+  }
+  public showSubcategories(){
+    let subcategory = this.currentCategory.subcategories.filter(x=>x.id == this.subcategoryId)[0];
+    if(subcategory != null){
+      this.currentSubcategory = subcategory;
+      if(subcategory.sectionsInDb.length > 0){
+       this.categoryFields = [];
+       this.categoryFields = subcategory.sectionsInDb;
+      }
+    }
   }
 
+
   setValue(fieldName:string ,fieldFromClient: any, value:string){
-
-
-
     let field = new Field();
     field.fieldName = fieldFromClient.name;
     field.fieldValue = value;

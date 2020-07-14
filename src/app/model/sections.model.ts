@@ -1,4 +1,6 @@
 export class Sections{
-    title: string;
-    fields: any[];
+  fields: any[];
+  id:number;
+  title: string;
+
 }

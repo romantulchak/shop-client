@@ -9,7 +9,7 @@
     justify-self: center;
 }
 .icons{
-    max-width: 32px;
+    max-width: 100%;
     display: block;
 }
 .icons > img{
@@ -18,13 +18,13 @@
 }
 .icon__card{
     padding: 1em 1.5em 1em 1.5em;
-    border: 1px solid #fff; 
+    border: 1px solid #fff;
     margin-bottom: .5em;
     border-radius: 8px;
     cursor: pointer;
 }
 .active__icon{
-    border: 1px solid green; 
+    border: 1px solid green;
 }
 .image__container{
     max-width: 500px;

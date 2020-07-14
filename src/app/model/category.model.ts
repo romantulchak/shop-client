@@ -8,7 +8,8 @@ export class Category{
     product: Product[];
     categoryIcon?: string;
     subcategories?:Subcategory[];
-    section?: any[];
+    sections?: any;
+    sectionsInDb?: any[];
     constructor(id:number, categoryName?: string, product?:Product[], imagePath?: string){
         this.id = id;
         this.categoryName = categoryName;

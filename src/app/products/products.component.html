@@ -6,7 +6,7 @@
     <ng-container *ngFor="let product of products">
       <div class="product" (mouseleave)="mouseLeave(false, product)" (mouseenter)="mouseEnter(true, product)">
         <div class="product__top_panel">
-          <a href="">{{product.subcategory.category.categoryName}}</a>
+          <a href="">{{product?.category?.categoryName}}</a>
           <div class="product__compaer_favorite">
               <i class="description-compare product__icon"></i>
               <i class="description-favorite product__icon"></i>

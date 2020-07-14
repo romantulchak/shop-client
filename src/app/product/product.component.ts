@@ -13,7 +13,6 @@ export class ProductComponent implements OnInit {
 
   public categoryName: string;
   public products: Product[];
-  @Input() product: Product;
 
   constructor(private activeRoute: ActivatedRoute, private productService: ProductService) {
     activeRoute.params.subscribe(

@@ -25,12 +25,30 @@ apiKey = "oafydqqtkaeecsa5sztqiauvrrawxqlyhrjhy0lx29dtr56r"
 }"
 ></editor>
 
-<div *ngIf="showButton;else message">
+<div>
     <div>
         <h2>Category</h2>
-        <select name="category"required (change)="showFields()" [(ngModel)]="product.subcategory.id">
-            <option *ngFor="let item of category" value="{{item.id}}" >{{item.subcategoryName}}</option>
-        </select>
+       <!-- <select name="category"required (change)="showFields()" [(ngModel)]="product.subcategory.id">
+          <ng-container *ngFor="let item of category">
+            <optgroup label="{{item.categoryName}}">
+              <option value="{{item.id}}" >{{item.categoryName}}</option>
+              <ng-container *ngFor="let subcategory of item.subcategories">
+                <option value="{{subcategory.id}}">{{subcategory.subcategoryName}}</option>
+              </ng-container>
+            </optgroup>
+          </ng-container>
+
+          </select>-->
+          <select name="category" (change)="showCategories()" [(ngModel)]="id">
+            <option *ngFor="let item of category" value="{{item.id}}">{{item.categoryName}}</option>
+          </select>
+
+          <select *ngIf="currentCategory?.subcategories.length > 0" name="subcategory" (change)="showSubcategories()" [(ngModel)]="subcategoryId">
+
+              <optgroup label="{{currentCategory.categoryName}}">
+                <option *ngFor="let subcategory of currentCategory.subcategories" value="{{subcategory.id}}">{{subcategory.subcategoryName}}</option>
+              </optgroup>
+          </select>
     </div>
 <div>
 

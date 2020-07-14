@@ -103,6 +103,8 @@ export class ProductsComponent implements OnInit, OnChanges {
       }else{
         this.findAllProducts();
       }
+      console.log(this.products);
+
     }
 
 
@@ -153,6 +155,8 @@ export class ProductsComponent implements OnInit, OnChanges {
       res=>{
         if(res != null){
           this.products = res;
+          console.log(res);
+
           this.checkInBasket(res);
           setTimeout(() => {
             this.loading = false;
@@ -169,6 +173,8 @@ export class ProductsComponent implements OnInit, OnChanges {
         if(res != null){
           this.products = res;
           this.checkInBasket(res);
+          console.log(res);
+
           setTimeout(() => {
             this.loading = false;
           }, 500);
