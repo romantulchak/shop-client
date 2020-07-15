@@ -21,6 +21,7 @@ body{
   --links-color-hover: #5677fc;
   --links-color:#494949;
   --pramiry-color:#5677fc;
+  --discount-color:#ff4b4b;
 }
 .successMessage{
     background-color: green;
@@ -56,4 +57,17 @@ body{
 }
 app-basket-dialog{
   width: 100%;
+}
+.container{
+  max-width: 1070px;
+  margin: 0 auto;
+}
+a{
+  text-decoration: none;
+  color: var(--links-color);
+  font-size: 14px;
+  transition: .3s ease-in;
+}
+a:hover{
+  color: var(--links-color-hover);
 }

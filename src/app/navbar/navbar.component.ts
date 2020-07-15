@@ -53,32 +53,7 @@ export class NavbarComponent implements OnInit {
     this.showAllCategories = false;
   }
 
-     //TODO: дублювання в OrderComponent
-  search(){
-    this.orderService.findByIdentificationNumber(this.identificationNumberForSeach).subscribe(
-      res=>{
 
-          this.dialog.open(DialogSearchComponent,{
-            data: {
-              data: res
-            }
-          });
-
-      },
-      error=>{
-        console.log(error);
-      }
-    );
-      /*setTimeout(() => {
-        this.basketService.count.subscribe(
-          res=>{
-              if(res != null){
-                this.basketLength = res;
-              }
-          }
-        );
-      }, 500);*/
-  }
 
 
 

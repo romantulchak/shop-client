@@ -18,7 +18,7 @@ export class ProductService{
 
 
     public product: BehaviorSubject<Product>;
-    
+
     public lastProducts: BehaviorSubject<boolean>;
 
     public updateProducts: BehaviorSubject<boolean>;
@@ -29,7 +29,7 @@ export class ProductService{
 
     public updateProductFeatures: BehaviorSubject<boolean>;
 
-    
+
     constructor(private http: HttpClient){
         this.lastProducts =  new BehaviorSubject<boolean>(false);
         this.updateProducts = new BehaviorSubject<boolean>(false);
@@ -45,7 +45,7 @@ export class ProductService{
        return this.http.get<Product[]>(API_URL + 'products');
     }
 
-    
+
 
     getSimilarProducts(productId: number, categoryName: string):Observable<Product[]>{
         return this.http.get<Product[]>(API_URL + 'products/similarProducts/' + productId + '/' + categoryName);
@@ -55,7 +55,7 @@ export class ProductService{
         return this.http.get<Product[]>(API_URL + 'products/filterByPrice');
     }
     createProduct(product: Product, notify: boolean){
-        
+
         return this.http.post(API_URL + 'products/createProduct/' + notify, product, {responseType:'text'});
     }
     deleteProduct(id: number){
@@ -71,7 +71,7 @@ export class ProductService{
     }
 
     getAllCpus(): Observable<Cpu[]>{
-       
+
         return this.http.get<Cpu[]>(API_URL + 'products/cpus');
     }
 
@@ -80,7 +80,7 @@ export class ProductService{
     }
 
     getAllGpus(): Observable<Gpu[]>{
-        
+
         return this.http.get<Gpu[]>(API_URL + 'products/gpus');
     }
 
@@ -137,7 +137,7 @@ export class ProductService{
 
 
     addPromo(product: Product, percent: number, numberOfDays: number, numberOfUses: number){
-    
+
         return this.http.post(API_URL + 'products/createPromo/' + product.id + '/' + percent + '/' + numberOfDays + '/' + numberOfUses, null, {responseType: 'text'});
     }
 
@@ -145,5 +145,10 @@ export class ProductService{
         let paramsToSend = new HttpParams();
         paramsToSend = paramsToSend.append('code', code)
         return this.http.get(API_URL + 'products/checkDiscount/' + productId , {params: paramsToSend, responseType:'text'});
+    }
+    searchProducts(productName:string):Observable<Product[]>{
+      let params = new HttpParams();
+      params = params.append('productName',productName);
+      return this.http.get<Product[]>(API_URL + 'products/searchProducts/', {params:params});
     }
 }

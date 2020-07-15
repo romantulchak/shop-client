@@ -1,12 +1,12 @@
-<div>
+<div style="margin-top: 3em;">
 
-  <app-products [numberOfColumns]="5" [adminLook]="true"></app-products>
-   
+  <app-products [isAdminLook]="true" [pr]="products"></app-products>
+
   <hr>
-  
+
 
   <h1>PROMO CODES</h1>
-  <div *ngFor="let item of product"> 
+  <div *ngFor="let item of products">
     <h3>{{item.productName}}</h3>
     <div *ngFor="let code of item.promotionalCodes">
         <code>

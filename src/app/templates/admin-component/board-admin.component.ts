@@ -10,10 +10,10 @@ import { NotificationService } from '../../service/notification.service';
 })
 export class BoardAdminComponent implements OnInit {
 
-  public product: Product[];
+  public products: Product[];
   public currnetProduct: Product;
   constructor(private productService: ProductService, private notificiationService: NotificationService) { }
-  
+
   ngOnInit() {
     this.getProducts();
   }
@@ -24,7 +24,7 @@ export class BoardAdminComponent implements OnInit {
       res=>{
         console.log(res);
         if(res != null)
-          this.product = res;
+          this.products = res;
       },
       error=>{
         console.log(error);

@@ -147,3 +147,10 @@
     position: relative;
     top: -4em;
 }
+.novelty{
+  font-family: Montserrat-Light;
+  font-weight: 900;
+}
+.novely__all_products{
+  text-align: right;
+}

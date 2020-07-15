@@ -10,7 +10,7 @@
                          </div>
                          <div class="product__price_button">
                              <h3>{{product?.productPrice}} <span>грн</span></h3>
-                             <app-buy-button [currentProduct]="product"></app-buy-button>
+                             <app-buy-button [isDetails]="true" [currentProduct]="product"></app-buy-button>
                              <h5 *ngIf="product?.isGlobalDiscount">{{product?.discountPrice}}</h5>
                          </div>
                     </div>

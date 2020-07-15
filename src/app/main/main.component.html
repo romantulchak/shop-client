@@ -2,6 +2,7 @@
   <div class="">
     <app-carousel [carouselHeight]="100" [slides]="slides"></app-carousel>
 </div>
+
 <div class="categories" >
     <div class="category__card" style="background-image: url({{category.imagePath}});" *ngFor="let category of categories" [routerLink]="['category', category.categoryName]">
         <h2>{{category.categoryName}}</h2>
@@ -10,7 +11,7 @@
         <h2>All</h2>
     </div>
 </div>
-
+<!--
 <button (click)="filterByPrice()">Filter</button>
 <form style="padding: 0.8em;" (ngSubmit)="filterByCategory()">
     <mat-form-field>
@@ -26,7 +27,7 @@
 </form>
 
 <a routerLink="createProduct">Create</a>
-
+-->
 
 <!--
 <div class="products__loading" *ngIf="loading">
@@ -36,8 +37,9 @@
 <section class="filters__products">
 -->
 
-<section>
-    <div class="section__title">
+<section class="novelty">
+  <div class="container">
+      <div class="section__title">
         <h1>Novelty</h1>
     </div>
 
@@ -61,8 +63,12 @@
 
 
     <div class="novely__products" *ngIf="!mainLoading; else lod">
-        <app-products  [numberOfColumns]="5" [pr]="lastTenProducts" [usualLook]="true" ></app-products>
-    </div>
+        <app-products [pr]="lastTenProducts"></app-products>
+       <div class="novely__all_products">
+          <a routerLink="/category/all">All products</a>
+       </div>
+      </div>
+  </div>
 </section>
 
 
@@ -86,7 +92,7 @@
         <h1>MOST Most Purchased</h1>
     </div>
     <div class="novely__products">
-        <app-products [numberOfColumns]="4" [pr]="productsToComponent" [topFiveLook]="true"></app-products>
+        <app-products [pr]="productsToComponent" [topFiveLook]="true"></app-products>
     </div>
 </section>
 

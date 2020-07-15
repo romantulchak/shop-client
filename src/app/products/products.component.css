@@ -21,6 +21,7 @@
   background: #fff;
   box-sizing: border-box;
   font-family: Montserrat;
+  position: relative;
 }
 .product:not(:nth-child(4n)){
   border-right: 1px solid #e5e7f2;
@@ -72,17 +73,64 @@
   color: #000;
   transition: .3s ease-in;
 }
-
-.product__price_button > h5{
+.product__price_discount{
+  display: flex;
+}
+.product__price_discount > h5{
   font-size: 18px;
   font-weight: 400;
   margin-left: 5px;
+}
+.product__price_discount>h5:first-child{
+  margin-right: 7px;
+}
+.product__discount{
+  color: var(--discount-color);
+}
+.isGlobalDiscount{
+  text-decoration: line-through;
+  color: #d2d2d2;
+  font-size: 12px;
 }
 .product__price_button{
   display: flex;
   justify-content: space-between;
   align-items: center;
   min-height: 2.5em;
+}
+.product__delete{
+  background: #F44336;
+  right: 30px;
+}
+.product__edit{
+  background: var(--pramiry-color);
+  left: 25px;
+}
+.product__delete_edit{
+  cursor: pointer;
+  border: none;
+  width: 25px;
+  position: absolute;
+  height: 25px;
+  border-radius: 4px;
+  top: -30px;
+  outline: none;
+}
+.delete__icon::before{
+  content: '9';
+}
+.edit__icon::before{
+  content: '~';
+}
+.edit__icon::before, .delete__icon::before{
+  margin: 0;
+  color: #fff;
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 

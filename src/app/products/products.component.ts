@@ -51,17 +51,14 @@ export class ProductsComponent implements OnInit, OnChanges {
   @Input() isCategory: boolean;
   @Input() categoryName: string;
   @Input() numberOfColumns:number = 4;
-  @Input() showButtons = true;
-  @Input() usualLook: boolean = false;
   @Input() topFiveLook: boolean = false;
-  @Input() adminLook: boolean = false;
-
+  @Input() isAdminLook: boolean = false;
 
  // @Input() productOfDayLook: boolean;
   public gridStyle: any = {};
 
 
-
+  @Input() topTenProducts: boolean = false;
 
 
 
@@ -93,22 +90,11 @@ export class ProductsComponent implements OnInit, OnChanges {
   }
 
 
-
-
   setProducts(){
     this.products = this.pr;
     if(this.pr === undefined || this.pr===null){
-      if(this.isCategory === true){
-        this.findByCategory();
-      }else{
         this.findAllProducts();
-      }
-      console.log(this.products);
-
     }
-
-
-
     this.basketService.updateProducts.subscribe(
       res=>{
         if(res === true){
@@ -121,11 +107,7 @@ export class ProductsComponent implements OnInit, OnChanges {
             }
           );
           if(this.pr === undefined){
-            if(this.isCategory === true){
-                this.findByCategory();
-            }else{
                 this.findAllProducts();
-            }
           }
           else{
             this.checkInBasket(this.pr);
@@ -139,14 +121,15 @@ export class ProductsComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(){
-    this.basketService.updateProducts.subscribe(
+    /*this.basketService.updateProducts.subscribe(
       res=>{
         if(res === true){
           this.products = this.pr;
         }
       }
-    );
-    this.findByCategory();
+    );*/
+    this.products = this.pr;
+    //this.findByCategory();
   }
 
   findAllProducts(){
@@ -166,7 +149,7 @@ export class ProductsComponent implements OnInit, OnChanges {
 
     );
   }
-  findByCategory(){
+  /*findByCategory(){
     this.loading = true;
     this.productService.filterByCategory(this.categoryName).subscribe(
       res=>{
@@ -185,7 +168,7 @@ export class ProductsComponent implements OnInit, OnChanges {
       }
 
     );
-  }
+  }*/
 
   checkInBasket(res: Product[]){
     this.productCheck =  this.basketService.sa;
@@ -213,7 +196,7 @@ export class ProductsComponent implements OnInit, OnChanges {
     this.productService.deleteProduct(id).subscribe(
       res=>{
         if(this.isCategory && this.categoryName != null){
-          this.findByCategory();
+        //  this.findByCategory();
         }else{
           this.findAllProducts();
         }

@@ -3,6 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Order } from '../../model/order.model';
 import { Product } from '../../model/product.model';
+import { OrderService } from 'src/app/service/order.service';
 @Component({
   selector: 'app-dialog-search',
   templateUrl: './dialog-search.component.html',
@@ -10,51 +11,32 @@ import { Product } from '../../model/product.model';
 })
 export class DialogSearchComponent implements OnInit {
 
-  public userDetails: any = {
-    name: null,
-    lastName: null,
-    totalPrice: null,
-    statuses: null,
-    identificationNumber: null,
-    //isBeingProcessed: true,
-    //isCompleted: false,
-    //inTransit: false,
-    //atTheDestination: false,
-    //received: false
-  }
+
   public items: Product[];
   public order: Order;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+  public isNotFound:boolean = false;
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private orderService: OrderService) { }
 
   cancelOrder(identificationNumber: string){
     console.log(identificationNumber);
   }
 
   ngOnInit(): void {
-    console.log(this.data);
-    this.order = this.data.data;
-    
-    /*
-    let userData = this.data.data[0];
-    this.userDetails = {
-      name: userData.costumerName,
-      lastName: userData.costumerLastName,
-      totalPrice: userData.totalPrice,
-      statuses: userData.statuses,
-      identificationNumber: userData.identificationNumber
-      //isBeingProcessed: userData.isBeingProcessed,
-      //isCompleted: userData.isCompleted,
-      //inTransit: userData.inTransit,
-      //atTheDestination: userData.atTheDestination,
-      //received: userData.received
+
+    if(this.data != null){
+      this.order = this.data.data;
     }
 
-    //TOOD: зробити через JsonView() на сервері і перебирати через цикл тут.
-
-    this.order = this.data.data;
-    console.log(this.data.data);
-    */
-    
   }
-
+  public search(identificationNumberForSeach:string){
+    this.orderService.findByIdentificationNumber(identificationNumberForSeach.trim()).subscribe(
+      res=>{
+        if(res !=null){
+          this.order = res;
+          this.isNotFound = false;
+        }
+        else this.isNotFound = true;
+      },
+    );
+  }
 }

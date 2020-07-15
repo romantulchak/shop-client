@@ -2,9 +2,12 @@
     <mat-spinner></mat-spinner>
 </div>
 
-<div class="product__grid">
+<div class="product__grid" [ngStyle]="{'grid-template-columns': gridStyle }">
     <ng-container *ngFor="let product of products">
       <div class="product" (mouseleave)="mouseLeave(false, product)" (mouseenter)="mouseEnter(true, product)">
+        <button (click)="deleteProduct(product.id)" *ngIf="isAdmin && isAdminLook" class="product__delete_edit product__delete"><i class="description-delete delete__icon"></i></button>
+        <button (click)="edit(product)" *ngIf="isAdmin && isAdminLook" class="product__delete_edit product__edit"><i class="description-edit edit__icon"></i></button>
+
         <div class="product__top_panel">
           <a href="">{{product?.category?.categoryName}}</a>
           <div class="product__compaer_favorite">
@@ -23,7 +26,10 @@
           </div>
           <div class="product__bottom_panel">
               <div class="product__price_button" *ngIf="!topFiveLook">
-                  <h5>{{product.productPrice}}₴</h5>
+                  <div class="product__price_discount">
+                    <h5 *ngIf="product.isGlobalDiscount" [class.product__discount]="product.isGlobalDiscount">{{product.discountPrice}}₴</h5>
+                    <h5 [class.isGlobalDiscount]="product.isGlobalDiscount">{{product.productPrice}}₴</h5>
+                  </div>
                   <app-buy-button [currentProduct]="product"></app-buy-button>
               </div>
           </div>

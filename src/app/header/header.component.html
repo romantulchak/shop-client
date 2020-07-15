@@ -10,7 +10,7 @@
       </ul>
       <ul class="store__header_ul" id="right__ul">
         <li><a class="description-location store__location" href="">store locator</a></li>
-        <li><a class="description-track store__track_order" href=""> track your order</a></li>
+        <li><a class="description-track store__track_order" (click)="search()"> track your order</a></li>
         <li *ngIf="currentUser == null"><a class="description-account store__my_account" (click)="loginDialog()">my account</a></li>
         <li *ngIf="currentUser != null"><a routerLink="/profile">{{currentUser.firstName | titlecase}} {{currentUser.lastName | titlecase}}</a></li>
         <li *ngIf="currentUser != null" (click)="logout()"><a>Logout</a></li>
@@ -23,10 +23,32 @@
       <h2>Logo</h2>
   </div>
   <div class="store__search">
-    <input type="text" placeholder="Search for Product">
+    <input type="text" placeholder="Search for Product" (input)="searchProduct(productName.value)" #productName>
     <button>
       <i class="description-search store__search_icon"></i>
     </button>
+    <ng-container *ngIf="closeSearchDialog && productName.value.length != 0">
+      <div class="store__search_box" [@showBox]="productName.value.length != 0" *ngIf="products?.length != 0">
+        <ng-container *ngIf="products?.length != 0;">
+          <ng-container *ngFor="let product of products">
+            <div class="search__box_product">
+              <div class="box__product_image">
+                <img [src]="product.image[0].imagePath" alt="">
+              </div>
+             <div class="search__box_product_details">
+                <a class="search__category" routerLink="category/{{product.category.categoryName}}">{{product.category.categoryName}}</a>
+                <a class="search__product_name" routerLink="detailsProduct/{{product.id}}">{{product.productName}}</a>
+               <div class="search__box_price">
+                <h6 *ngIf="product.isGlobalDiscount" [class.product__discount]="product.isGlobalDiscount">{{product.discountPrice}}₴</h6>
+                <h6 [class.isGlobalDiscount]="product.isGlobalDiscount">{{product.productPrice}}₴</h6>
+
+               </div>
+             </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </ng-container>
   </div>
   <div>
     <ul class="store__tools">

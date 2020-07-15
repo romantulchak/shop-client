@@ -36,6 +36,10 @@
     grid-template-columns: 5em 1fr;
     align-items: center;
     margin-bottom: .5em;
+    max-width: 100%;
+}
+.card img{
+  width: 100%;
 }
 .product__price_amount{
     display: grid;

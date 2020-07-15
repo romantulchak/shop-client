@@ -81,7 +81,7 @@
     <div class="order__products">
         <div class="product__card" *ngFor="let item of this.products">
             <div class="card">
-                <img [src]="item.product.image[0].imagePath" height="70em" width="70em" alt="">
+                <img [src]="item.product.image[0].imagePath" alt="{{item.product.productName}}">
                <div class="name__price">
                     <div class="product__name_id">
                         <!--TODO: FIX LINK-->
@@ -94,8 +94,8 @@
                         <h3>{{item.amount * item.currentProductPrice}} <span class="product__symbol">грн</span></h3>
                     </div>
                 </div>
-            </div>   
+            </div>
         </div>
-   </div> 
+   </div>
 </div>
 

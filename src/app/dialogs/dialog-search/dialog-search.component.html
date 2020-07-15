@@ -1,9 +1,10 @@
-<section *ngIf="order != null; else message">
-
+<div *ngIf="order == null">
+  <input type="text" class="track__input" placeholder="Enter your order number.." (change)="search(orderNumber.value)" #orderNumber>
+</div>
+<section *ngIf="order != null;">
     <app-statuses [order]="order" [products]="order.customProducts"></app-statuses>
-
-
 </section>
-<ng-template #message>
-    Not found
-</ng-template>
+
+<div *ngIf="isNotFound">
+  <h1>Pls enter correct order number</h1>
+</div>

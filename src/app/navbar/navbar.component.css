@@ -162,7 +162,7 @@
   max-width: 500px;
   max-height: 500px;
   word-break: break-word;
-  padding: 1em;
+  padding: 2em;
   box-sizing: border-box;
 }
 .store__main_links ul .store__category_subcategories a{
