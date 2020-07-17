@@ -71,3 +71,13 @@ a{
 a:hover{
   color: var(--links-color-hover);
 }
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  opacity: 0 !important;
+  background-color: #422873 !important;  }
+
+  .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #422873 !important; }
+
+  .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #422873 !important;  }

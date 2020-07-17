@@ -1,76 +1,113 @@
-
 <div *ngIf="isLoading">
-    <mat-spinner></mat-spinner>
+  <mat-spinner></mat-spinner>
 </div>
+<ng-container  *ngIf="totalPrice != 0">
+  <section *ngIf="!isLoading" class="order__section">
+    <button *ngIf="!tokenStorage.isLoggedIn" (click)="loginDialog()">Login</button>
+    <div class="container">
+      <form (submit)="sendOrder()" class="order__form">
+        <h4>Billing details</h4>
+        <div class="order__firstName_lastName">
+          <div class="order__firstName">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" [(ngModel)]="order.costumerName">
+          </div>
+          <div class="order__lastName">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" [(ngModel)]="order.costumerLastName">
+          </div>
+        </div>
+        <div class="order__email_mobilePhone">
+          <div class="order__email">
+            <label for="orderEmail">Email</label>
+            <input type="email" id="orderEmail" name="email" [(ngModel)]="order.email">
+          </div>
+          <div class="order__mobilePhone">
+            <label for="orderMobilePhone">Mobile Phone</label>
+            <input type="tel" id="orderMobilePhone" [(ngModel)]="order.customerMobilePhone" name="costumerMobilePhone">
+          </div>
+        </div>
+        <div class="order__delivery_type">
 
-<div *ngIf="!isLoading">
 
-<h1 *ngIf="orderNumber != null" style="background-color: brown;">{{orderNumber}}</h1>
-
-<h2>TOTAL PRICE: {{totalPrice}}</h2>
-<div *ngFor="let item of sa">
-    <h4>{{item.id}}</h4>
-    
-    <h1>
-        {{item.productName}}
-        
-    </h1>
-    <div *ngFor="let img of item.images">
-        <img style="width: 4em; height: 4em;" src="{{img.imagePath}}" alt="">
-    </div>
-    <h3>Price: {{item.price}}</h3>
-
-    <h3 >{{item.amount}}</h3>
+            <div class="delivery__type">
+                <mat-radio-button value="1" [checked]="deliveryOffice" (change)="selectDelivery(fromOffice.value)" #fromOffice>From department</mat-radio-button>
+                <mat-radio-button value="2"(change)="selectDelivery(courier.value)" #courier>Courier</mat-radio-button>
+            </div>
 
 
-   
-    
-</div>
 
-<!--
-<button *ngIf="!tokenStorage.isLoggedIn" (click)="loginDialog()">
+            <div class="delivery__fromOffice">
+              <div class="delivery__city">
+                  <label for="deliveryCityOffice">City</label>
+                  <select name="currentCity"  (change)="getNovaPoshtaDepartaments()" [(ngModel)]="currentCity">
+                    <option *ngFor="let city of cities" value="{{city.Description}}">{{city.Description}}</option>
+                  </select>
+              </div>
+              <div class="delivery__department" *ngIf="deliveryOffice && departaments?.length != 0 && currentCity != null">
+                <label for="derliveryDepartment">Department</label>
+                <select  name="currentDepartament"  [(ngModel)]="currentDepartment" (change)="changeDepartament()">
+                  <ng-container *ngFor="let departament of departaments;">
+                    <option value="{{departament | json}}">{{departament.Description}}</option>
+                  </ng-container>
+                </select>
+              </div>
+              <div class="departament_details" *ngIf="department != null && currentDepartment != null">
+                  <div class="departamnet__time">
+                      <h3 *ngIf="department != null">{{department.Description}}</h3>
+                      <div class="schedule">
+                        <div *ngFor="let val of department.Reception|keyvalue">
+                          <h4 class="section__key">{{val.key}}</h4>
+                          <p class="section__value">{{val.value}}</p>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="delivery__courier" *ngIf="deliveryCourier">
+              <div class="delivery__street">
+                <label for="orderStreet">Street</label>
+                <input type="text" id="orderStreet" name="street" [(ngModel)]="customCourierDelivery.costumerStreet">
+              </div>
+              <div class="delivery__house">
+                <label for="orderHouse">House</label>
+                <input type="text" id="orderHouse" name="house" [(ngModel)]="customCourierDelivery.costumerHouse">
+              </div>
+              <div class="delivery__flat">
+                <label for="orderFlat">Flat</label>
+                <input type="text" id="orderFlat" name="flat" [(ngModel)]="customCourierDelivery.costumerFlat">
+              </div>
+              <div class="delivery__postal_code">
+                <label for="orderPostalCode">Postal code</label>
+                <input type="text" id="orderPostalCode" [(ngModel)]="customCourierDelivery.customerPostalCode" name="costumerPostalCode">
+            </div>
+            </div>
 
-    Login
-
-</button>
--->
-<div *ngIf="totalPrice != 0">
-
-    <form (ngSubmit)="sendOrder()" method="POST">
+        </div>
 
         <div>
-            <h2>First name</h2>
-            <input type="text" [(ngModel)]="order.costumerName" name="costumerName">
+          <h1 *ngIf="orderNumber != null" style="background-color: brown;">{{orderNumber}}</h1>
+          <table class="items__result">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of sa">
+                <td>{{item.productName}}</td>
+                <td>{{item.price}}</td>
+              </tr>
+            </tbody>
+          </table>
+
         </div>
-        <div>
-            <h2>Last name</h2>
-            <input type="text" [(ngModel)]="order.costumerLastName" name="costumerLastName">
-        </div>
-        <div>
-            <h2>City</h2>
-            <input type="text" [(ngModel)]="order.costumerCity" name="costumerCity">
-        </div>
-        <div>
-            <h2>Address</h2>
-            <input type="text" [(ngModel)]="order.costumerAddress" name="costumerAddress">
-        </div>
-        <div>
-            <h2>Postal code</h2>
-            <input type="number" [(ngModel)]="order.customerPostalCode" name="costumerPostalCode">
-        </div>
-        <div>
-            <h2>Mobile Phone</h2>
-            <input type="tel" [(ngModel)]="order.customerMobilePhone" name="costumerMobilePhone">
-        </div>
-        <div>
-            <h2>Email</h2>
-            <input type="email" [(ngModel)]="order.email" name="email">
-        </div>
+
         <button type="submit">Buy</button>
+      </form>
+    </div>
 
+  </section>
+</ng-container>
 
-    </form>
-
-</div>
-
-</div>

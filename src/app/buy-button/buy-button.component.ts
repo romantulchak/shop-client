@@ -49,7 +49,7 @@ export class BuyButtonComponent implements OnInit, AfterContentInit {
           }
         });
       }
-     }, 100);
+     }, 500);
   }
   addToCart(product: Product){
     this.currentProduct = product;

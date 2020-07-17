@@ -1,0 +1,89 @@
+@font-face{
+  font-family: Montserrat;
+  src: url('../../assets/fonts/Montserrat.woff2');
+}
+input[type="text"], input[type="email"], input[type="tel"], select{
+  margin: 0 0 14px;
+    padding: 16px 24px 15px;
+    font-family: Montserrat;
+    font-size: 12px;
+    line-height: 18px;
+    color: #787878;
+    background-color: transparent;
+    border: 1px solid #e5e7f2;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus{
+  border-color: #41c4fd;
+}
+.order__section{
+  padding: 2em;
+}
+.order__form{
+display: grid;
+    -webkit-box-pack: center;
+    justify-content: center;
+    max-width: 680px;
+    margin: 0 auto;
+}
+.order__form>h4{
+  margin-bottom: 2em;
+  font-family: Montserrat;
+  letter-spacing: 1px;
+}
+.order__firstName_lastName, .order__email_mobilePhone{
+  display: grid;
+    grid-gap: 2em;
+    grid-template-columns: 20em 20em;
+}
+.order__firstName, .order__lastName, .order__email, .order__mobilePhone, .delivery__city, .delivery__department, .delivery__street, .delivery__house, .delivery__flat, .delivery__postal_code{
+  display: grid;
+}
+.order__firstName > label, .order__lastName> label, .order__email> label,  .order__mobilePhone>label, .delivery__city>label, .delivery__department>label, .delivery__street>label, .delivery__house>label, .delivery__flat>label, .delivery__postal_code > label{
+  margin-bottom: 1em;
+  font-family: Montserrat;
+}
+.delivery__type{
+  margin-bottom: 1em;
+}
+.mat-radio-button{
+  margin-right: 1em;
+}
+select {
+  font-size: 14px;
+}
+select:focus{
+  border-color: #41c4fd;
+}
+.departamnet__time>h3{
+  font-family: sans-serif;
+  margin-bottom: 1em;
+}
+
+.departamnet__time{
+  text-align: center;
+}
+.schedule{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 3em;
+  justify-content: center;
+}
+table{
+  font-family: Montserrat;
+  width: 100%;
+}
+thead{
+  text-align: left;
+}
+th{
+  padding: 14px 0;
+    text-align: left;
+    vertical-align: middle;
+}
+.items__result tr{
+  border: 0;
+    border-bottom: 1px solid #e5e7f2;
+}

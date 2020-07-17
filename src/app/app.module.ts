@@ -63,7 +63,8 @@ import { SingleLookProductComponent } from './single-look-product/single-look-pr
 import { HeaderComponent } from './header/header.component';
 import { BuyButtonComponent } from './buy-button/buy-button.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
-
+import { ShopComponent } from './shop/shop.component';
+import {MatRadioModule} from '@angular/material/radio';
 @NgModule({
   declarations: [
     AppComponent,
@@ -100,7 +101,8 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
     SingleLookProductComponent,
     HeaderComponent,
     BuyButtonComponent,
-    SubcategoryComponent
+    SubcategoryComponent,
+    ShopComponent
   ],
   imports: [
     BrowserModule,
@@ -125,8 +127,9 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
     MatBadgeModule,
     MatTabsModule,
     MatExpansionModule,
+    MatRadioModule,
     StarRatingModule.forRoot()
-  
+
   ],
   providers: [ProductService,authInterceptorProviders, AuthGuard, RegistrationGuard, WebSocketService],
   bootstrap: [AppComponent]

@@ -8,14 +8,14 @@
               <li *ngFor="let category of categories; let i = index" (mouseenter)="showSubcategories(category)">
                 <div class="icon__category_name">
                   <i class="description-category-icons icon-{{i}}" attr.data-content="{{category.categoryIcon}}"></i>
-                  <a routerLink="category/{{category.categoryName}}">{{category.categoryName}}</a>
+                  <a routerLink="/category/{{category.categoryName}}">{{category.categoryName}}</a>
                 </div>
                 <i *ngIf="category.subcategories.length > 0" class="description-arrow-right icon__arrow"></i>
               </li>
               <ng-container *ngFor="let category of categories">
                 <div [class.subcategories__animation]="showSubcategory" class="store__category_subcategories" *ngIf="currentCategory === category && showSubcategory">
                   <ng-container *ngFor="let subcategory of category.subcategories">
-                    <a routerLink="category/{{subcategory.subcategoryName}}">{{subcategory.subcategoryName}}</a>
+                    <a routerLink="/category/{{subcategory.subcategoryName}}">{{subcategory.subcategoryName}}</a>
                   </ng-container>
               </div>
               </ng-container>

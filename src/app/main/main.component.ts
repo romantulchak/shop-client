@@ -239,6 +239,7 @@ export class MainComponent implements OnInit {
       res=>{
         if(res != null){
           if(this.childComp){
+
             this.childComp.filterCategory(res);
           }else{
             alert('Something wrong')

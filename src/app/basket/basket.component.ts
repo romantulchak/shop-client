@@ -8,6 +8,9 @@ import { FormGroup } from '@angular/forms';
 import { TokenStorageService } from '../service/token-storage.service';
 import { User } from '../model/user.model';
 import { DialogService } from '../service/dialog.service';
+import { NovaPoshtaService } from '../service/novaPoshta.service';
+import { CustomCourier } from '../model/customCourier.model';
+import { CustomPostOffice } from '../model/customPostOffice.model';
 
 @Component({
   selector: 'app-basket',
@@ -25,36 +28,42 @@ export class BasketComponent implements OnInit {
   public user: User;
   public isLoading = true;
 
+  public cities: any[];
+  public deliveryOffice:boolean = true;
+  public deliveryCourier:boolean;
+  public currentCity:any;
+  public departaments: any[];
+  public currentDepartment: any;
+  public department:any;
 
-
+  public customCourierDelivery: CustomCourier = new CustomCourier();
   public order: Order = {
     id: null,
     items: [],
     email: null,
     statuses: null,
     costumerAddress: null,
-    costumerCity: null,
     costumerLastName: null,
     costumerName: null,
     customerMobilePhone: null,
-    customerPostalCode: null,
     totalPrice: null,
-    user: new User()
+    user: new User(),
+    costumerCourier: null,
+    customPostOffice: null
   }
 
-  constructor(private dialogService: DialogService, private basketService: BasketService, private productService: ProductService, private orderService: OrderService, public tokenStorage: TokenStorageService) {}
+  constructor(private dialogService: DialogService, private basketService: BasketService, private productService: ProductService, private orderService: OrderService, public tokenStorage: TokenStorageService, private novaPoshtaService: NovaPoshtaService) {}
 
   ngOnInit(): void {
 
       this.basketUpdate();
 
       this.basketService.updateOrder.subscribe(
-
         res=>{
           this.isLoading = true;
           if(res === true){
-
             this.price();
+
             setTimeout(() => {
               this.isLoading = false;
             }, 500);
@@ -74,6 +83,9 @@ export class BasketComponent implements OnInit {
       }, 500);
       this.autoComplete(isLoggedIn);
   }
+  loginDialog(){
+    this.dialogService.loginDialog();
+  }
 
 
   autoComplete(isLoggedIn: boolean){
@@ -84,15 +96,27 @@ export class BasketComponent implements OnInit {
       this.order.user.email = this.user.email;
       this.order.costumerName = this.user.firstName;
       this.order.costumerLastName = this.user.lastName;
-      this.order.costumerCity = this.user.city;
       this.order.costumerAddress = this.user.address;
-      this.order.customerPostalCode = this.user.postalCode;
       this.order.customerMobilePhone = this.user.mobilePhone;
       this.order.email = this.user.email;
     }
   }
 
+  public selectDelivery(type: string){
+    switch(type){
+      case "1":
+        this.deliveryOffice = true;
+        this.deliveryCourier = false;
+        break;
+      case "2":
 
+        this.deliveryOffice = false;
+        this.deliveryCourier = true;
+        this.currentDepartment = null;
+        this.department = null;
+        break;
+    }
+  }
 
 /*
   getProductsFromDb(){
@@ -129,6 +153,8 @@ export class BasketComponent implements OnInit {
         res=>{
           if(res != null)
             this.totalPrice = res;
+
+            this.getNovaPoshtaCities();
         }
       );
     }, 500);
@@ -149,9 +175,14 @@ export class BasketComponent implements OnInit {
       el.showButton = false;
     });
     this.order.totalPrice = this.totalPrice;
-    this.orderService.createOrder(this.order).subscribe(
-      res=>{
-        if(res != null){
+      this.order.costumerCourier = this.customCourierDelivery;
+    if(this.deliveryCourier){
+      this.order.costumerCourier.costumerCity = this.currentCity;
+    }else if(this.deliveryOffice){
+      this.order.customPostOffice = new CustomPostOffice(this.department.Description, this.department.CityDescription);
+    }
+      this.orderService.createOrder(this.order).subscribe(
+        res=>{
           this.orderNumber = res;
           console.log(res);
           this.showOrderForm = false;
@@ -159,15 +190,39 @@ export class BasketComponent implements OnInit {
           localStorage.setItem('product', JSON.stringify(this.sa));
           this.basketService.productsAfterRemove.next(this.sa);
           this.basketService.count.next(this.sa.length);
-          //this.basketService.updateProducts.next(true);
           this.basketService.totalPrice.next(0);
           this.price();
-
         }
-      }
+      );
 
-    );
+
   }
 
+  private getNovaPoshtaCities(){
+    this.novaPoshtaService.getCities().then(
+      res=>{
+        return res.json();
+      }
+    ).then(
+      res=>{
+        this.cities = res.data;
+      }
+    );
+  }
+  public getNovaPoshtaDepartaments(){
 
+    this.novaPoshtaService.getNovaPoshtaDepartaments(this.currentCity).then(
+      res=>{
+        return res.json();
+      }
+    ).then(
+      res=>{
+        this.departaments = res.data;
+        this.department = this.departaments[0];
+      }
+    );
+  }
+  public changeDepartament(){
+    this.department  = JSON.parse(this.currentDepartment);
+  }
 }

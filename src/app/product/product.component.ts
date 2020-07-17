@@ -18,6 +18,8 @@ export class ProductComponent implements OnInit {
   constructor(private activeRoute: ActivatedRoute, private productService: ProductService, private basketService: BasketService) {
     activeRoute.params.subscribe(
       res=>{
+        console.log(res);
+
         this.findByCategory(res.categoryName);
 
       }
