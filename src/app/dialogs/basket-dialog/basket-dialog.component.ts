@@ -183,7 +183,13 @@ export class BasketDialogComponent implements OnInit {
           this.price();
           this.basketService.totalPrice.next(this.totalPrice);
         }else{
-          product.amount = res;
+          console.log('THIS');
+
+          if(res >= 99){
+            product.amount = 99;
+          }else{
+            product.amount = res;
+          }
           product.totalProducPrice = product.amount * product.price;
           this.updateItem(product);
           this.price();

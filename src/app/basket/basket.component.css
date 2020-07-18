@@ -2,6 +2,10 @@
   font-family: Montserrat;
   src: url('../../assets/fonts/Montserrat.woff2');
 }
+@font-face{
+  font-family: Montserrat-Light;
+  src: url('../../assets/fonts/Montserrat-Regular.ttf');
+}
 input[type="text"], input[type="email"], input[type="tel"], select{
   margin: 0 0 14px;
     padding: 16px 24px 15px;
@@ -20,13 +24,41 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus{
 }
 .order__section{
   padding: 2em;
+  font-family: Montserrat;
+}
+.order__login{
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2em;
+  border-bottom: 1px solid #e5e7f2;
+  padding: 1em;
+  color: var(--pramiry-color);
+}
+.order__login > h3{
+  align-self: center;
+}
+.order__login > button{
+    border: none;
+    box-sizing: border-box;
+    width: 5em;
+    border-radius: 4px;
+    height: 3em;
+    background: cornflowerblue;
+    color: #fff;
+    font-weight: 900;
+    cursor: pointer;
+    letter-spacing: 1px;
+
+  transition: .2s ease-in;
+}
+.form__validation_error{
+  margin-bottom: 1em;
 }
 .order__form{
-display: grid;
-    -webkit-box-pack: center;
-    justify-content: center;
-    max-width: 680px;
-    margin: 0 auto;
+  display: grid;
+  justify-content: center;
+  max-width: 680px;
+  margin: 0 auto;
 }
 .order__form>h4{
   margin-bottom: 2em;
@@ -68,22 +100,85 @@ select:focus{
 .schedule{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 3em;
+  grid-template-rows: 5em;
   justify-content: center;
 }
+.schedule div > h4{
+  color: #272626;
+}
+.schedule div {
+  font-family: Montserrat;
+}
 table{
+  margin-top: 1em;
   font-family: Montserrat;
   width: 100%;
+  border-collapse: collapse;
 }
 thead{
   text-align: left;
 }
-th{
+td,th{
   padding: 14px 0;
-    text-align: left;
-    vertical-align: middle;
+  border-bottom: 1px solid #e5e7f2;
+  text-align: left;
+  vertical-align: middle;
 }
-.items__result tr{
-  border: 0;
-    border-bottom: 1px solid #e5e7f2;
+.order__items td{
+  font-size: 14px;
+  font-family: Montserrat-Light;
+  color: #787878;
+}
+.table__items_title{
+  color: #3a3636;
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+.order__buy_btn{
+  width: 10em;
+  border-radius: 2em;
+  border: none;
+  background: #5677fc;
+  padding: 13px 31px;
+  outline: none;
+  white-space: nowrap;
+  color: #fff;
+  margin-top: 2em;
+  justify-self: end;
+  font-family: Montserrat;
+  cursor: pointer;
+  transition: .2s ease-in;
+  font-size: 14px;
+}
+.order__buy_btn:hover, .order__login > button:hover{
+  background-color: #3e71fa;
+}
+.basket__empty_order_number{
+  font-family: Montserrat;
+  padding: 1em;
+}
+.basket__empty>img{
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 600px;
+}
+.basket__empty > h2{
+  text-align: center;
+  margin-top: 1em;
+  color: #535353;
+  letter-spacing: 1px;
+}
+.basket__empty_description{
+  text-align: center;
+  margin-top: 1em;
+  color: #535353;
+}
+.basket__empty_description p{
+  line-height: 1.5;
+}
+.basket__shop_now{
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }

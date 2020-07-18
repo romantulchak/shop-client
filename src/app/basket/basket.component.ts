@@ -209,9 +209,9 @@ export class BasketComponent implements OnInit {
       }
     );
   }
-  public getNovaPoshtaDepartaments(){
+  public async getNovaPoshtaDepartaments(){
 
-    this.novaPoshtaService.getNovaPoshtaDepartaments(this.currentCity).then(
+   await this.novaPoshtaService.getNovaPoshtaDepartaments(this.currentCity).then(
       res=>{
         return res.json();
       }
@@ -221,6 +221,7 @@ export class BasketComponent implements OnInit {
         this.department = this.departaments[0];
       }
     );
+
   }
   public changeDepartament(){
     this.department  = JSON.parse(this.currentDepartment);

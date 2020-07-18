@@ -1,56 +1,72 @@
 <div *ngIf="isLoading">
   <mat-spinner></mat-spinner>
 </div>
-<ng-container  *ngIf="totalPrice != 0">
-  <section *ngIf="!isLoading" class="order__section">
-    <button *ngIf="!tokenStorage.isLoggedIn" (click)="loginDialog()">Login</button>
+<ng-container *ngIf="!isLoading">
+  <section class="order__section" *ngIf="totalPrice != 0;else basketIsEmpty">
     <div class="container">
-      <form (submit)="sendOrder()" class="order__form">
+      <div *ngIf="!tokenStorage.isLoggedIn" class="order__login">
+        <h3>Do you have an account?</h3>
+        <button (click)="loginDialog()">Login</button>
+      </div>
+      <form #f="ngForm" (ngSubmit)="f.form.valid && sendOrder()" class="order__form">
         <h4>Billing details</h4>
         <div class="order__firstName_lastName">
           <div class="order__firstName">
             <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName" [(ngModel)]="order.costumerName">
+            <input required type="text" id="firstName" name="firstName" #firstName="ngModel" [(ngModel)]="order.costumerName">
+            <div class="form__validation_error" role="alert" *ngIf="f.submitted && firstName.invalid">
+              <h4>First name is required!</h4>
+            </div>
           </div>
           <div class="order__lastName">
             <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" name="lastName" [(ngModel)]="order.costumerLastName">
+            <input required type="text" id="lastName" name="lastName" #lastName="ngModel" [(ngModel)]="order.costumerLastName">
+            <div class="form__validation_error" role="alert" *ngIf="f.submitted && lastName.invalid">
+              <h4>Last Name is required!</h4>
+            </div>
           </div>
         </div>
         <div class="order__email_mobilePhone">
           <div class="order__email">
             <label for="orderEmail">Email</label>
-            <input type="email" id="orderEmail" name="email" [(ngModel)]="order.email">
+            <input type="email" required id="orderEmail" name="email" #email [(ngModel)]="order.email">
+            <div class="form__validation_error" role="alert" *ngIf="f.submitted && email.invalid">
+              <h4>Email is required!</h4>
+            </div>
           </div>
           <div class="order__mobilePhone">
             <label for="orderMobilePhone">Mobile Phone</label>
-            <input type="tel" id="orderMobilePhone" [(ngModel)]="order.customerMobilePhone" name="costumerMobilePhone">
+            <input readonly type="tel" id="orderMobilePhone" #mobilePhone="ngModel" [(ngModel)]="order.customerMobilePhone" name="costumerMobilePhone">
+            <div class="form__validation_error" role="alert" *ngIf="f.submitted && mobilePhone.invalid">
+              <h4>Mobile Phone is required!</h4>
+            </div>
           </div>
         </div>
         <div class="order__delivery_type">
-
-
             <div class="delivery__type">
                 <mat-radio-button value="1" [checked]="deliveryOffice" (change)="selectDelivery(fromOffice.value)" #fromOffice>From department</mat-radio-button>
                 <mat-radio-button value="2"(change)="selectDelivery(courier.value)" #courier>Courier</mat-radio-button>
             </div>
-
-
-
             <div class="delivery__fromOffice">
               <div class="delivery__city">
                   <label for="deliveryCityOffice">City</label>
-                  <select name="currentCity"  (change)="getNovaPoshtaDepartaments()" [(ngModel)]="currentCity">
+                  <select required name="currentCity"  (change)="getNovaPoshtaDepartaments()" [(ngModel)]="currentCity" #city="ngModel">
                     <option *ngFor="let city of cities" value="{{city.Description}}">{{city.Description}}</option>
                   </select>
+                  <div class="form__validation_error" role="alert" *ngIf="f.submitted && city.invalid">
+                    <h4>City is required!</h4>
+                  </div>
               </div>
               <div class="delivery__department" *ngIf="deliveryOffice && departaments?.length != 0 && currentCity != null">
                 <label for="derliveryDepartment">Department</label>
-                <select  name="currentDepartament"  [(ngModel)]="currentDepartment" (change)="changeDepartament()">
+                <select #department required name="currentDepartament"  [(ngModel)]="currentDepartment" (change)="changeDepartament()">
                   <ng-container *ngFor="let departament of departaments;">
                     <option value="{{departament | json}}">{{departament.Description}}</option>
                   </ng-container>
                 </select>
+                <div class="form__validation_error" role="alert" *ngIf="f.submitted && department.invalid">
+                  <h4>Department is required!</h4>
+                </div>
               </div>
               <div class="departament_details" *ngIf="department != null && currentDepartment != null">
                   <div class="departamnet__time">
@@ -67,47 +83,89 @@
             <div class="delivery__courier" *ngIf="deliveryCourier">
               <div class="delivery__street">
                 <label for="orderStreet">Street</label>
-                <input type="text" id="orderStreet" name="street" [(ngModel)]="customCourierDelivery.costumerStreet">
+                <input required #street type="text" id="orderStreet" name="street" [(ngModel)]="customCourierDelivery.costumerStreet">
+                <div class="form__validation_error" role="alert" *ngIf="f.submitted && street.invalid">
+                  <h4>Street is required!</h4>
+                </div>
               </div>
               <div class="delivery__house">
                 <label for="orderHouse">House</label>
-                <input type="text" id="orderHouse" name="house" [(ngModel)]="customCourierDelivery.costumerHouse">
+                <input type="text" id="orderHouse" name="house" required #house [(ngModel)]="customCourierDelivery.costumerHouse">
+                <div class="form__validation_error" role="alert" *ngIf="f.submitted && house.invalid">
+                  <h4>House is required!</h4>
+                </div>
               </div>
               <div class="delivery__flat">
                 <label for="orderFlat">Flat</label>
-                <input type="text" id="orderFlat" name="flat" [(ngModel)]="customCourierDelivery.costumerFlat">
+                <input type="text" id="orderFlat" name="flat" required #flat [(ngModel)]="customCourierDelivery.costumerFlat">
+                <div class="form__validation_error" role="alert" *ngIf="f.submitted && flat.invalid">
+                  <h4>Flat is required!</h4>
+                </div>
               </div>
               <div class="delivery__postal_code">
                 <label for="orderPostalCode">Postal code</label>
-                <input type="text" id="orderPostalCode" [(ngModel)]="customCourierDelivery.customerPostalCode" name="costumerPostalCode">
+                <input type="text" id="orderPostalCode" required #postalCode [(ngModel)]="customCourierDelivery.customerPostalCode" name="costumerPostalCode">
+                <div class="form__validation_error" role="alert" *ngIf="f.submitted && postalCode.invalid">
+                  <h4>Postal code is required!</h4>
+                </div>
+              </div>
             </div>
-            </div>
-
         </div>
-
         <div>
-          <h1 *ngIf="orderNumber != null" style="background-color: brown;">{{orderNumber}}</h1>
-          <table class="items__result">
+         <table class="items__result">
             <thead>
-              <tr>
+              <tr class="table__items_title">
                 <th>Product</th>
                 <th>Total</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of sa">
-                <td>{{item.productName}}</td>
-                <td>{{item.price}}</td>
+              <tr *ngFor="let item of sa" class="order__items">
+                <td>
+                  {{item.productName}}
+                  <strong>×{{item.amount}}</strong>
+                </td>
+                <td>{{item.totalProducPrice}}₴</td>
               </tr>
             </tbody>
+            <tfoot>
+              <tr class="table__items_title">
+                <th>Total</th>
+                <td>
+                  <strong>
+                  <span>{{totalPrice}}₴</span>
+                </strong>
+              </td>
+              </tr>
+            </tfoot>
           </table>
-
         </div>
-
-        <button type="submit">Buy</button>
+        <button class="order__buy_btn" type="submit">Place Order</button>
       </form>
     </div>
-
   </section>
 </ng-container>
 
+
+<ng-template #basketIsEmpty>
+  <div class="container">
+    <div class="basket__empty_order_number">
+      <div *ngIf="sa.length == 0 && orderNumber == null;else successfulBuy" class="basket__empty">
+        <h2>Your cart is empty</h2>
+        <div class="basket__empty_description">
+          <p>You have no items in your shopping cart.</p>
+          <p>Let's go buy something!</p>
+        </div>
+        <img src="../../assets/img/basketIsEmpty.gif" />
+       <div class="basket__shop_now">
+          <a routerLink="/" class="order__buy_btn">Shop Now</a>
+       </div>
+      </div>
+      <ng-template #successfulBuy>
+        <h1 *ngIf="orderNumber != null">Your order number: {{orderNumber}}</h1>
+      </ng-template>
+    </div>
+
+  </div>
+
+</ng-template>

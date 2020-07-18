@@ -24,7 +24,7 @@
               </div>
               <div class="item__amount">
                 <button [disabled]="product.amount == 1" class="control__buttons button__minus" (click)="minusAmount(product)"></button>
-                <input type="number" (change)="updateAmount(product,f.value )" min="1" max="99" #f [(ngModel)]="product.amount" width="2em">
+                <input type="number" (change)="updateAmount(product,f.value )" min="1" max="99" #f [(ngModel)]="product.amount">
                 <button class="control__buttons button__plus" (click)="plusAmount(product)"></button>
               </div>
               <div class="item__total_price">

@@ -30,7 +30,7 @@ export class NovaPoshtaService{
       });
 
     }
-    getNovaPoshtaDepartaments(cityName:string): Promise<Response>{
+     getNovaPoshtaDepartaments(cityName:string): Promise<Response>{
       let obj = {
         modelName: "AddressGeneral",
         calledMethod: "getWarehouses",
