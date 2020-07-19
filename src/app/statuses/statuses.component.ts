@@ -18,8 +18,9 @@ export class StatusesComponent implements OnInit {
   ngOnInit(): void {
     if(this.products === null){
       this.products = this.order.customProducts;
-      console.log(this.products);
     }
+    console.log(this.order);
+
   }
 
 }

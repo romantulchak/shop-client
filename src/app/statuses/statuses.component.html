@@ -3,14 +3,11 @@
         <div class="customer__card">
             <div class="customer__titles">
                 <h3>Name and Surname:</h3>
-                <h3>City:</h3>
-                <h3>Address:</h3>
                 <h3>Phone number</h3>
                 <h3>Email</h3>
             </div>
             <div class="customer__info">
                 <h3>{{order.costumerName | titlecase}} {{order.costumerLastName | titlecase}} </h3>
-                <h3>{{order.costumerAddress}}</h3>
                 <h3>{{order.customerMobilePhone}}</h3>
                 <h3>{{order.email}}</h3>
             </div>
@@ -83,7 +80,6 @@
                 <img [src]="item.product.image[0].imagePath" alt="{{item.product.productName}}">
                <div class="name__price">
                     <div class="product__name_id">
-                        <!--TODO: FIX LINK-->
                         <a routerLink="detailsProduct/{{item.product.id}}">{{item.product.productName}}</a>
                         <span>№{{item.product.id}}</span>
                     </div>

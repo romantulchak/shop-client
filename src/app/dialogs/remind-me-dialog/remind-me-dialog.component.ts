@@ -20,13 +20,14 @@ export class RemindMeDialogComponent implements OnInit {
   public remindMe: RemindMe = new RemindMe();
 
   public user: User;
-
+  public products: Product[] = [];
   ngOnInit(): void {
-    
+
     this.user = this.userService.getUser();
     if(this.user != null){
       this.remindMe.email = this.user.email;
     }
+    this.products.push(this.product);
     this.remindMe.product = this.product;
 
   }
@@ -36,6 +37,10 @@ export class RemindMeDialogComponent implements OnInit {
     this.remindMeService.createRemindMe(this.remindMe).subscribe(
       res=>{
         this.notificiationService.success(res);
+      },
+      error=>{
+        this.notificiationService.error(error.error);
+
       }
 
     );

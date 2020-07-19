@@ -2,7 +2,7 @@
     <mat-spinner></mat-spinner>
 </div>
 
-<div class="product__grid" [ngStyle]="{'grid-template-columns': gridStyle }">
+<div class="product__grid" [ngStyle]="gridStyle">
     <ng-container *ngFor="let product of products">
       <div class="product" (mouseleave)="mouseLeave(false, product)" (mouseenter)="mouseEnter(true, product)">
         <button (click)="deleteProduct(product.id)" *ngIf="isAdmin && isAdminLook" class="product__delete_edit product__delete"><i class="description-delete delete__icon"></i></button>

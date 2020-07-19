@@ -1,10 +1,18 @@
-
-<h1>Enter your email</h1>
-<form (ngSubmit)="createRemindMe()">
-    
-    <div>
-        <h2>Email</h2>
-        <input type="email" name="email" [(ngModel)]="remindMe.email">
-    </div>
-    <button type="submit">Ok</button>
-</form>
+<section class="remind__me_section">
+  <div class="remind__me_grid">
+      <div class="remind__me_image">
+        <app-products [pr]="products" [topFiveLook]="true" [numberOfColumns]="1"></app-products>
+      </div>
+      <div class="remind__me_text">
+        <h3>Subscribe</h3>
+        <p>Lend us your e-mail and we'll keep you in touch on our product launch. And we promise <strong>no</strong> spam!</p>
+        <form (ngSubmit)="f.form.valid  && createRemindMe()" #f="ngForm">
+          <div class="remind__me_email">
+              <input type="email" id="email" required #email="ngModel" name="email" [(ngModel)]="remindMe.email">
+              <button type="submit">Ok</button>
+            </div>
+          <div class="alert form__validation_error" role="alert" *ngIf="f.submitted && email.invalid"><h4>Email is required!</h4></div>
+        </form>
+      </div>
+  </div>
+</section>

@@ -15,7 +15,7 @@ export class DialogService{
 
 
     constructor(private dialog: MatDialog){}
-    
+
     public loginDialog(){
         this.dialog.open(LoginDialogComponent, {
             panelClass: 'dialog__login'
@@ -28,18 +28,19 @@ export class DialogService{
         });
     }
     public editProductDialog(product: Product): MatDialogRef<EditProductDialogComponent>{
-          
+
     const dialog = this.dialog.open(EditProductDialogComponent, {
         data: product.id
       });
-      
+
      return dialog;
-      
+
     }
 
   remindMeDiaglog(product: Product){
     this.dialog.open(RemindMeDialogComponent, {
-      data: product
+      data: product,
+      panelClass:'remind__me_dialog'
     })
   }
 

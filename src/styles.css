@@ -88,3 +88,10 @@ a:hover{
   font-family: sans-serif;
   font-size: 14px;
 }
+.remind__me_dialog{
+  width: 930px;
+  height: 400px;
+}
+.remind__me_dialog mat-dialog-container{
+  padding: 0.4em;
+}
