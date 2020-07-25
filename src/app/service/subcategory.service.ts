@@ -17,9 +17,10 @@ export class SubcategoryService{
   }
   createSubcategory(subcategory:Subcategory, sections:any){
     subcategory.sections = sections;
-    console.log(subcategory);
-
     let paramsToSend = new HttpParams();
     return this.http.post(API_URL + 'subcategory/createSubcategory', subcategory,{responseType:'text', params: paramsToSend })
+  }
+  getSubactegoriesByCategoryName(categoryName:string):Observable<Subcategory[]>{
+    return this.http.get<Subcategory[]>(API_URL + 'subcategory/getSubcategoriesByCategory/' + categoryName);
   }
 }

@@ -4,6 +4,10 @@
   font-family: dripicons-v2;
   src: url('assets/fonts/dripicons-v2.woff');
 }
+@font-face{
+  font-family: Montserrat;
+  src: url('assets/fonts/Montserrat.woff2');
+}
 *{
     margin: 0;
     padding: 0;
@@ -85,7 +89,8 @@ a:hover{
 }
 .form__validation_error h4{
   color: red;
-  font-family: sans-serif;
+  font-family: Montserrat, sans-serif;
+  letter-spacing: 1px;
   font-size: 14px;
 }
 .remind__me_dialog{
@@ -94,4 +99,30 @@ a:hover{
 }
 .remind__me_dialog mat-dialog-container{
   padding: 0.4em;
+}
+.pagination{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.pagination li{
+  border: 1px solid var(--pramiry-color);
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: .3s ease;
+}
+.active__page:hover{
+  color: #fff;
+  border-radius: 4px;
+}
+
+.pagination li a{
+  padding: .5em;
+  display: block;
+}
+.active__page{
+  color: white;
+  background: #4976ca;
+  font-weight: 900;
 }

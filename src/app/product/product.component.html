@@ -1,10 +1,19 @@
 <section>
-<div>
+<div class="products__category_grid">
   <div>
     Sort
   </div>
   <div class="products" style="padding: 5em;">
-    <app-products [isCategory]="true" [pr]="products"></app-products>
+    <app-products [isCategory]="true" [categoryName]="categoryName" [pr]="productDTO?.productDTOS"></app-products>
+
+    <div>
+      <h2>TUTAJ</h2>
+      <ul class="pagination">
+         <li *ngFor="let item of totalPages; let i = index">
+            <a [class.active__page]="i === page" (click)="setPage(i, $event)">{{i}}</a>
+         </li>
+      </ul>
+    </div>
   </div>
 </div>
 

@@ -1,3 +1,41 @@
 <footer>
-    <h2>Footer</h2>
+    <div class="footer__grid">
+      <div class="footer__left_section">
+        <div class="footer__know_us">
+          <h4>Get to Know Us</h4>
+          <ul class="footer__ul">
+            <li><a href="">About us</a></li>
+            <li><a href="">Our Services</a></li>
+            <li><a href="">Stores</a></li>
+            <li><a href="">Contact Us</a></li>
+            <li><a href="">Order Tracking</a></li>
+          </ul>
+        </div>
+        <div class="footer__customer">
+          <h4>Customer Service</h4>
+          <ul class="footer__ul">
+            <li><a href="">My account</a></li>
+            <li><a href="">Order Tacking</a></li>
+            <li><a href="">Pricing Plans</a></li>
+            <li><a href="">Terms & Conditions</a></li>
+            <li><a href="">Our team</a></li>
+            <li><a href="">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__newsletter">
+        <h4>Sign up to Newsletter</h4>
+        <form (ngSubmit)="f.form.valid  && subscribe()" #f="ngForm">
+          <div class="newsletter__form">
+            <input type="email" required  name="email" #email="ngModel" [(ngModel)]="subscribtion.email" placeholder="Your Email Address...">
+            <input type="submit" value="&" class="subscribe__btn">
+          </div>
+          <div class="alert form__validation_error" role="alert" *ngIf="f.submitted && email.invalid"><h4>Email is required!</h4></div>
+       </form>
+      </div>
+
+
+
+
+    </div>
 </footer>

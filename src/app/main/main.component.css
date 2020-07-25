@@ -78,11 +78,12 @@
 }
 
 .categories{
-    display: grid;
-    grid-template-columns: repeat(3, 18em);
-    grid-gap: 1em;
-    padding: 2em;
-    justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 15em);
+  grid-gap: 1em;
+  padding: 2em;
+  -webkit-box-pack: center;
+  justify-content: center;
 }
 .category__card_all{
     background-image: url('../../assets/img/all.jpg');

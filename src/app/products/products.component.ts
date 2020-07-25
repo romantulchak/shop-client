@@ -48,6 +48,7 @@ export class ProductsComponent implements OnInit, OnChanges {
   public gpus: Gpu[];
   public visitedProductsArray: Product[] = [];
 
+  @Input() showPagination:boolean = false;
   @Input() isCategory: boolean;
   @Input() categoryName: string;
   @Input() numberOfColumns:number = 4;
@@ -87,6 +88,7 @@ export class ProductsComponent implements OnInit, OnChanges {
     this.gridStyle={
       'grid-template-columns': `repeat(${this.numberOfColumns}, 1fr)`
     }
+
   }
 
 
@@ -121,15 +123,7 @@ export class ProductsComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(){
-    /*this.basketService.updateProducts.subscribe(
-      res=>{
-        if(res === true){
-          this.products = this.pr;
-        }
-      }
-    );*/
     this.products = this.pr;
-    //this.findByCategory();
   }
 
   findAllProducts(){
@@ -314,14 +308,13 @@ export class ProductsComponent implements OnInit, OnChanges {
 
   getAllBrands(){
     this.brandService.getAllBrands().subscribe(
-
       res=>{
         if (res != null) {
           this.brands = res;
         }
-
       }
-
     );
   }
+
+
 }

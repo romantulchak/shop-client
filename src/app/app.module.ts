@@ -65,6 +65,7 @@ import { BuyButtonComponent } from './buy-button/buy-button.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { ShopComponent } from './shop/shop.component';
 import {MatRadioModule} from '@angular/material/radio';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -102,7 +103,7 @@ import {MatRadioModule} from '@angular/material/radio';
     HeaderComponent,
     BuyButtonComponent,
     SubcategoryComponent,
-    ShopComponent
+    ShopComponent,
   ],
   imports: [
     BrowserModule,

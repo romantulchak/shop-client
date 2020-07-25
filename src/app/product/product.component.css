@@ -1,0 +1,4 @@
+.products__category_grid{
+  display: grid;
+    grid-template-columns: 15em 1fr;
+}

@@ -6,6 +6,7 @@ import { Category } from '../model/category.model';
 import {environment} from '../../environments/environment';
 import { Cpu } from '../model/cpu.model';
 import { Gpu } from '../model/gpu.model';
+import { ProductDTO } from '../model/productDTO.model';
 
 
 
@@ -28,7 +29,6 @@ export class ProductService{
     public updateProductAfterReload: BehaviorSubject<boolean>;
 
     public updateProductFeatures: BehaviorSubject<boolean>;
-
 
     constructor(private http: HttpClient){
         this.lastProducts =  new BehaviorSubject<boolean>(false);
@@ -106,10 +106,10 @@ export class ProductService{
     setGlobalDiscount(product: Product, percent: number, notify: boolean){
         return this.http.put(API_URL + 'products/setDiscountPrice/' + percent + '/' + notify, product, {responseType: 'text'});
     }
-    filterByCategory(categoryNamy: string): Observable<Product[]>{
+    filterByCategory(categoryNamy: string, page: number): Observable<ProductDTO>{
         let paramsToSend = new HttpParams();
-        paramsToSend = paramsToSend.append('categoryName', categoryNamy);
-        return this.http.get<Product[]>(API_URL + 'products/filterByCategory/', {params: paramsToSend})
+        paramsToSend = paramsToSend.append('categoryName', categoryNamy).append('page', page.toString());
+        return this.http.get<ProductDTO>(API_URL + 'products/filterByCategory', {params: paramsToSend})
     }
     getLastTenProducts(): Observable<Product[]>{
         return this.http.get<Product[]>(API_URL + 'products/lastTenProducts');

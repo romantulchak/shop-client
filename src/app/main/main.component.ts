@@ -43,8 +43,6 @@ export class MainComponent implements OnInit {
   ]
 
 
-  public subscribtion: Subscription = new Subscription();
-
 
   public lastTenProducts: Product[];
 
@@ -235,7 +233,7 @@ export class MainComponent implements OnInit {
   }
 
   filterByCategory(){
-    this.productService.filterByCategory(this.category.categoryName).subscribe(
+    this.productService.filterByCategory(this.category.categoryName, 0).subscribe(
       res=>{
         if(res != null){
           if(this.childComp){
@@ -280,19 +278,5 @@ export class MainComponent implements OnInit {
 
     );
   }
-  subscribe(email: string){
-    let userId = null;
-    if(this.toketnSerivce.currentUser != null){
-     userId = this.toketnSerivce.currentUser.id;
-    }
-    this.subscribtion.email = email;
-    console.log(this.subscribtion);
-    this.subscriptionService.follow(this.subscribtion, userId).subscribe(
 
-      res=>{
-        this.notificationService.success(res);
-      }
-
-    );
-  }
 }

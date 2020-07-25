@@ -2,25 +2,7 @@
     font-family: ArialRegular;
     src: url("../../../../assets/fonts/Arial.ttf");
 }
-.pagination{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-.pagination li{
-    border: 1px solid #4976ca;
-    border-radius: 4px;
-    margin-right: 10px;
-}
-.pagination li a{
-    padding: .5em;
-    display: block;
-}
-.active__page{
-    color: white;
-    background: #4976ca;
-    font-weight: 900;
-}
+
 .grid__opinion{
     display: grid;
     grid-template-columns: 3fr 1fr;

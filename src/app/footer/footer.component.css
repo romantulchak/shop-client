@@ -1,8 +1,100 @@
+@font-face{
+  font-family: Montserrat;
+  src: url('../../assets/fonts/Montserrat.woff2');
+}
+@font-face{
+font-family: Montserrat-Light;
+src: url('../../assets/fonts/Montserrat-Light.ttf');
+}
 footer{
-    height: 4em;
+    background: #000;
+}
+.footer__grid{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 53px 0;
+  max-width: 1070px;
+  margin: 0 auto;
+  font-family: Montserrat-Light;
+}
+.footer__left_section{
+  display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 60%;
+}
+.footer__ul li{
+  padding: 4px 0;
+  width: max-content;
+}
+.footer__ul li a{
+  color: #fff;
+}
+.footer__know_us > h4, .footer__customer > h4, .footer__newsletter > h4{
+  color: #fff;
+  margin: 0 0 15px;
+}
+
+.footer__ul li a::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: var(--pramiry-color);
+  transition: width .3s;
+}
+.footer__ul li a:hover::after {
+  width: 100%;
+}
+.subscribe__btn{
+  font-weight: 500;
+    width: 50px;
+    height: 50px;
+    line-height: normal;
+    font-size: 20px;
+    background-color: #5677fc;
+    color: #fbfbfc;
+    font-family: dripicons-v2!important;
     text-align: center;
-    color: #fff;
-    display: grid;
-    background: brown;
-    align-items: center;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 0;
+    margin-top: 0;
+    transition: .2s ease-in-out;
+}
+.subscribe__btn:hover{
+  background-color: #3e71fa;
+}
+.newsletter__form{
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.newsletter__form > input[type="email"]{
+  height: 50px;
+  box-sizing: border-box;
+  padding: 0 0 0 20px;
+  background-color: rgba(34,34,37,.3);
+  line-height: 50px;
+  outline: 0;
+  margin: 0;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  text-transform: none;
+  -webkit-appearance: none;
+  border: 1px solid var(--pramiry-color);
+  border-right: none;
+  color: #fff;
+  -webkit-transition: all .15s ease-in-out;
+  -moz-transition: all .15s ease-in-out;
+  transition: all .15s ease-in-out;
+}
+.newsletter__form > input[type="email"]:focus{
+  color: #000;
+  background-color: #fff;
+  border-color: #41c4fd;
 }
