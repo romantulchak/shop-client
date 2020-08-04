@@ -21,6 +21,7 @@ import { CategoryComponent } from './category/category.component';
 import { CreateProductComponent } from './product/create-product/create-product.component';
 import { BrandComponent } from './brand/brand.component';
 import { ShopComponent } from './shop/shop.component';
+import { AdminDashboardComponent } from './templates/admin-component/admin-dashboard/admin-dashboard.component';
 
 
 const routes: Routes = [
@@ -64,7 +65,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data:{role: 'ROLE_ADMIN'},
     children:[
-
+      {path: '',  redirectTo:'dashboard',pathMatch: 'full'},
+      {path: 'dashboard', component:AdminDashboardComponent, canActivate:[AuthGuard], data: {role: 'ROLE_ADMIN'}},
       {path:'subcategory', component:SubcategoryComponent,canActivate: [AuthGuard],data:{role: 'ROLE_ADMIN'}},
       { path: 'gpus', component: GpuComponent,
       canActivate: [AuthGuard],

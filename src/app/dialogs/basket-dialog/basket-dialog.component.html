@@ -5,9 +5,11 @@
   <div class="store__basket_title">
     <h3>Shopping Cart</h3>
   </div>
+
+  <ng-container *ngIf="sa.length != 0; else empty">
   <div class="store__basket">
+
       <div class="store__items" *ngIf="!loading">
-       <ng-container *ngIf="sa.length != 0; else empty">
         <ng-container *ngFor="let product of sa">
           <div class="store__item">
               <div class="item__remove">
@@ -35,9 +37,9 @@
               </div>
             </div>
           </ng-container>
-       </ng-container>
       </div>
   </div>
+</ng-container>
   <div *ngIf="sa.length != 0" class="store__total_price">
     <div class="total__price_buy">
       <div class="total__price">
@@ -48,54 +50,10 @@
     </div>
   </div>
 </section>
-<!--
-<div class="basket" *ngIf="!loading">
-    <div class="basket__title_button">
-        <h2>Shopping cart</h2>
-        <span>X</span>
-    </div>
-<div class="basket__grid">
-    <div class="basket__item" *ngFor="let item of sa">
-        <div class="basket__image">
-            <img src="{{item.images[0].imagePath}}" alt="">
-        </div>
-        <div class="basket__item_description">
-           <div class="basket__item_name">
-                <div class="basket__name_code">
-                    <h4>
-                        <a (click)="closeDialog()" routerLink="/detailsProduct/{{item.id}}">{{item.productName}}</a>
-                    </h4>
-                </div>
-                <button (click)="remove(item)">Remove</button>
-           </div>
-                <div class="basket__price_amount">
 
-                    <div class="basket__price">
-                        <h3 [ngClass]="{'discountPrice': item.discountPrice != null}">{{item.price}} <span *ngIf="item.discountPrice == null">грн</span></h3>
-                        <h5 *ngIf="item.discountPrice != null">{{item.discountPrice}} <span class="span__price">грн</span></h5>
-
-                    </div>
-                    <div class="basket__amount">
-                        <button [disabled]="item.amount == 1" class="control__buttons button__minus" (click)="minusAmount(item)"></button>
-                        <input type="number" (change)="updateAmount(item,f.value )" min="1" max="99" #f [(ngModel)]="item.amount" width="2em">
-                        <button class="control__buttons button__plus" (click)="plusAmount(item)"></button>
-                    </div>
-                    <input type="text" (change)="chechDiscount(discount.value, item)" [disabled]="item.promo != null" [value]="item.promo" #discount placeholder="Promocode">
-                    <h4>{{item.totalProducPrice}}</h4>
-                </div>
-
-        </div>
-
-
-
-
-    </div>
-    <h2>TOTAL PRICE: {{totalPrice}}</h2>
-</div>
-
-<a (click)="closeDialog()" routerLink="/basket">buy</a>
-</div>
--->
 <ng-template #empty>
     <h1 class="cart__empty">You cart is empty</h1>
+    <div class="cart__empty_image">
+      <img src="../../assets/img/basketIsEmpty.gif" />
+    </div>
 </ng-template>

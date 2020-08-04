@@ -1,4 +1,56 @@
+@font-face{
+  font-family: Montserrat;
+  src: url('../../assets/fonts/Montserrat.woff2');
+}
 .products__category_grid{
   display: grid;
     grid-template-columns: 15em 1fr;
+    padding: 1em;
+    margin-top: 2em;
+}
+.subcategory__links {
+  font-family: Montserrat;
+}
+.subcategory__links li a{
+  color: #494949;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+
+.subcategory__links li a::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: var(--pramiry-color);
+  transition: width .3s;
+}
+.subcategory__links li a:hover::after {
+  width: 100%;
+}
+
+.subcategory__links li{
+  color: #494949;
+  font-size: 13px;
+  font-weight: 400;
+  border: 0;
+  display: block;
+  line-height: 20px;
+  margin: 0;
+  padding: 5px 0;
+  width: max-content;
+}
+.filtration__panel{
+  border: 1px solid #e5e7f2;
+    padding: 40px;
+}
+.products{
+  margin-left: 1em;
+}
+.subcategories >h4{
+  font-family: Montserrat;
+  font-weight: 100;
+  margin-bottom: 1em;
+  letter-spacing: 1px;
 }

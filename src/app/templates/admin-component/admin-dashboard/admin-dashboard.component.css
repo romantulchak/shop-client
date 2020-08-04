@@ -1,0 +1,23 @@
+@font-face{
+  font-family: Montserrat;
+  src: url('../../../../assets/fonts/Montserrat.woff2');
+}
+.admin__dashboard_grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  grid-gap: 1em;
+  justify-content: center;
+  padding: 1em;
+  font-family: Montserrat;
+}
+.admin__dashboard_grid li{
+  padding: 2em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0px 0px 1px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.admin__dashboard_grid li a{
+  font-size: 18px;
+}

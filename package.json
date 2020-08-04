@@ -27,6 +27,7 @@
     "bootstrap": "^4.4.0",
     "net": "^1.0.2",
     "ng-starrating": "^1.0.20",
+    "ng5-slider": "^1.2.4",
     "ngx-bar-rating": "^1.1.0",
     "ngx-pagination": "^5.0.0",
     "rxjs": "~6.5.4",

@@ -65,7 +65,8 @@ import { BuyButtonComponent } from './buy-button/buy-button.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { ShopComponent } from './shop/shop.component';
 import {MatRadioModule} from '@angular/material/radio';
-
+import { Ng5SliderModule } from 'ng5-slider';
+import { AdminDashboardComponent } from './templates/admin-component/admin-dashboard/admin-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -104,6 +105,7 @@ import {MatRadioModule} from '@angular/material/radio';
     BuyButtonComponent,
     SubcategoryComponent,
     ShopComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -129,6 +131,7 @@ import {MatRadioModule} from '@angular/material/radio';
     MatTabsModule,
     MatExpansionModule,
     MatRadioModule,
+    Ng5SliderModule,
     StarRatingModule.forRoot()
 
   ],

@@ -151,4 +151,7 @@ export class ProductService{
       params = params.append('productName',productName);
       return this.http.get<Product[]>(API_URL + 'products/searchProducts/', {params:params});
     }
+    getMaxPrice(categoryName: string):Observable<number>{
+      return this.http.get<number>(API_URL + 'products/getMaxPrice/' + categoryName);
+    }
 }

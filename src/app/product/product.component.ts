@@ -6,9 +6,15 @@ import { Product } from '../model/product.model';
 import { ProductsComponent } from '../products/products.component';
 import { BasketService } from '../service/basket.service';
 import { ProductDTO } from '../model/productDTO.model';
-import { NgIf } from '@angular/common';
 import { SubcategoryService } from '../service/subcategory.service';
 import { Subcategory } from '../model/subcategory.model';
+import { Options } from 'ng5-slider';
+interface SliderDetails {
+  value: number;
+  highValue: number;
+  floor: number;
+  ceil: number;
+}
 
 @Component({
   selector: 'app-product',
@@ -23,21 +29,34 @@ export class ProductComponent implements OnInit {
   public products: Product[];
   public productDTO: ProductDTO;
   public categoryName:string;
+  public minValue: number;
+  public maxValue: number;
+
+  slider: SliderDetails;
+
+
   @ViewChild(ProductsComponent) private child:ProductsComponent;
   constructor(private activeRoute: ActivatedRoute, private subcategoryService: SubcategoryService, private productService: ProductService, private basketService: BasketService) {
     this.activeRoute.params.subscribe(
       res=>{
         this.categoryName = res.categoryName;
         this.findByCategory(res.categoryName);
+        this.getSubcategoriesForCategory();
       }
     );
   }
 
   ngOnInit(): void {
-    this.getSubcategoriesForCategory();
   }
-  findByCategory(categoryName:string){
+  private findByCategory(categoryName:string){
+
     this.totalPages = [];
+    this.slider = {
+      value: null,
+      ceil: null,
+      floor: null,
+      highValue: null
+    }
     this.productService.filterByCategory(categoryName, this.page).subscribe(
       res=>{
         if(res != null){
@@ -48,6 +67,7 @@ export class ProductComponent implements OnInit {
           setTimeout(() => {
             this.child.checkInBasket(res.productDTOS);
           }, 200);
+          this.getMaxPrice();
         }
       },
       error=>{
@@ -56,21 +76,42 @@ export class ProductComponent implements OnInit {
 
     );
   }
-  setPage(page: number, event){
+  public setPage(page: number, event){
     event.preventDefault();
     this.page = page;
     this.findByCategory(this.categoryName);
   }
 
-  getSubcategoriesForCategory(){
+  private getSubcategoriesForCategory(){
     this.subcategoryService.getSubactegoriesByCategoryName(this.categoryName).subscribe(
       res=>{
         if(res != null){
-          console.log(res);
-
           this.subcategories = res;
         }
       }
     );
+  }
+  private getMaxPrice(){
+    this.productService.getMaxPrice(this.categoryName).subscribe(
+      res=>{
+        if(res != null){
+
+          this.slider = {
+            value: 0,
+            ceil: res,
+            floor: 0,
+            highValue: res
+          };
+          this.maxValue = res;
+        }
+      }
+    );
+  }
+  public sliderOptions(): Options{
+    return {
+      floor: this.slider.floor,
+      ceil: this.slider.ceil,
+      step: 1,
+    }
   }
 }

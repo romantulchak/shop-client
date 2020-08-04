@@ -1,18 +1,31 @@
 <section>
-<div class="products__category_grid">
-  <div>
-    Sort
-  </div>
-  <div class="products" style="padding: 5em;">
-    <app-products [isCategory]="true" [categoryName]="categoryName" [pr]="productDTO?.productDTOS"></app-products>
+<div class="container">
+  <div class="products__category_grid">
+    <div class="filtration__panel">
+      <div class="subcategories" *ngIf="subcategories?.length != 0">
+        <h4>Subcategory</h4>
+        <ul class="subcategory__links" *ngFor="let subcategory of subcategories">
+          <li><a routerLink="/category/{{subcategory.subcategoryName}}">{{subcategory.subcategoryName}}</a></li>
+        </ul>
+      </div>
+      <div>
+        <p>Min value: <input type="number" [(ngModel)]="minValue"></p>
+<p>Max value: <input type="number" [(ngModel)]="slider.highValue"></p>
+<ng5-slider *ngIf="slider?.highValue != null" [(value)]="slider.value" [(highValue)]="slider.highValue" [options]="sliderOptions()"></ng5-slider>    </div>
+    </div>
+    <div class="products">
+     <div>
+      <p> Showing all 9 results</p>
+     </div>
+      <app-products [isCategory]="true" [categoryName]="categoryName" [numberOfColumns]="3" [pr]="productDTO?.productDTOS"></app-products>
 
-    <div>
-      <h2>TUTAJ</h2>
-      <ul class="pagination">
-         <li *ngFor="let item of totalPages; let i = index">
-            <a [class.active__page]="i === page" (click)="setPage(i, $event)">{{i}}</a>
-         </li>
-      </ul>
+      <div>
+        <ul class="pagination">
+           <li *ngFor="let item of totalPages; let i = index">
+              <a [class.active__page]="i === page" (click)="setPage(i, $event)">{{i}}</a>
+           </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
