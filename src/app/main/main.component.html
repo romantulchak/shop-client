@@ -61,13 +61,14 @@
 
 -->
 
-
-    <div class="novely__products" *ngIf="!mainLoading; else lod">
+    <ng-container *ngIf="lastTenProducts?.length != 0; else message">
+      <div class="novely__products" *ngIf="!mainLoading; else lod">
         <app-products [pr]="lastTenProducts"></app-products>
-       <div class="novely__all_products">
+        <div class="novely__all_products">
           <a routerLink="/category/all">All products</a>
-       </div>
+        </div>
       </div>
+    </ng-container>
   </div>
 </section>
 
@@ -91,15 +92,17 @@
     <div class="section__title">
         <h1>MOST Most Purchased</h1>
     </div>
-    <div class="novely__products">
+    <ng-container *ngIf="productsToComponent?.length != 0; else message">
+      <div class="novely__products">
         <app-products [pr]="productsToComponent" [topFiveLook]="true"></app-products>
-    </div>
+      </div>
+    </ng-container>
 </section>
 
 
 
 <ng-template #message>
-    <h1>Nothing</h1>
+    <h1>There no products</h1>
 </ng-template>
 <ng-template #inBasket>
 

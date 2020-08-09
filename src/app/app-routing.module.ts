@@ -56,14 +56,14 @@ const routes: Routes = [
       {path: 'profile', component: ProfileComponent,
                         canActivate: [AuthGuard],
                         data:{role: 'ROLE_USER'},
-      },//
+      },
       {path: 'category/:categoryName', component: ProductComponent},
 
     ]},
 
     { path: 'admin', component: BoardAdminComponent,
     canActivate: [AuthGuard],
-    data:{role: 'ROLE_ADMIN'},
+    data: {role: 'ROLE_ADMIN'},
     children:[
       {path: '',  redirectTo:'dashboard',pathMatch: 'full'},
       {path: 'dashboard', component:AdminDashboardComponent, canActivate:[AuthGuard], data: {role: 'ROLE_ADMIN'}},

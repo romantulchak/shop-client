@@ -62,7 +62,7 @@
             <td mat-cell *matCellDef="let element"><mat-checkbox [checked]="element.cancel" (change)="cancel(element)"></mat-checkbox></td>
           </ng-container>
         <tr mat-header-row class="table__header" *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr  mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'success': row.statuses[4].statusCode === 4 && !row.cancel, 'error': row.cancel, 'neutral': row.statuses[4].statusCode != 4 && !row.cancel }" ></tr>
+        <tr  mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'success': row.statuses[4].statusCode === 4 && !row.cancel, 'error': row.cancel, 'neutral': row.statuses[4]?.statusCode != 4 && !row?.cancel }" ></tr>
       </table>
       <mat-paginator [pageSizeOptions]="[15, 30, 50, 100]"></mat-paginator>
   </div>

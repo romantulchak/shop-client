@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/api/',
-  webSocket:'http://localhost:8080/socket',
+  apiUrl: 'http://localhost:8090/api/',
+  webSocket:'http://localhost:8090/socket',
   novaPoshtaAPIKEY: '0c78648c77fd29457e69d1697c6f4e9c',
   novaPoshtaAPI: "https://api.novaposhta.ua/v2.0/json/"
 };
