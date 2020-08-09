@@ -1,5 +1,8 @@
 .admin__grid{
   display: grid;
-  grid-template-columns: 10em 1fr;
+  grid-template-columns: 12em 1fr;
   align-items: center;
+}
+app-admin-dashboard-nav{
+  align-self: self-start;
 }

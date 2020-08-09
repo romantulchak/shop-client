@@ -43,12 +43,14 @@
 }
 .product__position{
     justify-self: center;
-    
+
 }
 .product__price_button{
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 1em 1em 1em 1em;
+    align-items: center;
+    justify-content: center;
 }
 .product__price_button > h3{
     padding: 15px;

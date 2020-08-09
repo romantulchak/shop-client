@@ -67,6 +67,7 @@ import { ShopComponent } from './shop/shop.component';
 import {MatRadioModule} from '@angular/material/radio';
 import { Ng5SliderModule } from 'ng5-slider';
 import { AdminDashboardComponent } from './templates/admin-component/admin-dashboard/admin-dashboard.component';
+import { AdminDashboardNavComponent } from './admin-dashboard-nav/admin-dashboard-nav.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -106,6 +107,7 @@ import { AdminDashboardComponent } from './templates/admin-component/admin-dashb
     SubcategoryComponent,
     ShopComponent,
     AdminDashboardComponent,
+    AdminDashboardNavComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,23 @@
 <section>
-  <ul class="admin__dashboard_grid">
-    <li><a routerLink="/admin/subcategory">Subcategories</a></li>
-    <li><a routerLink="/admin/gpus">Gpus</a></li>
-    <li><a routerLink="/admin/cpus">Cpus</a></li>
-    <li><a routerLink="/admin/brands">Brands</a></li>
-    <li><a routerLink="/admin/orders">Orders</a></li>
-    <li><a routerLink="/admin/createProduct">Create Product</a></li>
-    <li><a routerLink = "/admin/createCategory">Create Category</a></li>
-  </ul>
+  <div class="container">
+    <div class="buy__count_block">
+      <div class="buy__count">
+        <h2>{{countBuy}}</h2>
+        <h4>Current order counter</h4>
+      </div>
+    </div>
+    <ul class="admin__dashboard_grid">
+      <li><a routerLink="/admin/subcategory">Subcategories</a></li>
+      <li><a routerLink="/admin/gpus">Gpus</a></li>
+      <li><a routerLink="/admin/cpus">Cpus</a></li>
+      <li><a routerLink="/admin/brands">Brands</a></li>
+      <li><a routerLink="/admin/orders">Orders</a></li>
+      <li><a routerLink="/admin/createProduct">Create Product</a></li>
+      <li><a routerLink = "/admin/createCategory">Create Category</a></li>
+    </ul>
+
+    <div class="orders">
+      <app-order></app-order>
+    </div>
+  </div>
 </section>
