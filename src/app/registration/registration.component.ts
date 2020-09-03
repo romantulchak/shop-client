@@ -20,14 +20,11 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-
-    console.log(this.user);
-
     this.authService.register(this.form).subscribe(
       data => {
-        console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+        window.location.href = '/';
       },
       err => {
         this.errorMessage = err.error.message;

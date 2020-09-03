@@ -9,10 +9,14 @@ import { OrderService } from 'src/app/service/order.service';
 export class AdminDashboardComponent implements OnInit {
 
   public countBuy: number;
+  public totalPriceByDay: number;
+  public orderCounterByDay:number;
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.getCountBuy();
+    this.getTotalMoneyByDay();
+    this.getOrderCounterByDay();
   }
 
   private getCountBuy(){
@@ -24,5 +28,27 @@ export class AdminDashboardComponent implements OnInit {
       }
     );
   }
-
+  private getTotalMoneyByDay(){
+    this.orderService.getTotalPriceByDay().subscribe(
+      res=>{
+        if(res != null){}
+        this.totalPriceByDay = res;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  private getOrderCounterByDay(){
+    this.orderService.getOrderCounterByDay().subscribe(
+      res=>{
+        if(res != null){
+          this.orderCounterByDay = res;
+        }
+      },
+      error => {
+        console.log(error.getMessage());
+      }
+    );
+  }
 }

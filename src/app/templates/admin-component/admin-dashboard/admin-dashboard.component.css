@@ -35,18 +35,18 @@
 }
 .buy__count_block{
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0px 0px 1px rgba(0, 0, 0, 0.12);
-  width: 150px;
-  height: 160px;
+  width: 240px;
+  height: 120px;
   margin: 1em 0;
   border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: Montserrat;
-  background: lightgoldenrodyellow;
+  background: #3eabe2;
 }
 .buy__count{
-  color: var(--links-color);
+  color: #fff;
 }
 .buy__count > h2{
   text-align: center;
@@ -64,4 +64,14 @@
   padding: 1em;
   background: ghostwhite;
   border-radius: 4px;
+}
+.information__items{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.money__count_block{
+  background: #f03c56;
+}
+.order__by_day_block{
+  background: #ff5722;
 }
