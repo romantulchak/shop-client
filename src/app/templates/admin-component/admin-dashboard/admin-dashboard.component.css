@@ -37,6 +37,7 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0px 0px 1px rgba(0, 0, 0, 0.12);
   width: 240px;
   height: 120px;
+  justify-self: center;
   margin: 1em 0;
   border-radius: 4px;
   display: flex;
@@ -74,4 +75,11 @@
 }
 .order__by_day_block{
   background: #ff5722;
+}
+.money__char{
+  font-size: 25px;
+  font-weight: 900;
+}
+.income__by_month_block{
+  background: #5b307b;
 }

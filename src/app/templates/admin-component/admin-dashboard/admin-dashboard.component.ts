@@ -11,12 +11,14 @@ export class AdminDashboardComponent implements OnInit {
   public countBuy: number;
   public totalPriceByDay: number;
   public orderCounterByDay:number;
+  public incomeByMonth: number;
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.getCountBuy();
     this.getTotalMoneyByDay();
     this.getOrderCounterByDay();
+    this.getIncomeByLastMonth();
   }
 
   private getCountBuy(){
@@ -44,6 +46,18 @@ export class AdminDashboardComponent implements OnInit {
       res=>{
         if(res != null){
           this.orderCounterByDay = res;
+        }
+      },
+      error => {
+        console.log(error.getMessage());
+      }
+    );
+  }
+  private getIncomeByLastMonth(){
+    this.orderService.getIncomeByLastMonth().subscribe(
+      res=>{
+        if(res != null){
+          this.incomeByMonth = res;
         }
       },
       error => {

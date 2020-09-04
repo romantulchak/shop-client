@@ -63,4 +63,7 @@ export class OrderService{
     getOrderCounterByDay():Observable<number>{
       return this.http.get<number>(API_URL + 'order/getOrderCounterByDay');
     }
+    getIncomeByLastMonth():Observable<number>{
+      return this.http.get<number>(API_URL + 'order/getIncomeByLastMonth');
+    }
 }
