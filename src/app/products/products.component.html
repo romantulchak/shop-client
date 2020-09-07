@@ -5,8 +5,6 @@
 <div class="product__grid" [ngStyle]="gridStyle">
     <ng-container *ngFor="let product of products">
       <div class="product" (mouseleave)="mouseLeave(false, product)" (mouseenter)="mouseEnter(true, product)">
-        <button (click)="deleteProduct(product.id)" *ngIf="isAdmin && isAdminLook" class="product__delete_edit product__delete"><i class="description-delete delete__icon"></i></button>
-        <button (click)="edit(product)" *ngIf="isAdmin && isAdminLook" class="product__delete_edit product__edit"><i class="description-edit edit__icon"></i></button>
 
         <div class="product__top_panel">
           <a href="">{{product?.category?.categoryName}}</a>

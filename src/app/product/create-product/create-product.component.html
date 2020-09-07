@@ -1,4 +1,22 @@
+<section>
+   <div class="container">
+    <div style="margin-top: 3em;">
+        <div class="admin__product" *ngFor="let product of products">
+            <div class="product__item">
+                <button (click)="deleteProduct(product.id)" class="product__delete_edit product__delete"><i class="description-delete delete__icon"></i></button>
+              
+                <img [src]="product.image[0].imagePath" [alt]="product.productName">
+                <h3>{{product.productName}}</h3>
+            </div>
+            <div>
+                <button (click)="edit(product)" class="product__delete_edit product__edit"><i class="description-edit edit__icon"></i></button>
+        
+            </div>
 
+        </div>
+   </div>
+   </div>
+</section>
 <form #myForm="ngForm" (ngSubmit)="createProduct()" method="POST" novalidate>
 
     <div>
@@ -28,17 +46,6 @@ apiKey = "oafydqqtkaeecsa5sztqiauvrrawxqlyhrjhy0lx29dtr56r"
 <div>
     <div>
         <h2>Category</h2>
-       <!-- <select name="category"required (change)="showFields()" [(ngModel)]="product.subcategory.id">
-          <ng-container *ngFor="let item of category">
-            <optgroup label="{{item.categoryName}}">
-              <option value="{{item.id}}" >{{item.categoryName}}</option>
-              <ng-container *ngFor="let subcategory of item.subcategories">
-                <option value="{{subcategory.id}}">{{subcategory.subcategoryName}}</option>
-              </ng-container>
-            </optgroup>
-          </ng-container>
-
-          </select>-->
           <select name="category" (change)="showCategories()" [(ngModel)]="id">
             <option *ngFor="let item of category" value="{{item.id}}">{{item.categoryName}}</option>
           </select>

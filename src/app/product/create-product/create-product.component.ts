@@ -10,10 +10,11 @@ import { Cpu } from 'src/app/model/cpu.model';
 import { Gpu } from 'src/app/model/gpu.model';
 import { Sections } from 'src/app/model/sections.model';
 import { Field } from 'src/app/model/field.model';
-import { stringify } from 'querystring';
 import { FormBuilder } from '@angular/forms';
 import { Subcategory } from 'src/app/model/subcategory.model';
 import { SubcategoryService } from 'src/app/service/subcategory.service';
+import { DialogService } from 'src/app/service/dialog.service';
+import { BasketService } from 'src/app/service/basket.service';
 
 @Component({
   selector: 'app-create-product',
@@ -37,7 +38,7 @@ export class CreateProductComponent implements OnInit {
   public mapToSend: Map<string, Map<string, string>> = new Map();
   public id:number;
   public subcategoryId: number;
-
+  public products: Product[];
 
   public product: Product = {
     id:null,
@@ -67,7 +68,7 @@ export class CreateProductComponent implements OnInit {
   public currentCpu: Cpu = new Cpu();
   public gpus: Gpu[];
   public currentGpu: Gpu = new Gpu();
-  constructor(private brandService: BrandService,private subcategoryService: SubcategoryService, private notificationService: NotificationService, private categoryService: CategoryService, private productService: ProductService, public fb: FormBuilder) { }
+  constructor(private notificiationService: NotificationService, private basketService: BasketService, private dialogService: DialogService, private brandService: BrandService,private subcategoryService: SubcategoryService, private notificationService: NotificationService, private categoryService: CategoryService, private productService: ProductService, public fb: FormBuilder) { }
 
   ngOnInit(): void {
     //this.getCategories();
@@ -75,6 +76,7 @@ export class CreateProductComponent implements OnInit {
     this.getBrands();
     this.getAllCpus();
     this.getAllGpus();
+    this.getProducts();
   }
   private getSubcategories(){
     this.categoryService.getCategories().subscribe(
@@ -236,5 +238,52 @@ export class CreateProductComponent implements OnInit {
   }
   saveValues(){
     this.valueMap = new Map<string, string>();
+  }
+  addPromo(product: Product,percent: string,numberOfDays: any, numberOfUses: string){
+    this.productService.addPromo(product,  Number.parseInt(percent),Number.parseInt(numberOfDays),  Number.parseInt(numberOfUses)).subscribe(
+
+      res=>{
+        this.notificiationService.success(res);
+        this.getProducts();
+      }
+
+    );
+  }
+  private getProducts(){
+    this.productService.getProducts().subscribe(
+
+      res=>{
+        console.log(res);
+        if(res != null)
+          this.products = res;
+      },
+      error=>{
+        console.log(error);
+      }
+
+    );
+  }
+
+  edit(product: Product){
+
+    const dialog = this.dialogService.editProductDialog(product);
+    dialog.afterClosed().subscribe(
+      res=>{
+        this.getProducts();
+      }
+    );
+  }
+  deleteProduct(id: number){
+    this.productService.deleteProduct(id).subscribe(
+      res=>{
+       
+          this.getProducts();
+        
+        this.notificationService.success(res);
+        this.basketService.getProductsFromDb();
+
+      },
+      error=>{console.log(error);}
+    );
   }
 }

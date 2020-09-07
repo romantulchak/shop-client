@@ -98,40 +98,7 @@
   align-items: center;
   min-height: 2.5em;
 }
-.product__delete{
-  background: #F44336;
-  right: 30px;
-}
-.product__edit{
-  background: var(--pramiry-color);
-  left: 25px;
-}
-.product__delete_edit{
-  cursor: pointer;
-  border: none;
-  width: 25px;
-  position: absolute;
-  height: 25px;
-  border-radius: 4px;
-  top: -30px;
-  outline: none;
-}
-.delete__icon::before{
-  content: '9';
-}
-.edit__icon::before{
-  content: '~';
-}
-.edit__icon::before, .delete__icon::before{
-  margin: 0;
-  color: #fff;
-  font-size: 16px;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
+
 
 
 

@@ -186,21 +186,7 @@ export class ProductsComponent implements OnInit, OnChanges {
     this.styleOn = onStyle;
 
   }
-  deleteProduct(id: number){
-    this.productService.deleteProduct(id).subscribe(
-      res=>{
-        if(this.isCategory && this.categoryName != null){
-        //  this.findByCategory();
-        }else{
-          this.findAllProducts();
-        }
-        this.notificationService.success(res);
-        this.basketService.getProductsFromDb();
 
-      },
-      error=>{console.log(error);}
-    );
-  }
 
   filterCategory(res: any){
     this.loading = true;
@@ -214,15 +200,6 @@ export class ProductsComponent implements OnInit, OnChanges {
     }
   }
 
-  edit(product: Product){
-
-    const dialog = this.dialogService.editProductDialog(product);
-    dialog.afterClosed().subscribe(
-      res=>{
-        this.findAllProducts();
-      }
-    );
-  }
 
   addToVisited(product: Product){
     if(localStorage.getItem('visited') != null){
